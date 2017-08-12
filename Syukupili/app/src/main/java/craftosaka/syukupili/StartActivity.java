@@ -3,7 +3,7 @@ package craftosaka.syukupili;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
