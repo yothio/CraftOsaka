@@ -17,7 +17,7 @@ public class StartActivity extends BaseActivity {
         addContentView(new TextView(this), layoutParams);
 =======
 
-        
+//test        
 >>>>>>> yocchi
     }
 }
