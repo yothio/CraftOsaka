@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="10">
 
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:id="@+id/container_layout">
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_viewpager"></android.support.v4.view.ViewPager>
+    </android.support.design.widget.CoordinatorLayout>
     <it.sephiroth.android.library.bottomnavigation.BottomNavigation
         android:id="@+id/BottomNavigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_gravity="bottom"
         app:bbn_badgeProvider="@string/bbn_badgeProvider"
         app:bbn_entries="@menu/item_resouce"
         app:bbn_scrollEnabled="true"
         app:layout_behavior="@string/bbn_phone_view_behavior"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"/>
-</RelativeLayout>
+        android:layout_alignParentStart="true">
+
+    </it.sephiroth.android.library.bottomnavigation.BottomNavigation>
+
+
+
+</LinearLayout>
