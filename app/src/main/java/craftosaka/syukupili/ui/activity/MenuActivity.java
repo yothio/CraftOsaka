@@ -2,14 +2,10 @@ package craftosaka.syukupili.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +53,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onMenuItemSelect(@IdRes int i, int i1, boolean b) {
                 Log.d("MenuActivity", "Select i : " + i + " i1 : " + i1);
+                // あらかじめadapterで設定したfragmentに切り替える
                 viewPager.setCurrentItem(i1);
             }
             //今と同じitemを選択した時          Ex)fromカレンダー toカレンダー
@@ -66,8 +63,7 @@ public class MenuActivity extends AppCompatActivity {
 
             }
         });
-
-
+        //adapterを設定
         viewPager.setAdapter(pagerAdapter);
     }
 }
