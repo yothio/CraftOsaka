@@ -54,7 +54,7 @@ public class KadListFragment extends BaseFragment {
                 kad.setEndDate(20202020);
                 kad.setPoint(list.size());
                 list.add(kad);
-                adapter.notifyDataSetChanged();
+                adapter.notifyItemInserted(0);
             }
         });
 
