@@ -12,10 +12,12 @@
         android:layout_height="0dp"
         android:layout_weight="10"
         android:id="@+id/container_layout">
-        <android.support.v4.view.ViewPager
+        <craftosaka.syukupili.ui.view.NoSwipeViewPager
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/fragment_viewpager"></android.support.v4.view.ViewPager>
+            android:id="@+id/fragment_viewpager">
+
+        </craftosaka.syukupili.ui.view.NoSwipeViewPager>
     </android.support.design.widget.CoordinatorLayout>
     <it.sephiroth.android.library.bottomnavigation.BottomNavigation
         android:id="@+id/BottomNavigation"
