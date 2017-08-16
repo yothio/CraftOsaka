@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Syukupili</string>
     <string name="app_name_jp">しゅくぴぃ</string>
+
+    <string name="format_month_year">yyyy/MM</string>
 </resources>
