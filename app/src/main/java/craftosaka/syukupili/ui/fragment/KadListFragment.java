@@ -15,7 +15,7 @@ import java.util.List;
 
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.ui.adapter.KadListRecyclerAdapter;
-import model.KadListItem;
+import craftosaka.syukupili.model.KadListItem;
 
 /**
  * Created by yocchi on 2017/08/16.
@@ -25,7 +25,7 @@ public class KadListFragment extends BaseFragment {
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
-    List<KadListItem> list;
+    List<KadListItem> list = new ArrayList<>();
     FloatingActionButton fab;
 
     public static KadListFragment newInstance() {
@@ -48,7 +48,12 @@ public class KadListFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Log.d("KadListFragment", String.valueOf(list.size()));
-                list.add(new KadListItem("" + list.size()));
+                KadListItem kad = new KadListItem();
+                kad.setKadName("dummyName");
+                kad.setChildName("dummychild");
+                kad.setEndDate(20202020);
+                kad.setPoint(list.size());
+                list.add(kad);
                 adapter.notifyDataSetChanged();
             }
         });
@@ -65,8 +70,11 @@ public class KadListFragment extends BaseFragment {
 
 
     public void loadList() {
-        list = new ArrayList<>();
-        KadListItem kad = new KadListItem("test");
+        KadListItem kad = new KadListItem();
+        kad.setKadName("dummyName");
+        kad.setChildName("dummychild");
+        kad.setEndDate(20202020);
+        kad.setPoint(114);
         list.add(kad);
     }
 }

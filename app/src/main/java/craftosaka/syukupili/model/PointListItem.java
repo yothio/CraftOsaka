@@ -1,4 +1,4 @@
-package model;
+package craftosaka.syukupili.model;
 
 /**
  * Created by yocchi on 2017/08/16.
