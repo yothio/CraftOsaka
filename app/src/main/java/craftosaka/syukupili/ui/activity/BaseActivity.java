@@ -3,6 +3,7 @@ package craftosaka.syukupili.ui.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.inputmethod.InputMethodManager;
 
 /**
@@ -22,4 +23,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+
+
+
+
 }

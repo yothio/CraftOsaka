@@ -9,6 +9,7 @@
     <!--当月の土日平日用-->
     <color name="red">#ff0000</color>
     <color name="blue">#0000ff</color>
+    <color name="gray">#808080</color>
 
     <!--先月、来月の土日平日用-->
     <color name="lightpink">#ffb6c1</color>

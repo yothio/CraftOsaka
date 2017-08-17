@@ -232,7 +232,6 @@
                 android:text=""
                 android:textSize="15dp" />
         </TableRow>
-
         <!--第1週目の予定2-->
         <TableRow>
 
@@ -299,6 +298,7 @@
                 android:text=""
                 android:textSize="15dp" />
         </TableRow>
+
         <!--第２週目-->
         <TableRow>
 
@@ -317,6 +317,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:text="b2"
                 android:textSize="17dp" />
 
@@ -326,6 +327,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:text="b3"
                 android:textSize="17dp" />
 
@@ -335,6 +337,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:text="b4"
                 android:textSize="17dp" />
 
@@ -344,6 +347,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:text="b5"
                 android:textSize="17dp" />
 
@@ -353,6 +357,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:text="b6"
                 android:textSize="17dp" />
 
@@ -365,7 +370,6 @@
                 android:text="b7"
                 android:textSize="17dp" />
         </TableRow>
-
         <!--第２週目の予定1-->
         <TableRow>
 
@@ -517,6 +521,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:text="c2"
                 android:textSize="17dp" />
 
@@ -526,6 +531,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:text="c3"
                 android:textSize="17dp" />
 
@@ -535,6 +541,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:text="c4"
                 android:textSize="17dp" />
 
@@ -544,6 +551,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:text="c5"
                 android:textSize="17dp" />
 
@@ -553,6 +561,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:text="c6"
                 android:textSize="17dp" />
 
@@ -565,7 +574,6 @@
                 android:text="c7"
                 android:textSize="17dp" />
         </TableRow>
-
         <!--第3週目の予定-->
         <TableRow>
 
@@ -717,6 +725,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:text="d2"
                 android:textSize="17dp" />
 
@@ -726,6 +735,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:text="d3"
                 android:textSize="17dp" />
 
@@ -735,6 +745,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:text="d4"
                 android:textSize="17dp" />
 
@@ -744,6 +755,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:text="d5"
                 android:textSize="17dp" />
 
@@ -753,6 +765,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:text="d6"
                 android:textSize="17dp" />
 
@@ -765,7 +778,6 @@
                 android:text="d7"
                 android:textSize="17dp" />
         </TableRow>
-
         <!--第4週目の予定1-->
         <TableRow>
 
@@ -965,7 +977,6 @@
                 android:text="e7"
                 android:textSize="17dp" />
         </TableRow>
-
         <!--第5週目の予定1-->
         <TableRow>
 
@@ -1032,7 +1043,6 @@
                 android:text=""
                 android:textSize="15dp" />
         </TableRow>
-
         <!--第5週目の予定2-->
         <TableRow>
 
@@ -1302,5 +1312,5 @@
 
     </TableLayout>
 
-    
+
 </LinearLayout>
