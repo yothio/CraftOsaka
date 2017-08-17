@@ -5,9 +5,1302 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button"
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button"/>
+        android:layout_height="match_parent">
+
+        <!--カレンダー上部-->
+        <TableRow>
+
+            <ImageButton
+                android:id="@+id/prev_month"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@null" />
+
+            <TextView
+                android:id="@+id/year_month"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="0000年 00月"
+                android:textSize="25dp" />
+
+            <ImageButton
+                android:id="@+id/next_month"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@null" />
+
+        </TableRow>
+
+        <!--曜日を表示する部分-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/header_sun_text"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="日"
+                android:textColor="@color/red" />
+
+            <TextView
+                android:id="@+id/header_mon_text"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="月" />
+
+            <TextView
+                android:id="@+id/header_tu_text"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="火" />
+
+            <TextView
+                android:id="@+id/header_wen_text"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="水" />
+
+            <TextView
+                android:id="@+id/header_th_text"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="木" />
+
+            <TextView
+                android:id="@+id/header_fr_text"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="金" />
+
+            <TextView
+                android:id="@+id/header_sa_text"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="土"
+                android:textColor="@color/blue" />
+        </TableRow>
+
+        <!--第1週目の日付を表示-->
+        <!--文字サイズは15dp～20dpぐらい。17、18ぐらいが個人的にちょうどいいかな？-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/a1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a1"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/a2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a2"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/a3"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a3"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/a4"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a4"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/a5"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a5"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/a6"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a6"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/a7"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a7"
+                android:textSize="17dp" />
+        </TableRow>
+        <!--第1週目の予定1-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/a1_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/a2_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/a3_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/a4_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/a5_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/a6_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/a7_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+        </TableRow>
+
+        <!--第1週目の予定2-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/a1_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/a2_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/a3_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/a4_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/a5_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/a6_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/a7_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+        </TableRow>
+        <!--第２週目-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/b1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="b1"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/b2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="b2"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/b3"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="b3"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/b4"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="b4"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/b5"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="b5"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/b6"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="b6"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/b7"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="b7"
+                android:textSize="17dp" />
+        </TableRow>
+
+        <!--第２週目の予定1-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/b1_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/b2_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/b3_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/b4_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/b5_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/b6_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/b7_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+        </TableRow>
+        <!--第２週目の予定2-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/b1_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/b2_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/b3_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/b4_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/b5_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/b6_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/b7_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+        </TableRow>
+
+        <!--第３週目-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/c1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="c1"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/c2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="c2"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/c3"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="c3"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/c4"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="c4"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/c5"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="c5"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/c6"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="c6"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/c7"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="c7"
+                android:textSize="17dp" />
+        </TableRow>
+
+        <!--第3週目の予定-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/c1_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/c2_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/c3_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/c4_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/c5_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/c6_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/c7_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+        </TableRow>
+        <!--第3週目の予定2-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/c1_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/c2_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/c3_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/c4_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/c5_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/c6_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/c7_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+        </TableRow>
+
+        <!--第４週目-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/d1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="d1"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/d2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="d2"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/d3"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="d3"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/d4"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="d4"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/d5"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="d5"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/d6"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="d6"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/d7"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="d7"
+                android:textSize="17dp" />
+        </TableRow>
+
+        <!--第4週目の予定1-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/d1_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/d2_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/d3_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/d4_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/d5_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/d6_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/d7_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+        </TableRow>
+        <!--第4週目の予定2-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/d1_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/d2_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/d3_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/d4_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/d5_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/d6_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/d7_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+        </TableRow>
+
+        <!--第５週目-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/e1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="e1"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/e2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="e2"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/e3"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="e3"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/e4"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="e4"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/e5"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="e5"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/e6"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="e6"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/e7"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="e7"
+                android:textSize="17dp" />
+        </TableRow>
+
+        <!--第5週目の予定1-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/e1_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/e2_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/e3_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/e4_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/e5_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/e6_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/e7_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+        </TableRow>
+
+        <!--第5週目の予定2-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/e1_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/e2_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/e3_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/e4_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/e5_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/e6_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/e7_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=""
+                android:textSize="15dp" />
+        </TableRow>
+
+        <!--第６週目-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/f1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="f1"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/f2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="f2"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/f3"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="f3"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/f4"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="f4"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/f5"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="f5"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/f6"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="f6"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/f7"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="f7"
+                android:textSize="17dp" />
+        </TableRow>
+        <!--第6週目の予定1-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/f1_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a1"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/f2_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a2"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/f3_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a3"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/f4_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a4"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/f5_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a5"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/f6_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a6"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/f7_1"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a7"
+                android:textSize="15dp" />
+        </TableRow>
+        <!--第6週目の予定2-->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/f1_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a1"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/f2_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a2"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/f3_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a3"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/f4_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a4"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/f5_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a5"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/f6_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a6"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/f7_2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="a7"
+                android:textSize="15dp" />
+        </TableRow>
+
+
+    </TableLayout>
+
+    
 </LinearLayout>
