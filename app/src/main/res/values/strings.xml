@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Syukupili</string>
+    <string name="logintitle">しゅくぴい\nログイン</string>
+    <string name="name">なまえ</string>
+    <string name="pass">パスワード</string>
+
 </resources>
