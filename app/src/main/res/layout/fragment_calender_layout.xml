@@ -14,6 +14,7 @@
 
             <ImageButton
                 android:id="@+id/prev_month"
+                android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
@@ -26,10 +27,11 @@
                 android:layout_weight="3"
                 android:gravity="center"
                 android:text="0000年 00月"
-                android:textSize="25dp" />
+                android:textSize="20dp" />
 
             <ImageButton
                 android:id="@+id/next_month"
+                android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
@@ -110,7 +112,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="a1"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/a2"
@@ -119,7 +122,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="a2"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/a3"
@@ -128,7 +132,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="a3"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/a4"
@@ -137,7 +142,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="a4"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/a5"
@@ -146,7 +152,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="a5"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/a6"
@@ -155,7 +162,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="a6"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/a7"
@@ -164,7 +172,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="a7"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
         </TableRow>
         <!--第1週目の予定1-->
         <TableRow>
@@ -309,7 +318,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="b1"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/b2"
@@ -319,7 +329,8 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:text="b2"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/b3"
@@ -329,7 +340,8 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:text="b3"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/b4"
@@ -339,7 +351,8 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:text="b4"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/b5"
@@ -349,7 +362,8 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:text="b5"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/b6"
@@ -359,7 +373,8 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:text="b6"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/b7"
@@ -368,7 +383,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="b7"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
         </TableRow>
         <!--第２週目の予定1-->
         <TableRow>
@@ -513,7 +529,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="c1"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/c2"
@@ -523,7 +540,8 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:text="c2"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/c3"
@@ -533,7 +551,8 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:text="c3"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/c4"
@@ -543,7 +562,8 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:text="c4"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/c5"
@@ -553,7 +573,8 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:text="c5"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/c6"
@@ -563,7 +584,8 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:text="c6"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/c7"
@@ -572,7 +594,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="c7"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
         </TableRow>
         <!--第3週目の予定-->
         <TableRow>
@@ -717,7 +740,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="d1"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/d2"
@@ -727,7 +751,8 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:text="d2"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/d3"
@@ -737,7 +762,8 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:text="d3"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/d4"
@@ -747,7 +773,8 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:text="d4"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/d5"
@@ -757,7 +784,8 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:text="d5"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/d6"
@@ -767,7 +795,8 @@
                 android:gravity="center"
                 android:textColor="@color/black"
                 android:text="d6"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/d7"
@@ -776,7 +805,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="d7"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
         </TableRow>
         <!--第4週目の予定1-->
         <TableRow>
@@ -921,7 +951,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="e1"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/e2"
@@ -930,7 +961,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="e2"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/e3"
@@ -939,7 +971,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="e3"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/e4"
@@ -948,7 +981,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="e4"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/e5"
@@ -957,7 +991,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="e5"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/e6"
@@ -966,7 +1001,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="e6"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/e7"
@@ -975,7 +1011,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="e7"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
         </TableRow>
         <!--第5週目の予定1-->
         <TableRow>
@@ -1120,7 +1157,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="f1"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/f2"
@@ -1129,7 +1167,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="f2"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/f3"
@@ -1138,7 +1177,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="f3"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/f4"
@@ -1147,7 +1187,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="f4"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/f5"
@@ -1156,7 +1197,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="f5"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/f6"
@@ -1165,7 +1207,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="f6"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
 
             <TextView
                 android:id="@+id/f7"
@@ -1174,7 +1217,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="f7"
-                android:textSize="17dp" />
+                android:textSize="17dp"
+                android:onClick="dayTextClick"/>
         </TableRow>
         <!--第6週目の予定1-->
         <TableRow>
@@ -1185,7 +1229,6 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="a1"
                 android:textSize="15dp" />
 
             <TextView
@@ -1194,7 +1237,6 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="a2"
                 android:textSize="15dp" />
 
             <TextView
@@ -1203,7 +1245,6 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="a3"
                 android:textSize="15dp" />
 
             <TextView
@@ -1212,7 +1253,6 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="a4"
                 android:textSize="15dp" />
 
             <TextView
@@ -1221,7 +1261,6 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="a5"
                 android:textSize="15dp" />
 
             <TextView
@@ -1230,7 +1269,6 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="a6"
                 android:textSize="15dp" />
 
             <TextView
@@ -1239,7 +1277,6 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="a7"
                 android:textSize="15dp" />
         </TableRow>
         <!--第6週目の予定2-->
@@ -1251,7 +1288,6 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="a1"
                 android:textSize="15dp" />
 
             <TextView
@@ -1260,7 +1296,6 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="a2"
                 android:textSize="15dp" />
 
             <TextView
@@ -1269,7 +1304,6 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="a3"
                 android:textSize="15dp" />
 
             <TextView
@@ -1278,7 +1312,6 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="a4"
                 android:textSize="15dp" />
 
             <TextView
@@ -1287,7 +1320,6 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="a5"
                 android:textSize="15dp" />
 
             <TextView
@@ -1296,7 +1328,6 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="a6"
                 android:textSize="15dp" />
 
             <TextView
@@ -1305,8 +1336,16 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="a7"
                 android:textSize="15dp" />
+        </TableRow>
+
+        <TableRow>
+            <ListView
+                android:id="@+id/listView"
+                android:layout_weight="7"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+            </ListView>
         </TableRow>
 
 

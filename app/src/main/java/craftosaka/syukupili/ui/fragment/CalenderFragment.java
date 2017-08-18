@@ -3,15 +3,21 @@ package craftosaka.syukupili.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.ui.activity.MenuActivity;
@@ -24,8 +30,11 @@ import static android.R.drawable.ic_media_rew;
  */
 
 public class CalenderFragment extends BaseFragment {
+    //月の切り替えボタン
     ImageButton prevMonth,nextMonth;
+    //年月表示用TextView
     TextView yearMonth;
+    //日付用TextView
     TextView a1,a2,a3,a4,a5,a6,a7; //第１週目
     TextView b1,b2,b3,b4,b5,b6,b7; //第２週目
     TextView c1,c2,c3,c4,c5,c6,c7; //第３週目
@@ -33,9 +42,29 @@ public class CalenderFragment extends BaseFragment {
     TextView e1,e2,e3,e4,e5,e6,e7; //第５週目
     TextView f1,f2,f3,f4,f5,f6,f7; //第６週目
 
-    private static final int SWIPE_MAX_OFF_PATH = 250;
-    private static final int SWIPE_MIN_DISTANCE = 120;
-    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+    //Schedule用TextView1
+    TextView a1_1,a2_1,a3_1,a4_1,a5_1,a6_1,a7_1; //第１週目
+    TextView b1_1,b2_1,b3_1,b4_1,b5_1,b6_1,b7_1; //第２週目
+    TextView c1_1,c2_1,c3_1,c4_1,c5_1,c6_1,c7_1; //第３週目
+    TextView d1_1,d2_1,d3_1,d4_1,d5_1,d6_1,d7_1; //第４週目
+    TextView e1_1,e2_1,e3_1,e4_1,e5_1,e6_1,e7_1; //第５週目
+    TextView f1_1,f2_1,f3_1,f4_1,f5_1,f6_1,f7_1; //第６週目
+
+    //Schedule用TextView2
+    TextView a1_2,a2_2,a3_2,a4_2,a5_2,a6_2,a7_2; //第１週目
+    TextView b1_2,b2_2,b3_2,b4_2,b5_2,b6_2,b7_2; //第２週目
+    TextView c1_2,c2_2,c3_2,c4_2,c5_2,c6_2,c7_2; //第３週目
+    TextView d1_2,d2_2,d3_2,d4_2,d5_2,d6_2,d7_2; //第４週目
+    TextView e1_2,e2_2,e3_2,e4_2,e5_2,e6_2,e7_2; //第５週目
+    TextView f1_2,f2_2,f3_2,f4_2,f5_2,f6_2,f7_2; //第６週目
+
+    //
+    TextView tv,newtv;
+
+    //予定詳細表示用
+    ListView listView;
+    private ArrayList<Map<String, Object>> list = new ArrayList<>();
+    private SimpleAdapter adapter;
 
     private View v;
     private FragmentActivity activity;
@@ -66,32 +95,57 @@ public class CalenderFragment extends BaseFragment {
         v = inflater.inflate(R.layout.fragment_calender_layout,container,false);
 
         //前の月を表示するボタン
-        prevMonth = (ImageButton)v.findViewById(R.id.prev_month);
+        prevMonth = v.findViewById(R.id.prev_month);
         prevMonth.setImageDrawable(getResources().getDrawable(ic_media_rew,activity.getTheme()));
+        prevMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createCalendar(year,month-1);
+            }
+        });
 
 
         //次の月を表示するボタン
-        nextMonth = (ImageButton)v.findViewById(R.id.next_month);
+        nextMonth = v.findViewById(R.id.next_month);
         nextMonth.setImageDrawable(getResources().getDrawable(ic_media_ff,activity.getTheme()));
+        nextMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createCalendar(year,month+1);
+            }
+        });
 
         //年月を表示するTextView
-        yearMonth = (TextView)v.findViewById(R.id.year_month);
+        yearMonth = v.findViewById(R.id.year_month);
 
         //日付を表示するTextView
         setWeek();
+        setWeekSchedule1();
+
+        listView = v.findViewById(R.id.listView);
 
         //日付を表示するTextViewに日付を入れてカレンダーを作る
         createCalendar(nowYear,nowMonth);
-
-        setOnFling_Calendar();
 
         return v;
     }
 
     /**
+     * フラグメントを切り替えたときにMenuActivityから呼び出され、
+     * 各フラグメント毎に設定を行う。
+     */
+    public void setFunction(){
+        //スワイプ検出時の処理を設定
+        setOnFling();
+        //KeyDownイベント処理を設定
+        super.setOnKeyDown();
+    }
+
+    /**
      * スワイプ処理をCalenderFragment用に書き換えます
      */
-    public void setOnFling_Calendar(){
+    @Override
+    public void setOnFling(){
         ((MenuActivity)getActivity()).setMethod_onFling(new MenuActivity.OriginalSimpleOnGestureListener(){
             public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
                 try {
@@ -99,11 +153,10 @@ public class CalenderFragment extends BaseFragment {
                         return false;
                     }
                     if (event1.getX() - event2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                        //左スワイプ
-//                        nextMonth.callOnClick();
+                        //左スワイプ　次の月表示
                         createCalendar(year,month+1);
                     } else if (event2.getX() - event1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-//                        prevMonth.callOnClick();
+                        //右スワイプ　前の月表示
                         createCalendar(year,month-1);
                     }
                 }catch (Exception e){
@@ -112,6 +165,66 @@ public class CalenderFragment extends BaseFragment {
                 return false;
             }
         });
+    }
+
+    /**
+     * 選択した日付の予定の詳細を表示します。
+     * @param view
+     */
+    public void selectedDay(View view) {
+        if(tv != null){
+            tv.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
+        }
+
+        newtv = view.findViewById(view.getId());
+        newtv.setBackgroundColor(getResources().getColor(R.color.lightbluesky,activity.getTheme()));
+
+        tv = newtv;
+
+        String getDayCS;
+        int getDay;
+        try {
+            getDayCS = tv.getText().toString();
+            getDay = Integer.parseInt(getDayCS);
+        } catch (Exception e) {
+            Log.d("CalenderException", "selectedDay　Error");
+            return;
+        }
+
+        //year,month,getDayを引数にしてその日の予定を検索。
+
+        //選択した日付の予定詳細表示欄で予定を表示する。
+        createScheduleList();
+    }
+
+    private void createScheduleList() {
+        Log.d("CalenderFragment","createScheduleList/予定詳細を表示する");
+        if(list.size() > 0) {
+            list.clear();
+        }
+
+        if(list.size() == 0){
+            Map<String, Object> data = new HashMap();
+            data.put("title", "今日の予定　タイトル1");
+            data.put("detail", "詳細1");
+            list.add(data);
+
+        }
+        Map<String, Object> data = new HashMap();
+        data.put("title", "今日の予定　タイトル2");
+        data.put("detail", "詳細2");
+        list.add(data);
+
+        // リストビューにアイテム追加用のアダプターを設定
+        adapter = new SimpleAdapter(
+                getActivity(),
+                list,
+                R.layout.item_schedule_list,
+                new String[]{"title", "detail"},
+                new int[]{R.id.title,R.id.detail});
+        listView.setAdapter(adapter);
+        ViewCompat.setNestedScrollingEnabled(listView, true);
+
     }
 
     /**
@@ -546,15 +659,15 @@ public class CalenderFragment extends BaseFragment {
 
     /**
      * カレンダーの後ろ側空きスペースに来月分の日付を入れていきます
-     * @param dayweek　来月の日付の開始曜日
+     * @param dayOfTheWeek　来月の日付の開始曜日
      * @param i　スタートが５週目からか６週目からか
      */
-    private void createNextDays(int dayweek, int i) {
+    private void createNextDays(int dayOfTheWeek, int i) {
         String setText = "";
         int day = 1;
         switch (i){
             case 5:
-                switch (dayweek){
+                switch (dayOfTheWeek){
                     case Calendar.SUNDAY:
                         setText = String.valueOf(day);
                         e1.setText(setText);
@@ -593,10 +706,10 @@ public class CalenderFragment extends BaseFragment {
                         e7.setText(setText);
                         e7.setTextColor(getResources().getColor(R.color.lightbluesky,activity.getTheme()));
                         day++;
-                        dayweek = 1;
+                        dayOfTheWeek = 1;
                 }
             case 6:
-                switch (dayweek){
+                switch (dayOfTheWeek){
                     case Calendar.SUNDAY:
                         setText = String.valueOf(day);
                         f1.setText(setText);
@@ -695,5 +808,64 @@ public class CalenderFragment extends BaseFragment {
         f5 = (TextView)v.findViewById(R.id.f5);
         f6 = (TextView)v.findViewById(R.id.f6);
         f7 = (TextView)v.findViewById(R.id.f7);
+    }
+
+    /**
+     * めんどくさいことしてます。
+     */
+    private void setWeekSchedule1() {
+        //第１週目
+        a1_1 = (TextView)v.findViewById(R.id.a1_1);
+        a2_1 = (TextView)v.findViewById(R.id.a2_1);
+        a3_1 = (TextView)v.findViewById(R.id.a3_1);
+        a4_1 = (TextView)v.findViewById(R.id.a4_1);
+        a5_1 = (TextView)v.findViewById(R.id.a5_1);
+        a6_1 = (TextView)v.findViewById(R.id.a6_1);
+        a7_1 = (TextView)v.findViewById(R.id.a7_1);
+
+        //第2週目
+        b1_1 = (TextView)v.findViewById(R.id.b1_1);
+        b2_1 = (TextView)v.findViewById(R.id.b2_1);
+        b3_1 = (TextView)v.findViewById(R.id.b3_1);
+        b4_1 = (TextView)v.findViewById(R.id.b4_1);
+        b5_1 = (TextView)v.findViewById(R.id.b5_1);
+        b6_1 = (TextView)v.findViewById(R.id.b6_1);
+        b7_1 = (TextView)v.findViewById(R.id.b7_1);
+
+        //第3週目
+        c1_1 = (TextView)v.findViewById(R.id.c1_1);
+        c2_1 = (TextView)v.findViewById(R.id.c2_1);
+        c3_1 = (TextView)v.findViewById(R.id.c3_1);
+        c4_1 = (TextView)v.findViewById(R.id.c4_1);
+        c5_1 = (TextView)v.findViewById(R.id.c5_1);
+        c6_1 = (TextView)v.findViewById(R.id.c6_1);
+        c7_1 = (TextView)v.findViewById(R.id.c7_1);
+
+        //第4週目
+        d1_1 = (TextView)v.findViewById(R.id.d1_1);
+        d2_1 = (TextView)v.findViewById(R.id.d2_1);
+        d3_1 = (TextView)v.findViewById(R.id.d3_1);
+        d4_1 = (TextView)v.findViewById(R.id.d4_1);
+        d5_1 = (TextView)v.findViewById(R.id.d5_1);
+        d6_1 = (TextView)v.findViewById(R.id.d6_1);
+        d7_1 = (TextView)v.findViewById(R.id.d7_1);
+
+        //第5週目
+        e1_1 = (TextView)v.findViewById(R.id.e1_1);
+        e2_1 = (TextView)v.findViewById(R.id.e2_1);
+        e3_1 = (TextView)v.findViewById(R.id.e3_1);
+        e4_1 = (TextView)v.findViewById(R.id.e4_1);
+        e5_1 = (TextView)v.findViewById(R.id.e5_1);
+        e6_1 = (TextView)v.findViewById(R.id.e6_1);
+        e7_1 = (TextView)v.findViewById(R.id.e7_1);
+
+        //第6週目
+        f1_1 = (TextView)v.findViewById(R.id.f1_1);
+        f2_1 = (TextView)v.findViewById(R.id.f2_1);
+        f3_1 = (TextView)v.findViewById(R.id.f3_1);
+        f4_1 = (TextView)v.findViewById(R.id.f4_1);
+        f5_1 = (TextView)v.findViewById(R.id.f5_1);
+        f6_1 = (TextView)v.findViewById(R.id.f6_1);
+        f7_1 = (TextView)v.findViewById(R.id.f7_1);
     }
 }

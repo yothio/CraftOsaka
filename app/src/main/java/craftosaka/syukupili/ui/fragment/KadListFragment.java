@@ -60,6 +60,8 @@ public class KadListFragment extends BaseFragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 
+        setFunction();
+
         return v;
     }
 
@@ -68,5 +70,14 @@ public class KadListFragment extends BaseFragment {
         list = new ArrayList<>();
         KadListItem kad = new KadListItem("test");
         list.add(kad);
+    }
+
+    /**
+     * フラグメントを切り替えたときにMenuActivityから呼び出され、
+     * 各フラグメント毎に設定を行う。
+     */
+    public void setFunction() {
+        //KeyDownイベント処理を設定
+        super.setOnKeyDown();
     }
 }

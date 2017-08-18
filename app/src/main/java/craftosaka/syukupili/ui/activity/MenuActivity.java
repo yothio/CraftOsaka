@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +29,11 @@ import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 public class MenuActivity extends AppCompatActivity {
     BottomNavigation tabNavigation;
     private ViewPager viewPager;
-    private static final int SWIPE_MAX_OFF_PATH = 250;
-    private static final int SWIPE_MIN_DISTANCE = 120;
-    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
+    KadListFragment kadListFragment;
+    CalenderFragment calenderFragment;
+    PointExchangeFragment pointExchangeFragment;
+    SettingFragment settingFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +49,10 @@ public class MenuActivity extends AppCompatActivity {
         // new Class名にせずに、Instancenewにしたのは初期化時にこちらから値を渡す可能性があるため
         // 値を変更してもらっても構わない
         List<Fragment> list = new ArrayList<>();
-        list.add(new KadListFragment().newInstance());
-        list.add(new CalenderFragment().newInstance());
-        list.add(new PointExchangeFragment().newInstance());
-        list.add(new SettingFragment().newInstance());
+        list.add(kadListFragment = new KadListFragment().newInstance());
+        list.add(calenderFragment = new CalenderFragment().newInstance());
+        list.add(pointExchangeFragment = new PointExchangeFragment().newInstance());
+        list.add(settingFragment = new SettingFragment().newInstance());
         //adapterにfragmentのリストを渡す
         pagerAdapter.setFragmentList(list);
 
@@ -63,6 +66,20 @@ public class MenuActivity extends AppCompatActivity {
                 Log.d("MenuActivity", "Select i : " + i + " i1 : " + i1);
                 // あらかじめadapterで設定したfragmentに切り替える
                 viewPager.setCurrentItem(i1);
+                switch (i1){
+                    case 0:
+                        kadListFragment.setFunction();
+                        break;
+                    case 1:
+                        calenderFragment.setFunction();
+                        break;
+                    case 2:
+                        pointExchangeFragment.setFunction();
+                        break;
+                    case 3:
+                        settingFragment.setFunction();
+                        break;
+                }
             }
             //今と同じitemを選択した時          Ex)fromカレンダー toカレンダー
             @Override
@@ -86,18 +103,22 @@ public class MenuActivity extends AppCompatActivity {
         boolean onKeyDown(int keyCode, KeyEvent event);
     }
 
-    public void setDefaultKeyDownAction() {
-        setMethod_onKeyDown(new OnKeyDownListener() {
-            @Override
-            public boolean onKeyDown(int keyCode, KeyEvent event) {
-                switch (keyCode) {
-                    case KeyEvent.KEYCODE_BACK:
-                        // Androidの戻るボタンが押された時
-                }
-                return true;
-            }
-        });
-    }
+    //BaseFragmentでデフォルト処理を行っているので使用しません。
+//    public void setDefaultKeyDownAction() {
+//        setMethod_onKeyDown(new OnKeyDownListener() {
+//            @Override
+//            public boolean onKeyDown(int keyCode, KeyEvent event) {
+//
+//                switch (keyCode) {
+//                    case KeyEvent.KEYCODE_BACK:
+//                        Intent intent = new Intent(getApplicationContext(),StartActivity.class);
+//                        startActivity(intent);
+//                         //Androidの戻るボタンが押された時
+//                }
+//                return true;
+//            }
+//        });
+//    }
 
     public void setMethod_onKeyDown(OnKeyDownListener listener) {
         this.onKeyDownListener = listener;
@@ -140,5 +161,14 @@ public class MenuActivity extends AppCompatActivity {
     /**
      * スワイプ処理ここまで
      */
+
+    /**
+     * カレンダーの日付が選択された時の処理
+     * @param v　
+     */
+    public void dayTextClick(View v){
+        //CalendarFragmentに処理を投げる
+        calenderFragment.selectedDay(v);
+    }
 
 }

@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import craftosaka.syukupili.R;
@@ -23,12 +21,11 @@ public class PointExchangeFragment extends BaseFragment {
     private static final int SWIPE_MIN_DISTANCE = 120;
     private static final int SWIPE_THRESHOLD_VELOCITY = 200;
 
-    CheckBox checkBox;
     public static PointExchangeFragment newInstance() {
         PointExchangeFragment fragment = new PointExchangeFragment();
         return fragment;
     }
-    
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,16 +33,10 @@ public class PointExchangeFragment extends BaseFragment {
 
         View v = inflater.inflate(R.layout.fragment_point_layout, container, false);
 
-        checkBox = v.findViewById(R.id.checkBox);
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                setOnFling();
-            }
-        });
         return v;
     }
 
+    @Override
     public void setOnFling(){
         ((MenuActivity)getActivity()).setMethod_onFling(new MenuActivity.OriginalSimpleOnGestureListener(){
             public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
@@ -67,5 +58,15 @@ public class PointExchangeFragment extends BaseFragment {
                 return false;
             }
         });
+    }
+
+    /**
+     * フラグメントを切り替えたときにMenuActivityから呼び出され、
+     * 各フラグメント毎に設定を行う。
+     */
+    public void setFunction() {
+        //KeyDownイベント処理を設定
+        super.setOnKeyDown();
+
     }
 }
