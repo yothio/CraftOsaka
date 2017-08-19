@@ -6,6 +6,8 @@ import android.view.View;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import craftosaka.syukupili.ui.activity.BaseActivity;
+
 /**
  * Created by Fukkun on 2017/08/17.
  */
