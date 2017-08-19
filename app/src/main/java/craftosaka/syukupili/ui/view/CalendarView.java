@@ -1,4 +1,4 @@
-package craftosaka.syukupili.ui;
+package craftosaka.syukupili.ui.view;
 
 /**
  * Created by corleois on 2017/08/16.
