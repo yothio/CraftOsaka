@@ -25,7 +25,7 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="3"
-                android:gravity="center"
+                                android:gravity="center"                 android:scrollHorizontally="true"                 android:ellipsize="end"                 android:lines="1"
                 android:text="0000年 00月"
                 android:textSize="20dp" />
 
@@ -184,8 +184,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/a2_1"
@@ -193,8 +196,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/a3_1"
@@ -202,8 +208,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/a4_1"
@@ -211,8 +220,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/a5_1"
@@ -220,8 +232,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/a6_1"
@@ -229,8 +244,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/a7_1"
@@ -238,8 +256,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
         </TableRow>
         <!--第1週目の予定2-->
         <TableRow>
@@ -250,8 +271,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/a2_2"
@@ -259,8 +283,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/a3_2"
@@ -268,8 +295,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/a4_2"
@@ -277,8 +307,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/a5_2"
@@ -286,8 +319,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/a6_2"
@@ -295,8 +331,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/a7_2"
@@ -304,8 +343,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
         </TableRow>
 
         <!--第２週目-->
@@ -395,8 +437,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/b2_1"
@@ -404,8 +449,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/b3_1"
@@ -413,8 +461,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/b4_1"
@@ -422,8 +473,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/b5_1"
@@ -431,8 +485,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/b6_1"
@@ -440,8 +497,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/b7_1"
@@ -449,8 +509,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
         </TableRow>
         <!--第２週目の予定2-->
         <TableRow>
@@ -461,8 +524,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text=""
-                android:textSize="15dp" />
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="猪名瀬川で花火大会"
+                android:textSize="12dp"/>
 
             <TextView
                 android:id="@+id/b2_2"
@@ -470,8 +536,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/b3_2"
@@ -479,8 +548,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/b4_2"
@@ -488,8 +560,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/b5_2"
@@ -497,8 +572,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/b6_2"
@@ -506,8 +584,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/b7_2"
@@ -515,8 +596,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
         </TableRow>
 
         <!--第３週目-->
@@ -606,8 +690,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/c2_1"
@@ -615,8 +702,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/c3_1"
@@ -624,8 +714,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/c4_1"
@@ -633,8 +726,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/c5_1"
@@ -642,8 +738,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/c6_1"
@@ -651,8 +750,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/c7_1"
@@ -660,8 +762,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
         </TableRow>
         <!--第3週目の予定2-->
         <TableRow>
@@ -672,8 +777,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/c2_2"
@@ -681,8 +789,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/c3_2"
@@ -690,8 +801,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/c4_2"
@@ -699,8 +813,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/c5_2"
@@ -708,8 +825,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/c6_2"
@@ -717,8 +837,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/c7_2"
@@ -726,8 +849,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
         </TableRow>
 
         <!--第４週目-->
@@ -817,8 +943,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/d2_1"
@@ -826,8 +955,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/d3_1"
@@ -835,8 +967,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/d4_1"
@@ -844,8 +979,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/d5_1"
@@ -853,8 +991,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/d6_1"
@@ -862,8 +1003,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/d7_1"
@@ -871,8 +1015,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
         </TableRow>
         <!--第4週目の予定2-->
         <TableRow>
@@ -883,8 +1030,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/d2_2"
@@ -892,8 +1042,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/d3_2"
@@ -901,8 +1054,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/d4_2"
@@ -910,8 +1066,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/d5_2"
@@ -919,8 +1078,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/d6_2"
@@ -928,8 +1090,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/d7_2"
@@ -937,8 +1102,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
         </TableRow>
 
         <!--第５週目-->
@@ -1023,8 +1191,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/e2_1"
@@ -1032,8 +1203,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/e3_1"
@@ -1041,8 +1215,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/e4_1"
@@ -1050,8 +1227,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/e5_1"
@@ -1059,8 +1239,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/e6_1"
@@ -1068,8 +1251,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/e7_1"
@@ -1077,8 +1263,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
         </TableRow>
         <!--第5週目の予定2-->
         <TableRow>
@@ -1089,8 +1278,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/e2_2"
@@ -1098,8 +1290,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/e3_2"
@@ -1107,8 +1302,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/e4_2"
@@ -1116,8 +1314,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/e5_2"
@@ -1125,8 +1326,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/e6_2"
@@ -1134,8 +1338,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/e7_2"
@@ -1143,8 +1350,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text=""
-                android:textSize="15dp" />
+                android:textSize="12dp" />
         </TableRow>
 
         <!--第６週目-->
@@ -1229,7 +1439,10 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="15dp" />
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/f2_1"
@@ -1237,7 +1450,10 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="15dp" />
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/f3_1"
@@ -1245,7 +1461,10 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="15dp" />
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/f4_1"
@@ -1253,7 +1472,10 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="15dp" />
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/f5_1"
@@ -1261,7 +1483,10 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="15dp" />
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/f6_1"
@@ -1269,7 +1494,10 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="15dp" />
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/f7_1"
@@ -1277,7 +1505,10 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="15dp" />
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textSize="12dp" />
         </TableRow>
         <!--第6週目の予定2-->
         <TableRow>
@@ -1288,7 +1519,10 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="15dp" />
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/f2_2"
@@ -1296,7 +1530,10 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="15dp" />
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/f3_2"
@@ -1304,7 +1541,10 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="15dp" />
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/f4_2"
@@ -1312,7 +1552,10 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="15dp" />
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/f5_2"
@@ -1320,7 +1563,10 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="15dp" />
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/f6_2"
@@ -1328,7 +1574,10 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="15dp" />
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/f7_2"
@@ -1336,7 +1585,10 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="15dp" />
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textSize="12dp" />
         </TableRow>
 
         <TableRow>
