@@ -1,7 +1,13 @@
 <resources>
     <string name="app_name">Syukupili</string>
+<<<<<<< HEAD
+    <string name="app_name_jp">しゅくぴぃ</string>
+
+    <string name="format_month_year">yyyy/MM</string>
+=======
     <string name="logintitle">しゅくぴい\nログイン</string>
     <string name="name">なまえ</string>
     <string name="pass">パスワード</string>
 
+>>>>>>> origin/fuku
 </resources>
