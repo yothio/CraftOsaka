@@ -29,37 +29,47 @@ public class KadListFragment extends BaseFragment {
     List<KadListItem> list = new ArrayList<>();
     FloatingActionButton fab;
 
+
     public static KadListFragment newInstance() {
         KadListFragment fragment = new KadListFragment();
         return fragment;
     }
-int i = 13;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+        SQLiteDataManager.getInstance().getKadData(list);
+
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         //fragmentでのsetContentview
         View v = inflater.inflate(R.layout.fragment_kadlist_fragment, container, false);
-        //データをリストに入れる
-//        loadList();
         //レイアウトと結びつけ
         recyclerView = v.findViewById(R.id.kadlist_recyclerview);
         fab = v.findViewById(R.id.floating_action_button);
-        SQLiteDataManager.getInstance().getKadData(list);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("KadListFragment", String.valueOf(list.size()));
-//                KadListItem kad = new KadListItem();
-//                kad.setKadName("dummyName");
-//                kad.setChildName("dummychild");
-//                kad.setEndDate(20202020);
-//                kad.setPoint(list.size());
-//                list.add(kad);
-                i++;
+
+                //課題の有無を確認
+                int i = 0;
+                if (list.size() != 0) {
+                    i = list.get(list.size() - 1).getKadId() + 1;
+                }
+                //データベースに課題を追加　テスト　引数int　本番 KadListItem
                 SQLiteDataManager.getInstance().insertDataBase(i);
+                //テスト段階のみ使用　：　本番は上で記述しているKadListItemをlistにaddするだけ
                 SQLiteDataManager.getInstance().updateKadDate(list);
-                adapter.notifyItemInserted(0);
+                adapter.notifyDataSetChanged();
             }
         });
 

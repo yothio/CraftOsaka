@@ -29,6 +29,7 @@ public class StartActivity extends BaseActivity {
             }
         });
 
+        //
         childBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
