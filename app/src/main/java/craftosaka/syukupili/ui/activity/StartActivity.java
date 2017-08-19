@@ -10,7 +10,7 @@ import java.util.List;
 
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.model.KadListItem;
-import craftosaka.syukupili.util.SQLiteDateManager;
+import craftosaka.syukupili.util.SQLiteDataManager;
 
 public class StartActivity extends BaseActivity {
 
@@ -18,13 +18,13 @@ public class StartActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        Button parentBtn = (Button)findViewById(R.id.parent_button);
-        Button childBtn = (Button)findViewById(R.id.child_button);
+        Button parentBtn = (Button) findViewById(R.id.parent_button);
+        Button childBtn = (Button) findViewById(R.id.child_button);
 
         parentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                 startActivity(intent);
             }
         });
@@ -32,17 +32,8 @@ public class StartActivity extends BaseActivity {
         childBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<KadListItem> kadListItems = SQLiteDateManager.getInstance().getKadDate();
-
-                if(kadListItems == null){
-                    Log.d("StartActivityA", "nullです");
-                }else{
-                    if(kadListItems.get(0).getChildName() == null){
-                        Log.d("StartActivityB", "child nullです");
-                    }else{
-                        Log.d("StartActivityC", kadListItems.get(0).getChildName());
-                    }
-                }
+                SQLiteDataManager.getInstance().deleteDataBase();
+                Log.d("StartActivity", "ok");
             }
         });
     }
