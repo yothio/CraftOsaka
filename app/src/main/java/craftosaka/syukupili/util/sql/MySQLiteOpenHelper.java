@@ -12,6 +12,7 @@ import android.util.Log;
 
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
+
     public static final String DB = "train2.db";
     static final int DB_VERSION = 2;
     public static final String TABLE_NAME="KadTable";

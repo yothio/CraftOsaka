@@ -2,10 +2,15 @@ package craftosaka.syukupili.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.List;
+
 import craftosaka.syukupili.R;
+import craftosaka.syukupili.model.KadListItem;
+import craftosaka.syukupili.util.SQLiteDateManager;
 
 public class StartActivity extends BaseActivity {
 
@@ -14,12 +19,30 @@ public class StartActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         Button parentBtn = (Button)findViewById(R.id.parent_button);
+        Button childBtn = (Button)findViewById(R.id.child_button);
 
         parentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),MenuActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        childBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<KadListItem> kadListItems = SQLiteDateManager.getInstance().getKadDate();
+
+                if(kadListItems == null){
+                    Log.d("StartActivityA", "nullです");
+                }else{
+                    if(kadListItems.get(0).getChildName() == null){
+                        Log.d("StartActivityB", "child nullです");
+                    }else{
+                        Log.d("StartActivityC", kadListItems.get(0).getChildName());
+                    }
+                }
             }
         });
     }
