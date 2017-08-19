@@ -4,11 +4,21 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorAccent">#FF4081</color>
     <color name="white">#fcfcfc</color>
-    <color name="black">#000000</color>
+    <color name="whitesmoke">#f5f5f5</color>
+
+    <!--日付選択時の背景色-->
+    <color name="lightsteelblue">#b0c4de</color>
+
+    <!--勉強の予定欄、イベント予定欄の背景色-->
+    <color name="studycolor">#dbffdb</color>
+    <color name="eventcolor">#dbdbff</color>
 
     <!--当月の土日平日用-->
     <color name="red">#ff0000</color>
     <color name="blue">#0000ff</color>
+    <color name="black">#000000</color>
+
+    <color name="gray">#808080</color>
 
     <!--先月、来月の土日平日用-->
     <color name="lightpink">#ffb6c1</color>
