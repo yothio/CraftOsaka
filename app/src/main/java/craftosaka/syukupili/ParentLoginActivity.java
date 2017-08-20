@@ -7,6 +7,7 @@ import android.view.View;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import craftosaka.syukupili.ui.activity.BaseActivity;
+import craftosaka.syukupili.util.account.Account;
 
 /**
  * Created by Fukkun on 2017/08/17.
@@ -29,15 +30,11 @@ public class ParentLoginActivity extends BaseActivity {
 
     //ログインボタンクリック
     public void loginbutton_click(View view) {
-
         String name = "";
         String pass = "";
-
         name = findViewById(R.id.nametext).toString();
-
         MaterialEditText passtext = (MaterialEditText) findViewById(R.id.passtext);
         pass = passtext.getText().toString();
-
         //ログイン
         if (!account.login(pass)) {
             //ログインに失敗
@@ -48,8 +45,5 @@ public class ParentLoginActivity extends BaseActivity {
                     .show();
             return;
         }
-
-
     }
-
 }

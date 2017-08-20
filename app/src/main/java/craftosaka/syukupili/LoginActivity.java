@@ -7,6 +7,7 @@ import android.view.View;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import craftosaka.syukupili.ui.activity.BaseActivity;
+import craftosaka.syukupili.util.account.Account;
 
 /**
  * Created by Fukkun on 2017/08/17.

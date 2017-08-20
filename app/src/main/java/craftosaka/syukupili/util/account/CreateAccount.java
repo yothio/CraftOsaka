@@ -1,4 +1,4 @@
-package craftosaka.syukupili;
+package craftosaka.syukupili.util.account;
 
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import craftosaka.syukupili.R;
 import craftosaka.syukupili.ui.activity.BaseActivity;
 
 /**
