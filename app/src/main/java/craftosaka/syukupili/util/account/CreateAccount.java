@@ -1,4 +1,4 @@
-package craftosaka.syukupili;
+package craftosaka.syukupili.util.account;
 
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -6,14 +6,15 @@ import android.view.View;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import craftosaka.syukupili.R;
 import craftosaka.syukupili.ui.activity.BaseActivity;
 
 /**
  * Created by Fukkun on 2017/08/17.
  */
 
-//親のアカウント作成画面
-public class Create_Parent_Acount extends BaseActivity {
+//子供のアカウント作成画面
+public class CreateAccount extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,11 +25,25 @@ public class Create_Parent_Acount extends BaseActivity {
     public void create_button_click(View view) {
 
         MaterialEditText nametext = (MaterialEditText) findViewById(R.id.nametext);
-        MaterialEditText passtext = (MaterialEditText) findViewById(R.id.passtext);
+        MaterialEditText passtext = (MaterialEditText) findViewById(R.id.pass_text);
+        MaterialEditText passtext2 = (MaterialEditText) findViewById(R.id.passtext2);
 
-        Acount acount = new Acount(this);
+        //パスワードが正しく入力されているか
+        if (passtext.getText().toString().equals(passtext2.getText().toString())) {
 
-        if (!acount.createAcount(nametext.getText().toString(), passtext.getText().toString())) {
+            new AlertDialog.Builder(this)
+                    .setTitle("")
+                    .setMessage("パスワードを正しく入力してください")
+                    .setPositiveButton("OK", null)
+                    .show();
+            return;
+
+        }
+
+        Account account = new Account(this);
+
+//アカウント作成
+        if (!account.createAcount(nametext.getText().toString(), passtext.getText().toString())) {
 
             new AlertDialog.Builder(this)
                     .setTitle("")

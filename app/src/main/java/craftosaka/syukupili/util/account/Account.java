@@ -1,4 +1,4 @@
-package craftosaka.syukupili;
+package craftosaka.syukupili.util.account;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -18,7 +18,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 //アカウント管理クラス
-public class Acount {
+public class Account {
 
     //アカウント情報はpreferencesで管理
     SharedPreferences preferences;
@@ -26,7 +26,7 @@ public class Acount {
     Context context;
 
     //コンストラクタ
-    Acount(Context context) {
+    public Account(Context context) {
         preferences = context.getSharedPreferences("syukupi", MODE_PRIVATE);
         this.context = context;
     }
@@ -114,7 +114,7 @@ public class Acount {
     }
 
     //大人がログインする　引数にパスワードを
-    Boolean login(String pass) {
+    public Boolean login(String pass) {
 
         Boolean result = false;
 

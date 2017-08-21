@@ -1,4 +1,4 @@
-package craftosaka.syukupili;
+package craftosaka.syukupili.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -6,25 +6,21 @@ import android.view.View;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
-import craftosaka.syukupili.ui.activity.BaseActivity;
+import craftosaka.syukupili.R;
+import craftosaka.syukupili.util.account.Account;
 
 /**
  * Created by Fukkun on 2017/08/17.
  */
 
-
-//親のログイン画面
-public class Parent_Login_Actvity extends BaseActivity {
-
-
-    Acount acount;
-
+//子供のログイン画面
+public class LoginActivity extends BaseActivity {
+    Account account;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parent_login_layout);
-        acount = new Acount(this);
-
+        account = new Account(this);
     }
 
     //ログインボタンクリック
@@ -32,15 +28,11 @@ public class Parent_Login_Actvity extends BaseActivity {
 
         String name = "";
         String pass = "";
-
         name = findViewById(R.id.nametext).toString();
-
-        MaterialEditText passtext = (MaterialEditText) findViewById(R.id.passtext);
+        MaterialEditText passtext = (MaterialEditText) findViewById(R.id.pass_text);
         pass = passtext.getText().toString();
 
-        //ログイン
-        if (!acount.login(pass)) {
-            //ログインに失敗
+        if (!account.login(pass)) {
             new AlertDialog.Builder(this)
                     .setTitle("")
                     .setMessage("ログインに失敗しました")
@@ -48,8 +40,5 @@ public class Parent_Login_Actvity extends BaseActivity {
                     .show();
             return;
         }
-
-
     }
-
 }

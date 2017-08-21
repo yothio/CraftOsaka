@@ -54,13 +54,10 @@ public class KadListRecyclerAdapter extends RecyclerView.Adapter<KadListRecycler
 
         public RecyclerViewHolder(View v) {
             super(v);
-
             childName = v.findViewById(R.id.child_name_text);
             pointText = v.findViewById(R.id.point_text);
             endDateText = v.findViewById(R.id.end_date_text);
             kadName = v.findViewById(R.id.child_name_text);
-
-
         }
     }
 }

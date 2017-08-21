@@ -30,4 +30,13 @@ public class SettingFragment extends BaseFragment {
 
         return v;
     }
+
+    /**
+     * フラグメントを切り替えたときにMenuActivityから呼び出され、
+     * 各フラグメント毎に設定を行う。
+     */
+    public void setFunction() {
+        //KeyDownイベント処理を設定
+        super.setOnKeyDown();
+    }
 }
