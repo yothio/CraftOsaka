@@ -17,9 +17,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import craftosaka.syukupili.R;
+import craftosaka.syukupili.model.KadListItem;
 import craftosaka.syukupili.ui.activity.MenuActivity;
 
 import static android.R.drawable.ic_media_ff;
@@ -65,6 +67,7 @@ public class CalenderFragment extends BaseFragment {
     ListView listView;
     private ArrayList<Map<String, Object>> list = new ArrayList<>();
     private SimpleAdapter adapter;
+    List<KadListItem> kadListItems;
 
     private View v;
     private FragmentActivity activity;
@@ -81,7 +84,8 @@ public class CalenderFragment extends BaseFragment {
         Log.d("NowDate",nowYear+"/"+nowMonth+"/"+nowDay);
     }
 
-    public static CalenderFragment newInstance(){
+    public CalenderFragment newInstance(){
+
         CalenderFragment fragment = new CalenderFragment();
         return fragment;
     }

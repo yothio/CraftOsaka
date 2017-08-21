@@ -11,6 +11,13 @@ import craftosaka.syukupili.model.KadListItem;
 
 public class Data {
 
-//    List<KadListItem> kadList =　
+    //
+
+
+    public Data(){
+
+    }
+
+
 
 }

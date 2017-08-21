@@ -1,4 +1,4 @@
-package craftosaka.syukupili;
+package craftosaka.syukupili.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
-import craftosaka.syukupili.ui.activity.BaseActivity;
+import craftosaka.syukupili.R;
 import craftosaka.syukupili.util.account.Account;
 
 /**
@@ -15,16 +15,12 @@ import craftosaka.syukupili.util.account.Account;
 
 //子供のログイン画面
 public class LoginActivity extends BaseActivity {
-
-
     Account account;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parent_login_layout);
         account = new Account(this);
-
     }
 
     //ログインボタンクリック
@@ -32,10 +28,8 @@ public class LoginActivity extends BaseActivity {
 
         String name = "";
         String pass = "";
-
         name = findViewById(R.id.nametext).toString();
-
-        MaterialEditText passtext = (MaterialEditText) findViewById(R.id.passtext);
+        MaterialEditText passtext = (MaterialEditText) findViewById(R.id.pass_text);
         pass = passtext.getText().toString();
 
         if (!account.login(pass)) {
@@ -46,8 +40,5 @@ public class LoginActivity extends BaseActivity {
                     .show();
             return;
         }
-
-
     }
-
 }

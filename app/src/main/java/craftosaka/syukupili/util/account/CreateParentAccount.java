@@ -25,7 +25,7 @@ public class CreateParentAccount extends BaseActivity {
     public void create_button_click(View view) {
 
         MaterialEditText nameText = (MaterialEditText) findViewById(R.id.nametext);
-        MaterialEditText passText = (MaterialEditText) findViewById(R.id.passtext);
+        MaterialEditText passText = (MaterialEditText) findViewById(R.id.pass_text);
 
         Account account = new Account(this);
 

@@ -39,7 +39,7 @@
          />
 
     <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/passtext"
+        android:id="@+id/pass_text"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/passtext"
+        app:layout_constraintTop_toTopOf="@+id/pass_text"
         app:layout_constraintVertical_bias="0.39999998"
         app:met_clearButton="true"
         app:met_floatingLabel="highlight"
@@ -76,7 +76,7 @@
         android:inputType="textPassword"
         />
     <Button
-        android:id="@+id/loginbutton"
+        android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="create_button_click"

@@ -11,7 +11,7 @@
         android:layout_height="0dp"
         android:text="@string/logintitle"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@id/passtext"
+        app:layout_constraintBottom_toBottomOf="@id/pass_text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,7 +39,7 @@
 
 
     <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/passtext"
+        android:id="@+id/pass_text"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
         app:met_minCharacters="3" />
 
     <Button
-        android:id="@+id/loginbutton"
+        android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="loginbutton_click"
@@ -64,7 +64,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/passtext"
+        app:layout_constraintTop_toTopOf="@+id/pass_text"
         app:layout_constraintVertical_bias="0.32" />
 
 </android.support.constraint.ConstraintLayout>

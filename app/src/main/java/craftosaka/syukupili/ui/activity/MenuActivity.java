@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import craftosaka.syukupili.R;
+import craftosaka.syukupili.model.KadListItem;
 import craftosaka.syukupili.ui.adapter.FragmentViewPagerAdapter;
 import craftosaka.syukupili.ui.fragment.CalenderFragment;
 import craftosaka.syukupili.ui.fragment.KadListFragment;

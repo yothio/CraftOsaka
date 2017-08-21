@@ -2,9 +2,12 @@ package craftosaka.syukupili.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -34,6 +37,9 @@ public class PointListRecyclerAdapter extends RecyclerView.Adapter<PointListRecy
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
+        Log.d("PointListRecyclerAdapte", String.valueOf(position));
+        holder.pointName.setText(list.get(position).getPointItemText());
+        holder.usePointText.setText(list.get(position).getPointText());
 
     }
 
@@ -43,8 +49,14 @@ public class PointListRecyclerAdapter extends RecyclerView.Adapter<PointListRecy
     }
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
-        public RecyclerViewHolder(View itemView) {
-            super(itemView);
+        TextView pointName;
+        Button btn;
+        TextView usePointText;
+        public RecyclerViewHolder(View v) {
+            super(v);
+            pointName = v.findViewById(R.id.point_item_name);
+            btn = v.findViewById(R.id.change_button);
+            usePointText = v.findViewById(R.id.point_text);
         }
     }
 }

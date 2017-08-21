@@ -25,7 +25,7 @@ public class CreateAccount extends BaseActivity {
     public void create_button_click(View view) {
 
         MaterialEditText nametext = (MaterialEditText) findViewById(R.id.nametext);
-        MaterialEditText passtext = (MaterialEditText) findViewById(R.id.passtext);
+        MaterialEditText passtext = (MaterialEditText) findViewById(R.id.pass_text);
         MaterialEditText passtext2 = (MaterialEditText) findViewById(R.id.passtext2);
 
         //パスワードが正しく入力されているか
