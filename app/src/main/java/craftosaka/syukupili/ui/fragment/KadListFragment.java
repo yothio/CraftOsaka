@@ -1,5 +1,7 @@
 package craftosaka.syukupili.ui.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +18,8 @@ import java.util.List;
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.ui.adapter.KadListRecyclerAdapter;
 import model.KadListItem;
+
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 /**
  * Created by yocchi on 2017/08/16.
@@ -47,9 +51,16 @@ public class KadListFragment extends BaseFragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("KadListFragment", String.valueOf(list.size()));
-                list.add(new KadListItem("" + list.size()));
-                adapter.notifyDataSetChanged();
+                //ダイアログボックス表示
+                createDialogBox();
+                //パーミッションの説明ダイアログを作成
+//                DialogFragment noticeDialogFragment = new NoticeDialogFragment();
+                //パーミッションの説明ダイアログを表示
+//                noticeDialogFragment.show(getActivity().getFragmentManager(), "noticeDialog");
+
+//                Log.d("KadListFragment", String.valueOf(list.size()));
+//                list.add(new KadListItem("" + list.size()));
+//                adapter.notifyDataSetChanged();
             }
         });
 
@@ -65,6 +76,50 @@ public class KadListFragment extends BaseFragment {
         return v;
     }
 
+    private void createDialogBox() {
+        // カスタムビューを設定
+        LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(
+                LAYOUT_INFLATER_SERVICE);
+        final View layout = inflater.inflate(R.layout.dialog_create_subject_layout,
+                (ViewGroup)getActivity().findViewById(R.id.dialog_layout));
+
+        // Build the dialog and set up the button click handlers
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("課題新規登録")
+                .setView(layout)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    //ダイアログOKクリック時
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        onDialogPositiveClick(dialog);
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        onDialogNegativeClick(dialogInterface);
+                    }
+                }).create();
+        builder.show();
+    }
+
+    /**
+     * ダイアログボックスのOKボタンを押した時の処理
+     * @param dialog
+     */
+    public void onDialogPositiveClick(DialogInterface dialog) {
+        Log.d("KadListFragment", String.valueOf(list.size()));
+        list.add(new KadListItem("" + list.size()));
+        adapter.notifyDataSetChanged();
+    }
+
+    /**
+     * ダイアログボックスのCANCELボタンを押した時の処理
+     * @param dialog
+     */
+    public void onDialogNegativeClick(DialogInterface dialog) {
+
+    }
 
     public void loadList() {
         list = new ArrayList<>();
@@ -80,4 +135,6 @@ public class KadListFragment extends BaseFragment {
         //KeyDownイベント処理を設定
         super.setOnKeyDown();
     }
+
+
 }

@@ -3,4 +3,11 @@
     <string name="app_name_jp">しゅくぴぃ</string>
 
     <string name="format_month_year">yyyy/MM</string>
+
+    <string-array name="list">
+        <item>※登録する子の名前IDを選択してください</item>
+        <item>子１</item>
+        <item>子２</item>
+        <item>子３</item>
+    </string-array>
 </resources>
