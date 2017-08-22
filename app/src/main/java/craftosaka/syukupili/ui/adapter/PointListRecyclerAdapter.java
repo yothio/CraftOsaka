@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -39,7 +38,7 @@ public class PointListRecyclerAdapter extends RecyclerView.Adapter<PointListRecy
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         Log.d("PointListRecyclerAdapte", String.valueOf(position));
         holder.pointName.setText(list.get(position).getPointItemText());
-        holder.usePointText.setText(list.get(position).getPointText());
+        holder.consumePoint.setText(list.get(position).getPointText());
 
     }
 
@@ -50,13 +49,12 @@ public class PointListRecyclerAdapter extends RecyclerView.Adapter<PointListRecy
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         TextView pointName;
-        Button btn;
-        TextView usePointText;
+        TextView consumePoint;
         public RecyclerViewHolder(View v) {
             super(v);
             pointName = v.findViewById(R.id.point_item_name);
 
-            usePointText = v.findViewById(R.id.point_text);
+            consumePoint = v.findViewById(R.id.consume_point_text);
         }
     }
 }

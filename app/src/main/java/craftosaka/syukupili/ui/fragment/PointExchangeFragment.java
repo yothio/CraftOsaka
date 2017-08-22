@@ -2,20 +2,35 @@ package craftosaka.syukupili.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import craftosaka.syukupili.R;
+import craftosaka.syukupili.model.PointListItem;
 import craftosaka.syukupili.ui.activity.MenuActivity;
+import craftosaka.syukupili.ui.adapter.PointListRecyclerAdapter;
 
 /**
  * Created by yocchi on 2017/08/16.
  */
 
 public class PointExchangeFragment extends BaseFragment {
+
+    RecyclerView recyclerView;
+    RecyclerView.Adapter adapter;
+    List<PointListItem> list = new ArrayList<>();
+    FloatingActionButton fab;
+
 
     private static final int SWIPE_MAX_OFF_PATH = 250;
     private static final int SWIPE_MIN_DISTANCE = 120;
@@ -32,6 +47,39 @@ public class PointExchangeFragment extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
 
         View v = inflater.inflate(R.layout.fragment_point_layout, container, false);
+
+
+
+        //レイアウトと結びつけ
+        recyclerView = v.findViewById(R.id.point_list_recyclerview);
+        fab = v.findViewById(R.id.floating_action_button_fab);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("KadListFragment", String.valueOf(list.size()));
+
+                PointListItem point = new PointListItem();
+                point.setPointItemText("test");
+                point.setPointText("test");
+                list.add(list.size(),point);
+
+//                //データベースに課題を追加　テスト　引数int　本番 KadListItem
+//                SQLiteDataManager.getInstance().insertDataBase(i);
+//                //テスト段階のみ使用　：　本番は上で記述しているKadListItemをlistにaddするだけ
+//                SQLiteDataManager.getInstance().updateKadDate(list);
+                adapter.notifyItemInserted(list.size());
+            }
+        });
+
+        //アダプターに配列を渡す
+        adapter = new PointListRecyclerAdapter(getContext(), list);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter);
+
+
 
         return v;
     }
