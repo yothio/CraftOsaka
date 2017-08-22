@@ -88,7 +88,7 @@ public class KadListFragment extends BaseFragment {
                 LAYOUT_INFLATER_SERVICE);
         final View layout = inflater.inflate(R.layout.dialog_create_subject_layout,
                 (ViewGroup) getActivity().findViewById(R.id.dialog_layout));
-        tv = layout.findViewById(R.id.start_month);
+        tv = layout.findViewById(R.id.start_date_edit_text);
 
         //開始日を設定するボタン
         Button btn = (Button) layout.findViewById(R.id.textView3);
