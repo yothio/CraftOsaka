@@ -3,53 +3,36 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="120dp">
+    android:layout_height="90dp"
+    android:layout_margin="5dp">
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
-            android:weightSum="5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:orientation="horizontal"
-                android:weightSum="3">
-                <TextView
-                    android:id="@+id/point_item_name"
-                    android:text="タイトル未設定"
-                    android:textSize="24dp"
-                    android:layout_weight="2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"/>
+            android:padding="10dp"
+            android:weightSum="5">
 
-            </LinearLayout>
-            <LinearLayout
-                android:weightSum="4"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+            <TextView
+                android:id="@+id/point_item_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:padding="10dp">
-                <TextView
-                    android:gravity="bottom"
-                    android:text="300p"
-                    android:textSize="40dp"
-                    android:id="@+id/consume_point_text"
-                    android:layout_weight="3"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"/>
-                <Button
-                    android:gravity="center"
-                    android:text="change"
-                    android:id="@+id/change_button"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"/>
-            </LinearLayout>
+                android:text="タイトル未設定"
+                android:textSize="28dp"
+                android:gravity="bottom|left"/>
 
+            <TextView
+                android:id="@+id/consume_point_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="bottom|right"
+                android:text="10000p"
+                android:textSize="28dp" />
         </LinearLayout>
+
     </android.support.v7.widget.CardView>
 </LinearLayout>

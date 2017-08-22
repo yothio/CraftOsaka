@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="140dp"
+    android:layout_height="100dp"
     android:layout_marginTop="3dp"
     android:layout_marginBottom="3dp"
     android:layout_marginRight="5dp"
@@ -24,7 +24,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="2"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="3"
+                android:padding="5dp">
 
                 <TextView
                     android:id="@+id/kad_name_text"

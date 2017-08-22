@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import craftosaka.syukupili.util.Data;
 import lombok.Setter;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -104,6 +105,8 @@ public class Account {
             SharedPreferences.Editor editor = preferences.edit().putString("loginuser", name);
             editor.commit();
 
+            Data.getInstance().childParentFrag = false;
+
             result = true;
 
         } else {
@@ -125,6 +128,7 @@ public class Account {
             //ログイン情報を保持
             SharedPreferences.Editor editor = preferences.edit().putString("loginuser", "parent");
             editor.commit();
+            Data.getInstance().childParentFrag = true;
             result = true;
         } else {
 

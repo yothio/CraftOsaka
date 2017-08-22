@@ -1,6 +1,7 @@
 package craftosaka.syukupili.util;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import craftosaka.syukupili.model.KadListItem;
@@ -11,12 +12,18 @@ import craftosaka.syukupili.model.KadListItem;
 
 public class Data {
 
-    //
 
+    public boolean childParentFrag;
 
-    public Data(){
+    public static  Data date = new Data();
 
+    private Data(){
     }
+
+    public static Data getInstance(){
+        return date;
+    }
+
 
 
 
