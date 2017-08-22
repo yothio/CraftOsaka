@@ -1,5 +1,7 @@
 package craftosaka.syukupili.ui.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -15,8 +17,9 @@ import java.util.List;
 
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.ui.adapter.KadListRecyclerAdapter;
-import craftosaka.syukupili.model.KadListItem;
-import craftosaka.syukupili.util.SQLiteDataManager;
+import model.KadListItem;
+
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 /**
  * Created by yocchi on 2017/08/16.
@@ -26,24 +29,12 @@ public class KadListFragment extends BaseFragment {
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
-    List<KadListItem> list = new ArrayList<>();
+    List<KadListItem> list;
     FloatingActionButton fab;
-
 
     public static KadListFragment newInstance() {
         KadListFragment fragment = new KadListFragment();
         return fragment;
-    }
-
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-        SQLiteDataManager.getInstance().getKadData(list);
-
-
     }
 
     @Override
@@ -51,6 +42,8 @@ public class KadListFragment extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         //fragmentでのsetContentview
         View v = inflater.inflate(R.layout.fragment_kadlist_fragment, container, false);
+        //データをリストに入れる
+        loadList();
         //レイアウトと結びつけ
         recyclerView = v.findViewById(R.id.kadlist_recyclerview);
         fab = v.findViewById(R.id.floating_action_button);
@@ -58,18 +51,16 @@ public class KadListFragment extends BaseFragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("KadListFragment", String.valueOf(list.size()));
+                //ダイアログボックス表示
+                createDialogBox();
+                //パーミッションの説明ダイアログを作成
+//                DialogFragment noticeDialogFragment = new NoticeDialogFragment();
+                //パーミッションの説明ダイアログを表示
+//                noticeDialogFragment.show(getActivity().getFragmentManager(), "noticeDialog");
 
-                //課題の有無を確認
-                int i = 0;
-                if (list.size() != 0) {
-                    i = list.get(list.size() - 1).getKadId() + 1;
-                }
-                //データベースに課題を追加　テスト　引数int　本番 KadListItem
-                SQLiteDataManager.getInstance().insertDataBase(i);
-                //テスト段階のみ使用　：　本番は上で記述しているKadListItemをlistにaddするだけ
-                SQLiteDataManager.getInstance().updateKadDate(list);
-                adapter.notifyDataSetChanged();
+//                Log.d("KadListFragment", String.valueOf(list.size()));
+//                list.add(new KadListItem("" + list.size()));
+//                adapter.notifyDataSetChanged();
             }
         });
 
@@ -85,13 +76,54 @@ public class KadListFragment extends BaseFragment {
         return v;
     }
 
+    private void createDialogBox() {
+        // カスタムビューを設定
+        LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(
+                LAYOUT_INFLATER_SERVICE);
+        final View layout = inflater.inflate(R.layout.dialog_create_subject_layout,
+                (ViewGroup)getActivity().findViewById(R.id.dialog_layout));
+
+        // Build the dialog and set up the button click handlers
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("課題新規登録")
+                .setView(layout)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    //ダイアログOKクリック時
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        onDialogPositiveClick(dialog);
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        onDialogNegativeClick(dialogInterface);
+                    }
+                }).create();
+        builder.show();
+    }
+
+    /**
+     * ダイアログボックスのOKボタンを押した時の処理
+     * @param dialog
+     */
+    public void onDialogPositiveClick(DialogInterface dialog) {
+        Log.d("KadListFragment", String.valueOf(list.size()));
+        list.add(new KadListItem("" + list.size()));
+        adapter.notifyDataSetChanged();
+    }
+
+    /**
+     * ダイアログボックスのCANCELボタンを押した時の処理
+     * @param dialog
+     */
+    public void onDialogNegativeClick(DialogInterface dialog) {
+
+    }
 
     public void loadList() {
-        KadListItem kad = new KadListItem();
-        kad.setKadName("dummyName");
-        kad.setChildName("dummychild");
-        kad.setEndDate(20202020);
-        kad.setPoint(114);
+        list = new ArrayList<>();
+        KadListItem kad = new KadListItem("test");
         list.add(kad);
     }
 
@@ -103,4 +135,6 @@ public class KadListFragment extends BaseFragment {
         //KeyDownイベント処理を設定
         super.setOnKeyDown();
     }
+
+
 }
