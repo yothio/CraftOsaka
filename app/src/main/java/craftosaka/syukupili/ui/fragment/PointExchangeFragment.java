@@ -59,16 +59,35 @@ public class PointExchangeFragment extends BaseFragment {
             public void onClick(View view) {
                 Log.d("KadListFragment", String.valueOf(list.size()));
 
-                PointListItem point = new PointListItem();
-                point.setPointItemText("test");
-                point.setPointText("test");
-                list.add(list.size(),point);
+
+                PointItemCreateDialog dialog = new PointItemCreateDialog();
+                dialog.show(getFragmentManager(),"");
+                dialog.setCallback(new PointItemCreateDialog.MyCallback() {
+                    @Override
+                    public void positive(String itemName, int point) {
+                        PointListItem pointItem = new PointListItem();
+                        pointItem.setPointItemText("test");
+                        pointItem.setPointText(String.valueOf(point));
+                        list.add(list.size(),pointItem);
+                        adapter.notifyItemInserted(list.size());
+
+                        
+
+
+                    }
+
+                    @Override
+                    public void negative() {
+
+                    }
+                });
+
+
 
 //                //データベースに課題を追加　テスト　引数int　本番 KadListItem
 //                SQLiteDataManager.getInstance().insertDataBase(i);
 //                //テスト段階のみ使用　：　本番は上で記述しているKadListItemをlistにaddするだけ
 //                SQLiteDataManager.getInstance().updateKadDate(list);
-                adapter.notifyItemInserted(list.size());
             }
         });
 
