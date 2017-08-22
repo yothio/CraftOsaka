@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +35,12 @@ public class KadListFragment extends BaseFragment {
     List<KadListItem> list;
     FloatingActionButton fab;
 
+    //課題作成ダイアログボックス
+    EditText titleEditText,detailEditText;
+    TextView startTextView,endTextView;
+    Spinner childrenSpinner;
+    EditText grantPointEditText;
+
     public static KadListFragment newInstance() {
         KadListFragment fragment = new KadListFragment();
         return fragment;
@@ -52,17 +61,14 @@ public class KadListFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 //ダイアログボックス表示
-                createDialogBox();
-                //パーミッションの説明ダイアログを作成
-//                DialogFragment noticeDialogFragment = new NoticeDialogFragment();
-                //パーミッションの説明ダイアログを表示
-//                noticeDialogFragment.show(getActivity().getFragmentManager(), "noticeDialog");
+                createKadDialogBox();
 
 //                Log.d("KadListFragment", String.valueOf(list.size()));
 //                list.add(new KadListItem("" + list.size()));
 //                adapter.notifyDataSetChanged();
             }
         });
+
 
         //アダプターに配列を渡す
         adapter = new KadListRecyclerAdapter(getContext(), list);
@@ -76,14 +82,18 @@ public class KadListFragment extends BaseFragment {
         return v;
     }
 
-    private void createDialogBox() {
+    /**
+     * 課題作成ダイアログボックスを作る
+     */
+    private void createKadDialogBox() {
         // カスタムビューを設定
         LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(
                 LAYOUT_INFLATER_SERVICE);
-        final View layout = inflater.inflate(R.layout.dialog_create_subject_layout,
+        View layout = inflater.inflate(R.layout.dialog_create_subject_layout,
                 (ViewGroup)getActivity().findViewById(R.id.dialog_layout));
 
-        // Build the dialog and set up the button click handlers
+        preparationCreateKadDialogBox(layout);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("課題新規登録")
                 .setView(layout)
@@ -104,10 +114,62 @@ public class KadListFragment extends BaseFragment {
     }
 
     /**
+     * 課題作成ダイアログボックスを作るための準備
+     * @param layout
+     */
+    private void preparationCreateKadDialogBox(View layout) {
+        //タイトル
+        titleEditText = layout.findViewById(R.id.kad_title);
+        //内容
+        detailEditText = layout.findViewById(R.id.kad_detail);
+
+        //子リストのアイテムを選択するSpinner
+        childrenSpinner = layout.findViewById(R.id.children_spinner);
+        //spinnerに表示する子供のリストを作成する
+
+
+        //開始日
+        startTextView = layout.findViewById(R.id.start_textview);
+        startTextView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //日付選択ﾀﾞｲｱﾛｸﾞﾎﾞｯｸｽ表示
+
+            }
+        });
+        //終了日
+        endTextView = layout.findViewById(R.id.end_textview);
+        endTextView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //日付選択ﾀﾞｲｱﾛｸﾞﾎﾞｯｸｽ表示
+            }
+        });
+
+        //付与ポイント
+        grantPointEditText = layout.findViewById(R.id.grant_point);
+    }
+
+    /**
      * ダイアログボックスのOKボタンを押した時の処理
      * @param dialog
      */
     public void onDialogPositiveClick(DialogInterface dialog) {
+        //タイトルと内容のテキスト取得
+        String title = titleEditText.getText().toString();
+        String detail = detailEditText.getText().toString().toString();
+
+        //選択されているアイテムを取得
+        String child = childrenSpinner.getSelectedItem().toString();
+
+        Log.d("KadListFragment",title + " : " + detail + " : " + child);
+
+
+        //開始日と終了日取得
+        String start = startTextView.getText().toString();
+        String end = endTextView.getText().toString();
+        Log.d("KadListFragment",start + " " + end);
+
         Log.d("KadListFragment", String.valueOf(list.size()));
         list.add(new KadListItem("" + list.size()));
         adapter.notifyDataSetChanged();
@@ -115,9 +177,9 @@ public class KadListFragment extends BaseFragment {
 
     /**
      * ダイアログボックスのCANCELボタンを押した時の処理
-     * @param dialog
+     * @param dialogInterface
      */
-    public void onDialogNegativeClick(DialogInterface dialog) {
+    public void onDialogNegativeClick(DialogInterface dialogInterface) {
 
     }
 
