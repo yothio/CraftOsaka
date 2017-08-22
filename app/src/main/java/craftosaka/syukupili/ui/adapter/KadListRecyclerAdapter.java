@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import craftosaka.syukupili.R;
-import model.KadListItem;
+import craftosaka.syukupili.model.KadListItem;
 
 /**
  * Created by yocchi on 2017/08/16.
