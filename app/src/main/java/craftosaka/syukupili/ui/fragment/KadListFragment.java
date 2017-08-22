@@ -1,6 +1,7 @@
 package craftosaka.syukupili.ui.fragment;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.TextView;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +23,7 @@ import java.util.List;
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.model.KadListItem;
 import craftosaka.syukupili.ui.adapter.KadListRecyclerAdapter;
+import craftosaka.syukupili.util.App;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -26,7 +32,7 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
  */
 
 public class KadListFragment extends BaseFragment {
-
+    TextView tv;
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     List<KadListItem> list;
@@ -78,10 +84,30 @@ public class KadListFragment extends BaseFragment {
 
     private void createDialogBox() {
         // カスタムビューを設定
-        LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(
                 LAYOUT_INFLATER_SERVICE);
         final View layout = inflater.inflate(R.layout.dialog_create_subject_layout,
-                (ViewGroup)getActivity().findViewById(R.id.dialog_layout));
+                (ViewGroup) getActivity().findViewById(R.id.dialog_layout));
+        tv = layout.findViewById(R.id.start_month);
+
+        //開始日を設定するボタン
+        Button btn = (Button) layout.findViewById(R.id.textView3);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("KadListFragment", "aaa");
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
+                datePickerDialog.show();
+                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
+                        //year,month,dayの取得
+                        tv.setText("" + year);
+                    }
+                });
+
+            }
+        });
 
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -94,7 +120,7 @@ public class KadListFragment extends BaseFragment {
                         onDialogPositiveClick(dialog);
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener(){
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         onDialogNegativeClick(dialogInterface);
@@ -105,6 +131,7 @@ public class KadListFragment extends BaseFragment {
 
     /**
      * ダイアログボックスのOKボタンを押した時の処理
+     *
      * @param dialog
      */
     public void onDialogPositiveClick(DialogInterface dialog) {
@@ -115,6 +142,7 @@ public class KadListFragment extends BaseFragment {
 
     /**
      * ダイアログボックスのCANCELボタンを押した時の処理
+     *
      * @param dialog
      */
     public void onDialogNegativeClick(DialogInterface dialog) {

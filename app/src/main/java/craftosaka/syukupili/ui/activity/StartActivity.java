@@ -5,11 +5,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+
+import com.android.datetimepicker.date.DatePickerDialog;
 
 import java.util.List;
 
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.model.KadListItem;
+import craftosaka.syukupili.util.App;
 import craftosaka.syukupili.util.SQLiteDataManager;
 
 public class StartActivity extends BaseActivity {
@@ -29,7 +33,6 @@ public class StartActivity extends BaseActivity {
             }
         });
 
-        //
         childBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

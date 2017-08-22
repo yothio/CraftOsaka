@@ -16,7 +16,10 @@ public class Util {
 
 
     public String correctDate(String oldDate) {
-        String newDate = oldDate.substring(0, 4) + "/" + oldDate.substring(4, 6) + "/" + oldDate.substring(6, 8);
+        String newDate = oldDate;
+        if (oldDate.length() > 8) {
+            newDate = oldDate.substring(0, 4) + "/" + oldDate.substring(4, 6) + "/" + oldDate.substring(6, 8);
+        }
         return newDate;
     }
 

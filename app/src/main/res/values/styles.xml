@@ -8,4 +8,25 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <!-- スタイル -->
+    <!-- TextInputLayoutのスタイル -->
+    <style name="AppTheme.Design.TextInputLayout" parent="Widget.Design.TextInputLayout">
+        <item name="android:textColorHint">#dcdcd8</item><!-- 何も入力してないとき入力フォーム内のHintの色 -->
+        <item name="colorControlNormal">@color/gray</item><!-- 通常時EditTextの下線 -->
+        <item name="colorControlActivated">#222222</item><!-- フォーカス時の下線の色 -->
+    </style>
+
+
+    <!-- hintのスタイル -->
+    <style name="AppTheme.Design.TextAppearance.Design.Hint" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">13sp</item><!-- 上の方のhintの表示サイズ -->
+        <item name="android:textColor">#000000</item><!--  上の方のhintの表示の色 -->
+    </style>
+
+    <!-- エラーのスタイル -->
+    <style name="AppTheme.Design.TextAppearance.Design.Error" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">13sp</item><!-- errorの表示サイズ -->
+        <item name="android:textColor">#aa0000</item><!--  errorの表示の色.error時の下線の色でもある -->
+    </style>
 </resources>
