@@ -1,6 +1,7 @@
 package craftosaka.syukupili.ui.fragment;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -40,6 +43,7 @@ public class KadListFragment extends BaseFragment {
     TextView startTextView,endTextView;
     Spinner childrenSpinner;
     EditText grantPointEditText;
+    Button sBtn,eBtn;
 
     public static KadListFragment newInstance() {
         KadListFragment fragment = new KadListFragment();
@@ -71,7 +75,8 @@ public class KadListFragment extends BaseFragment {
 
 
         //アダプターに配列を渡す
-        adapter = new KadListRecyclerAdapter(getContext(), list);
+//        adapter = new KadListRecyclerAdapter(getContext(), list);
+        adapter = new KadListRecyclerAdapter(getContext(),list);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -89,8 +94,28 @@ public class KadListFragment extends BaseFragment {
         // カスタムビューを設定
         LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(
                 LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate(R.layout.dialog_create_subject_layout,
-                (ViewGroup)getActivity().findViewById(R.id.dialog_layout));
+
+        final View layout = inflater.inflate(R.layout.dialog_create_subject_layout,
+                (ViewGroup) getActivity().findViewById(R.id.dialog_layout));
+
+        //開始日を設定するボタン
+//        sBtn = layout.findViewById(R.id.textView3);
+//        sBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d("KadListFragment", "aaa");
+//                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
+//                datePickerDialog.show();
+//                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
+                        //year,month,dayの取得
+//                        tv.setText("" + year);
+//                    }
+//                });
+//            }
+//        });
+
 
         preparationCreateKadDialogBox(layout);
 
@@ -119,32 +144,55 @@ public class KadListFragment extends BaseFragment {
      */
     private void preparationCreateKadDialogBox(View layout) {
         //タイトル
-        titleEditText = layout.findViewById(R.id.kad_title);
+        titleEditText = layout.findViewById(R.id.new_kad_name);
         //内容
-        detailEditText = layout.findViewById(R.id.kad_detail);
+        detailEditText = layout.findViewById(R.id.new_kad_content);
+
+        startTextView = layout.findViewById(R.id.start_date_edit_text);
+
+        //開始日を設定するボタン
+        sBtn = layout.findViewById(R.id.textView3);
+        sBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("KadListFragment", "aaa");
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
+                datePickerDialog.show();
+                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
+                        //year,month,dayの取得
+                        startTextView.setText("" + year);
+                    }
+                });
+            }
+        });
+
+        endTextView = layout.findViewById(R.id.end_date_edit_text);
+
+        //終了日を設定するボタン
+        eBtn = layout.findViewById(R.id.textView4);
+        eBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("KadListFragment", "aaa");
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
+                datePickerDialog.show();
+                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
+                        //year,month,dayの取得
+                        endTextView.setText("" + year);
+                    }
+                });
+            }
+        });
 
         //子リストのアイテムを選択するSpinner
         childrenSpinner = layout.findViewById(R.id.children_spinner);
         //spinnerに表示する子供のリストを作成する
 
 
-        //開始日
-        startTextView = layout.findViewById(R.id.start_textview);
-        startTextView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                //日付選択ﾀﾞｲｱﾛｸﾞﾎﾞｯｸｽ表示
-
-            }
-        });
-        //終了日
-        endTextView = layout.findViewById(R.id.end_textview);
-        endTextView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                //日付選択ﾀﾞｲｱﾛｸﾞﾎﾞｯｸｽ表示
-            }
-        });
 
         //付与ポイント
         grantPointEditText = layout.findViewById(R.id.grant_point);
@@ -169,6 +217,10 @@ public class KadListFragment extends BaseFragment {
         String start = startTextView.getText().toString();
         String end = endTextView.getText().toString();
         Log.d("KadListFragment",start + " " + end);
+
+        //pointの取得
+        String grantPoint = grantPointEditText.getText().toString();
+        Log.d("KadListFragment",grantPoint + "pt");
 
         Log.d("KadListFragment", String.valueOf(list.size()));
         list.add(new KadListItem("" + list.size()));
@@ -197,6 +249,5 @@ public class KadListFragment extends BaseFragment {
         //KeyDownイベント処理を設定
         super.setOnKeyDown();
     }
-
 
 }

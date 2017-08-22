@@ -56,7 +56,7 @@ public class PointListRecyclerAdapter extends RecyclerView.Adapter<PointListRecy
             super(v);
             pointName = v.findViewById(R.id.point_item_name);
 
-            usePointText = v.findViewById(R.id.point_text);
+            usePointText = v.findViewById(R.id.consume_point_text);
         }
     }
 }
