@@ -30,8 +30,6 @@ public class SQLiteDataManager {
 
     SQLiteDatabase sqLiteDatabase;
     public MySQLiteOpenHelper mySQLiteOpenHelper = new MySQLiteOpenHelper(App.getAppContext());
-
-
     private static SQLiteDataManager dateManager = new SQLiteDataManager();
 
     private SQLiteDataManager() {

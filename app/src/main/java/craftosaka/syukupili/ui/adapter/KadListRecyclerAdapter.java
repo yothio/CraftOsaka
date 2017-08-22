@@ -41,20 +41,15 @@ public class KadListRecyclerAdapter extends RecyclerView.Adapter<KadListRecycler
         holder.pointText.setText(String.valueOf(list.get(position).getPoint()));
         holder.endDateText.setText(Util.getInstance().correctDate(String.valueOf(list.get(position).getEndDate())));
         holder.kadName.setText(list.get(position).getKadName());
-
     }
-
     @Override
     public int getItemCount() {
         return list.size();
     }
-
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         TextView childName, pointText, endDateText, kadName;
-
         public RecyclerViewHolder(View v) {
             super(v);
-
             childName = v.findViewById(R.id.child_name_text);
             pointText = v.findViewById(R.id.point_text);
             endDateText = v.findViewById(R.id.end_date_text);
