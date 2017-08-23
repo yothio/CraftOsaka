@@ -39,11 +39,11 @@ public class KadListFragment extends BaseFragment {
     FloatingActionButton fab;
 
     //課題作成ダイアログボックス
-    EditText titleEditText,detailEditText;
-    TextView startTextView,endTextView;
+    EditText titleEditText, detailEditText;
+    TextView startTextView, endTextView;
     Spinner childrenSpinner;
     EditText grantPointEditText;
-    Button sBtn,eBtn;
+    Button sBtn, eBtn;
 
     public static KadListFragment newInstance() {
         KadListFragment fragment = new KadListFragment();
@@ -76,7 +76,7 @@ public class KadListFragment extends BaseFragment {
 
         //アダプターに配列を渡す
 //        adapter = new KadListRecyclerAdapter(getContext(), list);
-        adapter = new KadListRecyclerAdapter(getContext(),list);
+        adapter = new KadListRecyclerAdapter(getContext(), list);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -92,7 +92,7 @@ public class KadListFragment extends BaseFragment {
      */
     private void createKadDialogBox() {
         // カスタムビューを設定
-        LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(
                 LAYOUT_INFLATER_SERVICE);
 
         final View layout = inflater.inflate(R.layout.dialog_create_subject_layout,
@@ -129,7 +129,7 @@ public class KadListFragment extends BaseFragment {
                         onDialogPositiveClick(dialog);
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener(){
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         onDialogNegativeClick(dialogInterface);
@@ -140,6 +140,7 @@ public class KadListFragment extends BaseFragment {
 
     /**
      * 課題作成ダイアログボックスを作るための準備
+     *
      * @param layout
      */
     private void preparationCreateKadDialogBox(View layout) {
@@ -161,7 +162,7 @@ public class KadListFragment extends BaseFragment {
 //                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
 //                    @Override
 //                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
-                        //year,month,dayの取得
+        //year,month,dayの取得
 //                        startTextView.setText("" + year);
 //                    }
 //                });
@@ -193,34 +194,33 @@ public class KadListFragment extends BaseFragment {
         //spinnerに表示する子供のリストを作成する
 
 
-
         //付与ポイント
         grantPointEditText = layout.findViewById(R.id.grant_point);
     }
 
     /**
      * ダイアログボックスのOKボタンを押した時の処理
+     *
      * @param dialog
      */
     public void onDialogPositiveClick(DialogInterface dialog) {
         //タイトルと内容のテキスト取得
         String title = titleEditText.getText().toString();
         String detail = detailEditText.getText().toString().toString();
-
         //選択されているアイテムを取得
         String child = childrenSpinner.getSelectedItem().toString();
 
-        Log.d("KadListFragment",title + " : " + detail + " : " + child);
+        Log.d("KadListFragment", title + " : " + detail + " : " + child);
 
 
         //開始日と終了日取得
         String start = startTextView.getText().toString();
         String end = endTextView.getText().toString();
-        Log.d("KadListFragment",start + " " + end);
+        Log.d("KadListFragment", start + " " + end);
 
         //pointの取得
         int grantPoint = Integer.parseInt(grantPointEditText.getText().toString());
-        Log.d("KadListFragment",grantPoint + "pt");
+        Log.d("KadListFragment", grantPoint + "pt");
 
         Log.d("KadListFragment", String.valueOf(list.size()));
         list.add(new KadListItem());
@@ -230,6 +230,7 @@ public class KadListFragment extends BaseFragment {
 
     /**
      * ダイアログボックスのCANCELボタンを押した時の処理
+     *
      * @param dialogInterface
      */
     public void onDialogNegativeClick(DialogInterface dialogInterface) {

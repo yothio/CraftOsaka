@@ -1,5 +1,8 @@
 package craftosaka.syukupili.util;
 
+import android.text.TextUtils;
+import android.widget.EditText;
+
 /**
  * Created by yocchi on 2017/08/16.
  */
@@ -23,4 +26,16 @@ public class Util {
         return newDate;
     }
 
+
+    public static boolean isEmptyEditText(EditText editText) {
+        if(editText == null){
+            return true;
+        }
+        if(!TextUtils.isEmpty(editText.getText().toString())){
+            return false;
+        } else  {
+            editText.setError("入力されていません");
+            return true;
+        }
+    }
 }

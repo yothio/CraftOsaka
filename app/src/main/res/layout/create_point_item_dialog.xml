@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
+    android:id="@+id/item_create_dialog_layout"
     android:background="@color/light_dark"
     android:orientation="vertical">
 
@@ -17,9 +18,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="タイトル"
+            android:text="交換アイテム追加"
             android:textColor="@android:color/white"
-            android:textSize="20sp"/>
+            android:textSize="20dp"/>
     </FrameLayout>
 
     <LinearLayout
@@ -28,21 +29,43 @@
         android:orientation="vertical"
         android:padding="5dp">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="40dp"
+            android:minHeight="80dp"
             android:padding="10dp">
-
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/item_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <EditText
-                android:inputType="number"
+                android:hint="交換アイテム名"
+                android:ems="15"
                 android:id="@+id/body_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:inputType="text"
                 android:textColor="#4b4b4b"
                 android:textSize="19sp"/>
-        </RelativeLayout>
+        </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:hint="必要ポイント入力"
+                    android:id="@+id/point_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:inputType="number"
+                    android:textColor="#4b4b4b"
+                    android:textSize="19sp"/>
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

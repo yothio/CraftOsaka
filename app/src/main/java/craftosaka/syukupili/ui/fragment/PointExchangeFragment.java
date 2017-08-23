@@ -19,6 +19,7 @@ import craftosaka.syukupili.R;
 import craftosaka.syukupili.model.PointListItem;
 import craftosaka.syukupili.ui.activity.MenuActivity;
 import craftosaka.syukupili.ui.adapter.PointListRecyclerAdapter;
+import craftosaka.syukupili.util.PointDateManager;
 
 /**
  * Created by yocchi on 2017/08/16.
@@ -39,6 +40,14 @@ public class PointExchangeFragment extends BaseFragment {
     public static PointExchangeFragment newInstance() {
         PointExchangeFragment fragment = new PointExchangeFragment();
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        PointDateManager.getInstance().getPointDate(list);
+
     }
 
     @Nullable
@@ -62,14 +71,17 @@ public class PointExchangeFragment extends BaseFragment {
                 dialog.show(getFragmentManager(),"");
                 dialog.setCallback(new PointItemCreateDialog.MyCallback() {
                     @Override
-                    public void positive(String itemName, int point) {
+                    public void positive(String itemName, int point,Boolean bool) {
+                        if(bool) {
+                            PointListItem pointItem = new PointListItem();
+                            pointItem.setPointItemName(itemName);
+                            pointItem.setPoint(String.valueOf(point));
+                            list.add(list.size(), pointItem);
 
-                        PointListItem pointItem = new PointListItem();
-                        pointItem.setPointItemName("test");
-                        pointItem.setPoint(String.valueOf(point));
-                        list.add(list.size(),pointItem);
-                        adapter.notifyItemInserted(list.size());
+                            PointDateManager.getInstance().insertDataBase(pointItem);
 
+                            adapter.notifyItemInserted(list.size());
+                        }
                     }
 
                     @Override

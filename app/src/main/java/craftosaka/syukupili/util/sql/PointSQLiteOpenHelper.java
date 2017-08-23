@@ -22,7 +22,7 @@ public class PointSQLiteOpenHelper extends SQLiteOpenHelper {
             "create table " + TABLE_NAME +
                     " ( " + ITEM_ID_COLUMN_NAME + " integer primary key, " +
                     "" + ITEM_NAME_COLUMN_NAME + " text not null , " +
-                    ""+POINT_VALUE_COLUMN_NAME+"integer not null);";
+                    "" + POINT_VALUE_COLUMN_NAME + " integer not null);";
 
     final static String TAG = "KadSQLiteOpenHelper";
     static final String DROP_TABLE = "drop table if exists " + TABLE_NAME;
@@ -44,8 +44,9 @@ public class PointSQLiteOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL(DROP_TABLE);
-
     }
+
+
 
     //
     private void createTable(SQLiteDatabase db) {

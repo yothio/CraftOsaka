@@ -53,8 +53,9 @@ public abstract class BaseDialogFragment extends DialogFragment implements View.
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.ok_button:
-                pressOkButton();
-                dismiss();
+                if (pressOkButton()){
+                    dismiss();
+                }
                 break;
             case R.id.cancel_button:
                 pressNegativeButton();
@@ -74,7 +75,9 @@ public abstract class BaseDialogFragment extends DialogFragment implements View.
     };
 
 
-    abstract protected void pressOkButton();
+    //trueの時はダイアログを閉じる
+    //未入力検知よう
+    abstract protected boolean pressOkButton();
 
     abstract protected void pressNegativeButton();
 

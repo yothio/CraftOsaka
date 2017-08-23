@@ -1,6 +1,7 @@
 package craftosaka.syukupili.util;
 
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -45,14 +46,15 @@ public class PointDateManager {
 
     /**
      * テーブルがあるか調べる
+     *
      * @return true : exist , false : not exsit
      */
-    private boolean checkTable(){
+    private boolean checkTable() {
 
         boolean exist = false;
         sqLiteDatabase = mySQLiteOpenHelper.getReadableDatabase();
 
-        String query = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='"+ TABLE_NAME+"';";
+        String query = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='" + TABLE_NAME + "';";
         Cursor c = sqLiteDatabase.rawQuery(query, null);
         c.moveToFirst();
         String result = c.getString(0);
@@ -63,7 +65,7 @@ public class PointDateManager {
         return exist;
     }
 
-    public void updateKadDate(List<PointListItem> pointListItems){
+    public void updateKadDate(List<PointListItem> pointListItems) {
         //読み込みモードで開く
         sqLiteDatabase = mySQLiteOpenHelper.getReadableDatabase();
 
@@ -78,7 +80,7 @@ public class PointDateManager {
     }
 
     //    データベースにアクセスして課題を取得
-    public List<PointListItem> getKadData(List<PointListItem> pointListItems) {
+    public List<PointListItem> getPointDate(List<PointListItem> pointListItems) {
 
         //読み込みモードで開く
         sqLiteDatabase = mySQLiteOpenHelper.getReadableDatabase();
@@ -88,6 +90,7 @@ public class PointDateManager {
         //返す用の値を作成
 
         int i = 0;
+
         boolean flag = cursor.moveToFirst();
         while (flag) {
             PointListItem pointListItem = new PointListItem();
@@ -100,6 +103,10 @@ public class PointDateManager {
         }
 
         return pointListItems;
+    }
+
+    public void deleteDataBaseFile() {
+        App.getAppContext().deleteDatabase(mySQLiteOpenHelper.getDatabaseName());
     }
 
     public void deleteDataBase() {
@@ -117,14 +124,21 @@ public class PointDateManager {
 //        "setting_frag text not null);";
 
 
-    public void insertDataBase(int number){
+    private int getDatabaseCount() {
+        sqLiteDatabase = mySQLiteOpenHelper.getReadableDatabase();
+        int recodeCount = (int) DatabaseUtils.queryNumEntries(sqLiteDatabase, TABLE_NAME);
+        Log.d("tesutesu", "recodeCount : " + recodeCount);
+        return recodeCount;
+    }
+
+    public void insertDataBase(PointListItem pointListItem) {
 
         sqLiteDatabase = mySQLiteOpenHelper.getWritableDatabase();
 
         sqLiteDatabase.execSQL("insert into " + TABLE_NAME +
-                " Values(" + String.valueOf(number) + ", " +
-                "'" + "test" + String.valueOf(number) + "Kname" + "', " +
-                "'" +  "" + String.valueOf(number) + ""+ "')");
+                " Values(" + (getDatabaseCount() + 1) + ", " +
+                "'" + pointListItem.getPointItemName() + "', " +
+                "'" + pointListItem.getPoint() + "')");
 
         sqLiteDatabase.close();
     }
