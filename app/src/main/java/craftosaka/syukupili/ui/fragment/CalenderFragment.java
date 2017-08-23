@@ -17,9 +17,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import craftosaka.syukupili.R;
+import craftosaka.syukupili.model.KadListItem;
 import craftosaka.syukupili.ui.activity.MenuActivity;
 
 import static android.R.drawable.ic_media_ff;
@@ -76,6 +78,7 @@ public class CalenderFragment extends BaseFragment {
     //予定タイトル検索タイプ
     private final int GET_TITLE_TYPE_SUBJECT = 0;
     private final int GET_TITLE_TYPE_PERSONAL = 1;
+    private List<KadListItem> kadListItems;
 
     public CalenderFragment(){
         calendar = Calendar.getInstance();
@@ -213,6 +216,30 @@ public class CalenderFragment extends BaseFragment {
     }
 
     /**
+     * 引数で渡された日のScheduleタイトルを返す。
+     * DB検索機能必要
+     * @param month 月
+     * @param day　日付
+     * @param scheduleType 予定タイトルの検索タイプ
+     * @return タイトル(課題名または予定タイトル)
+     */
+    private String getScheduleTitle(int month, int day, int scheduleType) {
+
+        String titleText = (month+1) + "/" + day;
+
+        switch(scheduleType){
+            case GET_TITLE_TYPE_SUBJECT:
+                titleText = "subject";
+                break;
+            case GET_TITLE_TYPE_PERSONAL:
+                titleText = "personal";
+                break;
+        }
+
+        return titleText;
+    }
+
+    /**
      * selectedDay(View view)から引数(DB検索結果)を渡してもらって、
      * 検索した日の予定一覧を作成する。
      */
@@ -311,30 +338,6 @@ public class CalenderFragment extends BaseFragment {
         int day = 1;
         create1stWeek(dayWeek,day);
 
-    }
-
-    /**
-     * 引数で渡された日のScheduleタイトルを返す。
-     *
-     * @param month 月
-     * @param day　日付
-     * @param scheduleType 予定タイトルの検索タイプ
-     * @return　タイトル
-     */
-    private String getScheduleTitle(int month, int day, int scheduleType) {
-
-        String titleText = (month+1) + "/" + day;
-
-        switch(scheduleType){
-            case GET_TITLE_TYPE_SUBJECT:
-                titleText = "subject";
-                break;
-            case GET_TITLE_TYPE_PERSONAL:
-                titleText = "personal";
-                break;
-        }
-
-        return titleText;
     }
 
     /**
