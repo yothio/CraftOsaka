@@ -22,8 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import craftosaka.syukupili.R;
+import craftosaka.syukupili.model.KadListItem;
 import craftosaka.syukupili.ui.adapter.KadListRecyclerAdapter;
-import model.KadListItem;
+import craftosaka.syukupili.util.App;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -99,22 +100,22 @@ public class KadListFragment extends BaseFragment {
                 (ViewGroup) getActivity().findViewById(R.id.dialog_layout));
 
         //開始日を設定するボタン
-//        sBtn = layout.findViewById(R.id.textView3);
-//        sBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d("KadListFragment", "aaa");
-//                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
-//                datePickerDialog.show();
-//                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-//                    @Override
-//                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
-                        //year,month,dayの取得
-//                        tv.setText("" + year);
-//                    }
-//                });
-//            }
-//        });
+        sBtn = layout.findViewById(R.id.textView3);
+        sBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("KadListFragment", "aaa");
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
+                datePickerDialog.show();
+                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
+//                        year,month,dayの取得
+                        titleEditText.setText("" + year);
+                    }
+                });
+            }
+        });
 
 
         preparationCreateKadDialogBox(layout);
@@ -223,7 +224,7 @@ public class KadListFragment extends BaseFragment {
         Log.d("KadListFragment",grantPoint + "pt");
 
         Log.d("KadListFragment", String.valueOf(list.size()));
-        list.add(new KadListItem("" + list.size()));
+        list.add(new KadListItem());
         adapter.notifyDataSetChanged();
     }
 
@@ -237,7 +238,7 @@ public class KadListFragment extends BaseFragment {
 
     public void loadList() {
         list = new ArrayList<>();
-        KadListItem kad = new KadListItem("test");
+        KadListItem kad = new KadListItem();
         list.add(kad);
     }
 
