@@ -4,38 +4,37 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import craftosaka.syukupili.model.KadListItem;
-import craftosaka.syukupili.util.sql.MySQLiteOpenHelper;
+import craftosaka.syukupili.util.sql.KadSQLiteOpenHelper;
 
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.CHILD_ID_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.CHILD_NAME_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.END_DATE_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.KAD_CONTENT_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.KAD_ID_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.KAD_NAME_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.POINT_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.PROGRESS_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.SETTING_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.START_DATE_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.TABLE_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.CHILD_ID_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.CHILD_NAME_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.END_DATE_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.KAD_CONTENT_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.KAD_ID_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.KAD_NAME_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.POINT_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.PROGRESS_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.SETTING_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.START_DATE_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.TABLE_NAME;
 
 /**
  * Created by yocchi on 2017/08/19.
  */
 
-public class SQLiteDataManager {
+public class KadDataManager {
 
     SQLiteDatabase sqLiteDatabase;
-    public MySQLiteOpenHelper mySQLiteOpenHelper = new MySQLiteOpenHelper(App.getAppContext());
-    private static SQLiteDataManager dateManager = new SQLiteDataManager();
+    public KadSQLiteOpenHelper mySQLiteOpenHelper = new KadSQLiteOpenHelper(App.getAppContext());
+    private static KadDataManager dateManager = new KadDataManager();
 
-    private SQLiteDataManager() {
+    private KadDataManager() {
     }
 
-    public static SQLiteDataManager getInstance() {
+    public static KadDataManager getInstance() {
         return dateManager;
     }
 
@@ -45,7 +44,7 @@ public class SQLiteDataManager {
         //App.getAppContext().deleteDatabase(DB);
 
         //App.getAppContextでアプリのコンテキストにアクセス
-//        mySQLiteOpenHelper = new MySQLiteOpenHelper(App.getAppContext());
+//        mySQLiteOpenHelper = new KadSQLiteOpenHelper(App.getAppContext());
         //読み込みモードで開く
 //        sqLiteDatabase = mySQLiteOpenHelper.getReadableDatabase();
 

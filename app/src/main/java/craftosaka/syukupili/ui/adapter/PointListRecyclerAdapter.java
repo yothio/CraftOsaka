@@ -37,8 +37,8 @@ public class PointListRecyclerAdapter extends RecyclerView.Adapter<PointListRecy
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         Log.d("PointListRecyclerAdapte", String.valueOf(position));
-        holder.pointName.setText(list.get(position).getPointItemText());
-        holder.consumePoint.setText(list.get(position).getPointText());
+        holder.pointName.setText(list.get(position).getPointItemName());
+        holder.consumePoint.setText(list.get(position).getPoint());
 
     }
 
