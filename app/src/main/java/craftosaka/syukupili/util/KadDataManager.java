@@ -141,7 +141,7 @@ public class KadDataManager {
 //        "setting_frag text not null);";
 
 
-    public void insertDataBase(int number){
+    public void insertDataBase(KadListItem kadListItem,int number){
 
         sqLiteDatabase = mySQLiteOpenHelper.getWritableDatabase();
 

@@ -1,7 +1,12 @@
 package craftosaka.syukupili.util;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.EditText;
+
+import java.util.List;
+
+import craftosaka.syukupili.model.User;
 
 /**
  * Created by yocchi on 2017/08/16.
@@ -28,14 +33,53 @@ public class Util {
 
 
     public static boolean isEmptyEditText(EditText editText) {
-        if(editText == null){
+        if (editText == null) {
             return true;
         }
-        if(!TextUtils.isEmpty(editText.getText().toString())){
+        if (!TextUtils.isEmpty(editText.getText().toString())) {
             return false;
-        } else  {
+        } else {
             editText.setError("入力されていません");
             return true;
         }
+    }
+
+
+    public static boolean isEqualsEditText(EditText ed1, EditText ed2) {
+        if (ed1 == null || ed2 == null) {
+            return false;
+        } else if (ed1.getText().toString().equals(ed2.getText().toString())) {
+            return true;
+        } else {
+            ed2.setError("パスワードが間違っています");
+            return false;
+        }
+    }
+
+    public static boolean checkEditTextLength(EditText editText) {
+        if (editText.getText().length() < 3) {
+            editText.setError("設定可能なパスワードは3文字以上です");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //  存在するならtrue、存在しないならfalse
+    public static boolean existAccount(String name, String pass) {
+        List<User> list = PrefUtil.getUserList();
+
+        if (list.size() == 0) {
+            return false;
+        }
+
+        for (User user : list) {
+
+            if (user.getName().equals(name) && user.getPassword().equals(pass)) {
+                return true;
+            }
+        }
+        return false;
+
     }
 }

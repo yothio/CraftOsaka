@@ -29,4 +29,9 @@
         <item name="android:textColor">#aa0000</item><!--  errorの表示の色.error時の下線の色でもある -->
     </style>
 
+    <!--カウンターのスタイル-->
+    <style name="counterText">
+        <item name="android:textColor">@android:color/holo_green_dark</item>
+    </style>
+
 </resources>

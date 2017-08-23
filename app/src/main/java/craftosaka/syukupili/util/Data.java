@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import craftosaka.syukupili.model.KadListItem;
+import craftosaka.syukupili.model.User;
 
 /**
  * Created by yocchi on 2017/08/19.
@@ -13,11 +14,14 @@ import craftosaka.syukupili.model.KadListItem;
 public class Data {
 
 
-    public boolean childParentFrag;
+    List<User> list;
+
+    public boolean parentFrag;
 
     public static  Data date = new Data();
 
     private Data(){
+        list = new ArrayList<>();
     }
 
     public static Data getInstance(){

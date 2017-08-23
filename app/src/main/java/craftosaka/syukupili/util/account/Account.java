@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import craftosaka.syukupili.util.Data;
-import lombok.Setter;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -83,7 +82,7 @@ public class Account {
             return result;
         }
 
-//アカウント作成しtrueを返す　名前がないのでparentとして登録
+        //アカウント作成しtrueを返す　名前がないのでparentとして登録
         SharedPreferences.Editor editor = preferences.edit().putString("parent", pass);
 
         Log.i("SyukuPass", pass);
@@ -96,7 +95,7 @@ public class Account {
     }
 
     //子供がログインする　ログインできたらtrue 引数に名前、パスワードを
-   public Boolean login(String name, String pass) {
+    public Boolean login(String name, String pass) {
 
         Boolean result = false;
 
@@ -110,7 +109,7 @@ public class Account {
             SharedPreferences.Editor editor = preferences.edit().putString("loginuser", name);
             editor.commit();
 
-            Data.getInstance().childParentFrag = false;
+            Data.getInstance().parentFrag = false;
 
             result = true;
 
@@ -133,7 +132,7 @@ public class Account {
             //ログイン情報を保持
             SharedPreferences.Editor editor = preferences.edit().putString("loginuser", "parent");
             editor.commit();
-            Data.getInstance().childParentFrag = true;
+            Data.getInstance().parentFrag = true;
             result = true;
         } else {
 

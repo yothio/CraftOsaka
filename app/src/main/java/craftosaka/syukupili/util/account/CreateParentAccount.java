@@ -23,38 +23,38 @@ public class CreateParentAccount extends BaseActivity {
 
     //アカウント作成ボタンクリック
     public void create_button_click(View view) {
- MaterialEditText passText = (MaterialEditText) findViewById(R.id.pass_text);
-
-        Account account = new Account(this);
-
-        MaterialEditText passtext2 = (MaterialEditText)findViewById(R.id.passtext2);
-
-
-        //パスワードが正しく入力されているか
-        if (!passText.getText().toString().equals(passtext2.getText().toString())) {
-
-            new AlertDialog.Builder(this)
-                    .setTitle("")
-                    .setMessage("パスワードを正しく入力してください")
-                    .setPositiveButton("OK", null)
-                    .show();
-            return;
-
-        }
-
-        if (!account.createAcount(passText.getText().toString())) {
-
-            new AlertDialog.Builder(this)
-                    .setTitle("")
-                    .setMessage("アカウント作成に失敗しました")
-                    .setPositiveButton("OK", null)
-                    .show();
-            return;
-        }
-        new AlertDialog.Builder(this)
-                .setTitle("")
-                .setMessage("アカウント作成に成功しました")
-                .setPositiveButton("OK", null)
-                .show();
+//        MaterialEditText passText = (MaterialEditText) findViewById(R.id.pass_text);
+//
+//        Account account = new Account(this);
+//
+//        MaterialEditText passtext2 = (MaterialEditText) findViewById(R.id.passtext2);
+//
+//
+//        //パスワードが正しく入力されているか
+//        if (!passText.getText().toString().equals(passtext2.getText().toString())) {
+//
+//            new AlertDialog.Builder(this)
+//                    .setTitle("")
+//                    .setMessage("パスワードを正しく入力してください")
+//                    .setPositiveButton("OK", null)
+//                    .show();
+//            return;
+//
+//        }
+//
+//        if (!account.createAcount(passText.getText().toString())) {
+//
+//            new AlertDialog.Builder(this)
+//                    .setTitle("")
+//                    .setMessage("アカウント作成に失敗しました")
+//                    .setPositiveButton("OK", null)
+//                    .show();
+//            return;
+//        }
+//        new AlertDialog.Builder(this)
+//                .setTitle("")
+//                .setMessage("アカウント作成に成功しました")
+//                .setPositiveButton("OK", null)
+//                .show();
     }
 }
