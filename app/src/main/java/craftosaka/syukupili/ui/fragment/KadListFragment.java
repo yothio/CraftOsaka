@@ -210,25 +210,44 @@ public class KadListFragment extends BaseFragment {
     public void onDialogPositiveClick(DialogInterface dialog) {
         //タイトルと内容のテキスト取得
         String title = titleEditText.getText().toString();
+
+        KadListItem item = new KadListItem(list.size());
+        item.setKadName(title);
+
         String detail = detailEditText.getText().toString().toString();
+        item.setKadContent(detail);
 
         //選択されているアイテムを取得
         String child = childrenSpinner.getSelectedItem().toString();
+        item.setChildID(childrenSpinner.getSelectedItemPosition());
+        item.setChildName(child);
 
-        Log.d("KadListFragment",title + " : " + detail + " : " + child);
+        Log.d("KadListFragment",item.getKadName() + " : " + item.getKadContent() + " : " + item.getChildName());
 
+
+
+        //pointの取得
+        int grantPoint = Integer.parseInt(grantPointEditText.getText().toString());
+        item.setPoint(grantPoint);
+        Log.d("KadListFragment",item.getPoint() + "pt");
 
         //開始日と終了日取得
         String start = startTextView.getText().toString();
         String end = endTextView.getText().toString();
-        Log.d("KadListFragment",start + " " + end);
+        int startDate = Integer.parseInt(start.substring(0,4) + start.substring(5,7) + start.substring(8));
+        int endDate = Integer.parseInt(end.substring(0,4) + end.substring(5,7) + end.substring(8));
 
-        //pointの取得
-        int grantPoint = Integer.parseInt(grantPointEditText.getText().toString());
-        Log.d("KadListFragment",grantPoint + "pt");
+        item.setStartDate(startDate);
+        item.setEndDate(endDate);
+        Log.d("KadListFragment",item.getStartDate() + " " + item.getEndDate());
+
+        item.setProgressFrag(0);
+        item.setSettingFrag(false);
 
         Log.d("KadListFragment", String.valueOf(list.size()));
-        list.add(new KadListItem("" + list.size()));
+        list.add(list.size(),item);
+
+
 
         adapter.notifyDataSetChanged();
     }
@@ -243,7 +262,7 @@ public class KadListFragment extends BaseFragment {
 
     public void loadList() {
         list = new ArrayList<>();
-        KadListItem kad = new KadListItem("test");
+        KadListItem kad = new KadListItem(0);
         list.add(kad);
     }
 
