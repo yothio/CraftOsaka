@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -106,7 +105,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1.5"
                 android:text="開始日"/>
-
             <EditText
                 android:id="@+id/start_date_edit_text"
                 android:inputType="date"
@@ -181,7 +179,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1.5"
-                android:text="終了日"/>
+                android:text="開始日"/>
 
             <EditText
                 android:id="@+id/end_date_edit_text"
@@ -267,7 +265,8 @@
                 android:gravity="bottom|right"
                 android:maxLength="2"
                 android:text="21"
-                android:textColor="@color/gray" />
+                android:textColor="@color/gray"/>
+
             <TextView
                 android:gravity="center|left"
                 android:layout_width="0dp"
@@ -493,4 +492,6 @@
     <!--android:text="pt"/>-->
 
     <!--</TableRow>-->
+
+
 </LinearLayout>

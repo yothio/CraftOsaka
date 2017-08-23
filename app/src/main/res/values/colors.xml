@@ -24,4 +24,8 @@
     <color name="lightpink">#ffb6c1</color>
     <color name="lightbluesky">#b2b2ff</color>
     <color name="darkgray">#a9a9a9</color>
+
+    <!--ダイアログにしよう-->
+    <color name="light_dark">#e7e7e7</color>
+
 </resources>

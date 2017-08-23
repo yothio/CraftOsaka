@@ -18,18 +18,31 @@ public class CreateParentAccount extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_acount_layout);
+        setContentView(R.layout.parent_create_acount_layout);
     }
 
     //アカウント作成ボタンクリック
     public void create_button_click(View view) {
-
-        MaterialEditText nameText = (MaterialEditText) findViewById(R.id.nametext);
-        MaterialEditText passText = (MaterialEditText) findViewById(R.id.pass_text);
+ MaterialEditText passText = (MaterialEditText) findViewById(R.id.pass_text);
 
         Account account = new Account(this);
 
-        if (!account.createAcount(nameText.getText().toString(), passText.getText().toString())) {
+        MaterialEditText passtext2 = (MaterialEditText)findViewById(R.id.passtext2);
+
+
+        //パスワードが正しく入力されているか
+        if (!passText.getText().toString().equals(passtext2.getText().toString())) {
+
+            new AlertDialog.Builder(this)
+                    .setTitle("")
+                    .setMessage("パスワードを正しく入力してください")
+                    .setPositiveButton("OK", null)
+                    .show();
+            return;
+
+        }
+
+        if (!account.createAcount(passText.getText().toString())) {
 
             new AlertDialog.Builder(this)
                     .setTitle("")

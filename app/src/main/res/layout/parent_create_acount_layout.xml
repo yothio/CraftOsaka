@@ -5,18 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<com.rengwuxian.materialedittext.MaterialEditText
-    android:layout_width="368dp"
-    android:layout_height="wrap_content"
-    app:layout_constraintBottom_toTopOf="parent"
+<ImageView
+android:src="@drawable/syukupii"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_constraintBottom_toBottomOf="@+id/pass_text"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
+    android:padding="10dp"
 
-    android:text="アカウント作成"
-    android:textAlignment="center"
-
-    app:layout_constraintVertical_bias="0.16000003" />
+ />
 
 
 
@@ -37,6 +36,7 @@
         app:met_floatingLabelTextColor="@color/colorPrimaryDark"
         app:met_minCharacters="3"
         android:inputType="textPassword"
+        android:ems="10"
         />
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/passtext2"
@@ -56,8 +56,9 @@
         app:met_minCharacters="3"
         app:layout_constraintHorizontal_bias="0.502"
         android:inputType="textPassword"
+        android:ems="10"
         />
-    <Button
+    <com.beardedhen.androidbootstrap.BootstrapButton
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,6 +69,9 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/passtext2"
 
-        app:layout_constraintVertical_bias="0.56" />
+        app:layout_constraintVertical_bias="0.56"
+
+        app:bootstrapBrand="success"
+        app:bootstrapSize="xl"/>
 
 </android.support.constraint.ConstraintLayout>

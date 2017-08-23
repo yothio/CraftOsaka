@@ -10,11 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PointListItem {
-
-    String pointText;
-
-    String pointItemText;
-
-
+    String point;
+    String pointItemName;
 
 }

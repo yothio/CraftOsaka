@@ -1,42 +1,41 @@
 package craftosaka.syukupili.util;
 
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.List;
 
 import craftosaka.syukupili.model.KadListItem;
-import craftosaka.syukupili.util.sql.MySQLiteOpenHelper;
+import craftosaka.syukupili.util.sql.KadSQLiteOpenHelper;
 
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.CHILD_ID_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.CHILD_NAME_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.END_DATE_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.KAD_CONTENT_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.KAD_ID_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.KAD_NAME_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.POINT_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.PROGRESS_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.SETTING_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.START_DATE_COLUMN_NAME;
-import static craftosaka.syukupili.util.sql.MySQLiteOpenHelper.TABLE_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.CHILD_ID_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.CHILD_NAME_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.END_DATE_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.KAD_CONTENT_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.KAD_ID_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.KAD_NAME_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.POINT_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.PROGRESS_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.SETTING_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.START_DATE_COLUMN_NAME;
+import static craftosaka.syukupili.util.sql.KadSQLiteOpenHelper.TABLE_NAME;
 
 /**
  * Created by yocchi on 2017/08/19.
  */
 
-public class SQLiteDataManager {
+public class KadDataManager {
 
     SQLiteDatabase sqLiteDatabase;
-    public MySQLiteOpenHelper mySQLiteOpenHelper = new MySQLiteOpenHelper(App.getAppContext());
+    public KadSQLiteOpenHelper mySQLiteOpenHelper = new KadSQLiteOpenHelper(App.getAppContext());
+    private static KadDataManager dateManager = new KadDataManager();
 
-
-    private static SQLiteDataManager dateManager = new SQLiteDataManager();
-
-    private SQLiteDataManager() {
+    private KadDataManager() {
     }
 
-    public static SQLiteDataManager getInstance() {
+    public static KadDataManager getInstance() {
         return dateManager;
     }
 
@@ -46,7 +45,7 @@ public class SQLiteDataManager {
         //App.getAppContext().deleteDatabase(DB);
 
         //App.getAppContextでアプリのコンテキストにアクセス
-//        mySQLiteOpenHelper = new MySQLiteOpenHelper(App.getAppContext());
+//        mySQLiteOpenHelper = new KadSQLiteOpenHelper(App.getAppContext());
         //読み込みモードで開く
 //        sqLiteDatabase = mySQLiteOpenHelper.getReadableDatabase();
 
@@ -142,43 +141,31 @@ public class SQLiteDataManager {
 //        "progress_frag text not null , " +
 //        "setting_frag text not null);";
 
-    //課題ID
-    int kadId;
-    //課題名
-    String kadName;
-    //課題内容
-    String kadContent;
-    //子ID
-    int childId;
-    //子の名前
-    String childName;
-    //取得ポイント
-    int point;
-    //開始日
-    int startDate;
-    //終了日
-    int endDate;
-    //進捗フラグ　達成１　未達成０　失敗２
-    int progressFrag;
-    //詳細設定フラグ
-    boolean settingFrag;
-    public void insertDataBase(int number){
+
+    public void insertDataBase(KadListItem kadListItem){
 
         sqLiteDatabase = mySQLiteOpenHelper.getWritableDatabase();
 
         sqLiteDatabase.execSQL("insert into " + TABLE_NAME +
-                " Values(" + String.valueOf(number) + ", " +
-                "'" + "test" + String.valueOf(number) + "Kname" + "', " +
-                "'" + "test" + String.valueOf(number) + "Kcontent" + "', " +
-                "'" + "1" + "', " +
-                "'" + "test" + String.valueOf(number) + "Cname" + "', " +
-                "'" + "20" + "', " +
-                "'" + "" + String.valueOf(19960202 + number) + "', " +
-                "'" + "" + String.valueOf(11111111 + number) + "" + "', " +
-                "'" + "" + String.valueOf(number) + "" + "', " +
-                "'" +  "" + String.valueOf(number) + ""+ "')");
+                " Values(" + String.valueOf(getDatabaseCount() + 1) + ", " +
+                "'"  + kadListItem.getKadName() + "', " +
+                "'"  + kadListItem.getKadContent()  + "', " +
+                "'" + kadListItem.getChildId() + "', " +
+                "'" + kadListItem.getChildName() + "', " +
+                "'" + kadListItem.getPoint() + "', " +
+                "'" + kadListItem.getStartDate() + "', " +
+                "'" + kadListItem.getEndDate() + "" + "', " +
+                "'" + kadListItem.getProgressFrag() + "', " +
+                "'" + kadListItem.isSettingFrag() + "')");
 
         sqLiteDatabase.close();
+    }
+
+    private int getDatabaseCount(){
+        sqLiteDatabase = mySQLiteOpenHelper.getReadableDatabase();
+        int recodeCount = (int) DatabaseUtils.queryNumEntries(sqLiteDatabase,TABLE_NAME);
+        Log.d("tesutesu","recodeCount:"+recodeCount);
+        return recodeCount;
     }
 
 }

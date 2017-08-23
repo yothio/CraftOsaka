@@ -11,7 +11,7 @@ import android.util.Log;
  * Created by yocchi on 2017/08/17.
  */
 
-public class MySQLiteOpenHelper extends SQLiteOpenHelper {
+public class KadSQLiteOpenHelper extends SQLiteOpenHelper {
 
     public static final String KAD_ID_COLUMN_NAME = "kad_id";
     public static final String KAD_NAME_COLUMN_NAME = "kad_name";
@@ -24,7 +24,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     public static final String PROGRESS_COLUMN_NAME = "progress_frag";
     public static final String SETTING_COLUMN_NAME = "setting_frag";
 
-    public static final String DB = "TestA.db";
+    public static final String DB = "Kad.db";
     static final int DB_VERSION = 3;
     public static final String TABLE_NAME = "KadTable";
     static final String CREATE_TABLE =
@@ -39,10 +39,10 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                     "end_date text not null , " +
                     "progress_frag text not null , " +
                     "setting_frag text not null);";
-    final static String TAG = "MySQLiteOpenHelper";
+    final static String TAG = "KadSQLiteOpenHelper";
     static final String DROP_TABLE = "drop table if exists " + TABLE_NAME;
 
-    public MySQLiteOpenHelper(Context context) {
+    public KadSQLiteOpenHelper(Context context) {
         super(context, DB, null, DB_VERSION);
 
 
