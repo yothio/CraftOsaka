@@ -1,7 +1,6 @@
 package craftosaka.syukupili.ui.fragment;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,12 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import craftosaka.syukupili.R;
@@ -99,22 +98,22 @@ public class KadListFragment extends BaseFragment {
                 (ViewGroup) getActivity().findViewById(R.id.dialog_layout));
 
         //開始日を設定するボタン
-        sBtn = layout.findViewById(R.id.textView3);
-        sBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("KadListFragment", "aaa");
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
-                datePickerDialog.show();
-                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
+//        sBtn = layout.findViewById(R.id.textView3);
+//        sBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d("KadListFragment", "aaa");
+//                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
+//                datePickerDialog.show();
+//                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
                         //year,month,dayの取得
-                        startTextView.setText("" + year);
-                    }
-                });
-            }
-        });
+//                        startTextView.setText("" + year);
+//                    }
+//                });
+//            }
+//        });
 
 
         preparationCreateKadDialogBox(layout);
@@ -151,22 +150,25 @@ public class KadListFragment extends BaseFragment {
         startTextView = layout.findViewById(R.id.start_date_edit_text);
 
         //開始日を設定するボタン
-//        sBtn = layout.findViewById(R.id.textView3);
-//        sBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d("KadListFragment", "aaa");
-//                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
-//                datePickerDialog.show();
-//                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-//                    @Override
-//                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
-                        //year,month,dayの取得
-//                        startTextView.setText("" + year);
-//                    }
-//                });
-//            }
-//        });
+        sBtn = layout.findViewById(R.id.textView3);
+        sBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("KadListFragment", "aaa");
+                //現在日付を取得表示する
+                Calendar calender = Calendar.getInstance();
+                String year = String.valueOf(calender.get(Calendar.YEAR));
+                String month = String.valueOf(calender.get(Calendar.MONTH));
+                if(month.length() == 1){
+                    month = "0"+month;
+                }
+                String date = String.valueOf(calender.get(Calendar.DATE));
+                if(date.length() == 1){
+                    date = "0"+date;
+                }
+                startTextView.setText(year + "/" + month + "/" + date);
+            }
+        });
 
         endTextView = layout.findViewById(R.id.end_date_edit_text);
 
@@ -176,15 +178,18 @@ public class KadListFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Log.d("KadListFragment", "aaa");
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
-                datePickerDialog.show();
-                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
-                        //year,month,dayの取得
-                        endTextView.setText("" + year);
-                    }
-                });
+                //現在日付を取得表示する
+                Calendar calender = Calendar.getInstance();
+                String year = String.valueOf(calender.get(Calendar.YEAR));
+                String month = String.valueOf(calender.get(Calendar.MONTH));
+                if(month.length() == 1){
+                    month = "0"+month;
+                }
+                String date = String.valueOf(calender.get(Calendar.DATE));
+                if(date.length() == 1){
+                    date = "0"+date;
+                }
+                endTextView.setText(year + "/" + month + "/" + date);
             }
         });
 
