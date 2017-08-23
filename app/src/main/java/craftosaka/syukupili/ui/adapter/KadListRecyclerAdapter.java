@@ -46,6 +46,7 @@ public class KadListRecyclerAdapter extends RecyclerView.Adapter<KadListRecycler
     public int getItemCount() {
         return list.size();
     }
+
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         TextView childName, pointText, endDateText, kadName;
         public RecyclerViewHolder(View v) {
@@ -53,9 +54,7 @@ public class KadListRecyclerAdapter extends RecyclerView.Adapter<KadListRecycler
             childName = v.findViewById(R.id.child_name_text);
             pointText = v.findViewById(R.id.point_text);
             endDateText = v.findViewById(R.id.end_date_text);
-            kadName = v.findViewById(R.id.child_name_text);
-
-
+            kadName = v.findViewById(R.id.kad_name_text);
         }
     }
 }

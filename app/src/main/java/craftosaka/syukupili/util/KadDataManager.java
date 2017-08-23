@@ -1,6 +1,7 @@
 package craftosaka.syukupili.util;
 
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -141,23 +142,30 @@ public class KadDataManager {
 //        "setting_frag text not null);";
 
 
-    public void insertDataBase(KadListItem kadListItem,int number){
+    public void insertDataBase(KadListItem kadListItem){
 
         sqLiteDatabase = mySQLiteOpenHelper.getWritableDatabase();
 
         sqLiteDatabase.execSQL("insert into " + TABLE_NAME +
-                " Values(" + String.valueOf(number) + ", " +
-                "'" + "test" + String.valueOf(number) + "Kname" + "', " +
-                "'" + "test" + String.valueOf(number) + "Kcontent" + "', " +
-                "'" + "1" + "', " +
-                "'" + "test" + String.valueOf(number) + "Cname" + "', " +
-                "'" + "20" + "', " +
-                "'" + "" + String.valueOf(19960202 + number) + "', " +
-                "'" + "" + String.valueOf(11111111 + number) + "" + "', " +
-                "'" + "" + String.valueOf(number) + "" + "', " +
-                "'" +  "" + String.valueOf(number) + ""+ "')");
+                " Values(" + String.valueOf(getDatabaseCount() + 1) + ", " +
+                "'"  + kadListItem.getKadName() + "', " +
+                "'"  + kadListItem.getKadContent()  + "', " +
+                "'" + kadListItem.getChildId() + "', " +
+                "'" + kadListItem.getChildName() + "', " +
+                "'" + kadListItem.getPoint() + "', " +
+                "'" + kadListItem.getStartDate() + "', " +
+                "'" + kadListItem.getEndDate() + "" + "', " +
+                "'" + kadListItem.getProgressFrag() + "', " +
+                "'" + kadListItem.isSettingFrag() + "')");
 
         sqLiteDatabase.close();
+    }
+
+    private int getDatabaseCount(){
+        sqLiteDatabase = mySQLiteOpenHelper.getReadableDatabase();
+        int recodeCount = (int) DatabaseUtils.queryNumEntries(sqLiteDatabase,TABLE_NAME);
+        Log.d("tesutesu","recodeCount:"+recodeCount);
+        return recodeCount;
     }
 
 }
