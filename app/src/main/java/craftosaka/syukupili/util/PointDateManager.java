@@ -6,9 +6,7 @@ import android.util.Log;
 
 import java.util.List;
 
-import craftosaka.syukupili.model.KadListItem;
 import craftosaka.syukupili.model.PointListItem;
-import craftosaka.syukupili.util.sql.KadSQLiteOpenHelper;
 import craftosaka.syukupili.util.sql.PointSQLiteOpenHelper;
 
 import static craftosaka.syukupili.util.sql.PointSQLiteOpenHelper.ITEM_NAME_COLUMN_NAME;
