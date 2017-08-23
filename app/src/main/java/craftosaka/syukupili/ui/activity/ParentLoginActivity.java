@@ -1,5 +1,6 @@
 package craftosaka.syukupili.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -8,6 +9,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.util.account.Account;
+import craftosaka.syukupili.util.account.CreateParentAccount;
 
 /**
  * Created by Fukkun on 2017/08/17.
@@ -28,9 +30,7 @@ public class ParentLoginActivity extends BaseActivity {
 
     //ログインボタンクリック
     public void loginButton_click(View view) {
-        String name = "";
         String pass = "";
-        name = findViewById(R.id.nametext).toString();
         MaterialEditText passtext = (MaterialEditText) findViewById(R.id.pass_text);
         pass = passtext.getText().toString();
         //ログイン
@@ -43,5 +43,16 @@ public class ParentLoginActivity extends BaseActivity {
                     .show();
             return;
         }
+        new AlertDialog.Builder(this)
+                .setTitle("")
+                .setMessage("ログインに成功しました")
+                .setPositiveButton("OK", null)
+                .show();
+    }
+
+    public void create_acount_Button_Click(View view){
+        Intent intent = new Intent(getApplicationContext(),CreateParentAccount.class);
+        startActivity(intent);
+
     }
 }

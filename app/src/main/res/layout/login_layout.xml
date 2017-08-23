@@ -7,22 +7,20 @@
 
 
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="@string/logintitle"
         android:textAlignment="center"
         android:padding="10dp"
-        app:layout_constraintBottom_toTopOf="@id/pass_text"
+        app:layout_constraintBottom_toTopOf="@+id/pass_text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/syukupii"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="0dp" />
+        android:src="@drawable/syukupii" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/nametext"
-
+        android:ems="10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -41,6 +39,7 @@
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/pass_text"
+        android:ems="10"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -56,7 +55,7 @@
         app:met_floatingLabelTextColor="@color/colorPrimaryDark"
         app:met_minCharacters="3" />
 
-    <Button
+    <com.beardedhen.androidbootstrap.BootstrapButton
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,6 +65,24 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/pass_text"
-        app:layout_constraintVertical_bias="0.32" />
+        app:layout_constraintVertical_bias="0.32"
+        app:bootstrapBrand="success"
+        app:bootstrapSize="xl"
+        />
+
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/create_acount_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="create_Acount_Button_Click"
+        android:text="アカウント作成"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/login_button"
+        app:layout_constraintVertical_bias="0.6"
+        app:bootstrapBrand="regular"
+        app:bootstrapSize="xl"
+        />
 
 </android.support.constraint.ConstraintLayout>

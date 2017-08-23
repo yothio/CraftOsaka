@@ -19,6 +19,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.MenuActivity"/>
+
+        <activity android:name=".ui.activity.LoginActivity"/>
+        <activity android:name=".ui.activity.ParentLoginActivity"/>
+        <activity android:name=".util.account.CreateAccount"/>
+        <activity android:name=".util.account.CreateParentAccount"/>
+
     </application>
 
 </manifest>

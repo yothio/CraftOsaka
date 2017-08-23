@@ -9,7 +9,6 @@ import android.widget.Button;
 
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.util.KadDataManager;
-import craftosaka.syukupili.util.PointDateManager;
 
 public class StartActivity extends BaseActivity {
 
@@ -31,10 +30,10 @@ public class StartActivity extends BaseActivity {
         childBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PointDateManager.getInstance().deleteDataBase();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                KadDataManager.getInstance().deleteDataBase();
                 Log.d("StartActivity", "ok");
-//                PointDateManager.getInstance().deleteDataBaseFile();
-
             }
         });
     }
