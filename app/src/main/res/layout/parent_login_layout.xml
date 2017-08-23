@@ -7,10 +7,11 @@
     android:layout_height="match_parent">
 
 
-    <com.rengwuxian.materialedittext.MaterialEditText
+    <ImageView
+        android:src="@drawable/syukupii"
+        android:padding="10dp"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:text="しゅくぴい\nほごしゃログイン"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@id/pass_text"
         app:layout_constraintLeft_toLeftOf="parent"
