@@ -15,7 +15,7 @@ public class PointItemCreateDialog extends BaseDialogFragment {
 
     private MyCallback callback = null;
     String str = "title";
-    int point = 0;
+    Integer point = 0;
     private EditText itemNameEditText, itemPointEditText;
 
     @Override
