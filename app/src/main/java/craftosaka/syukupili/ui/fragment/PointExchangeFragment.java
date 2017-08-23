@@ -36,6 +36,9 @@ public class PointExchangeFragment extends BaseFragment {
         return v;
     }
 
+    /**
+     * PointExchangeFragment専用のスワイプ処理を設定します。
+     */
     @Override
     public void setOnFling(){
         ((MenuActivity)getActivity()).setMethod_onFling(new MenuActivity.OriginalSimpleOnGestureListener(){
@@ -65,6 +68,9 @@ public class PointExchangeFragment extends BaseFragment {
      * 各フラグメント毎に設定を行う。
      */
     public void setFunction() {
+        //スワイプ処理の設定
+        super.setOnFling(); //デフォルトの設定
+//        setOnFling(); //PointExchangeFragment独自の処理を行う場合こっちを使う
         //KeyDownイベント処理を設定
         super.setOnKeyDown();
 

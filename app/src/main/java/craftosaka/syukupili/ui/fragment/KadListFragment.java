@@ -99,22 +99,22 @@ public class KadListFragment extends BaseFragment {
                 (ViewGroup) getActivity().findViewById(R.id.dialog_layout));
 
         //開始日を設定するボタン
-//        sBtn = layout.findViewById(R.id.textView3);
-//        sBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d("KadListFragment", "aaa");
-//                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
-//                datePickerDialog.show();
-//                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-//                    @Override
-//                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
+        sBtn = layout.findViewById(R.id.textView3);
+        sBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("KadListFragment", "aaa");
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
+                datePickerDialog.show();
+                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
                         //year,month,dayの取得
-//                        tv.setText("" + year);
-//                    }
-//                });
-//            }
-//        });
+                        startTextView.setText("" + year);
+                    }
+                });
+            }
+        });
 
 
         preparationCreateKadDialogBox(layout);
@@ -151,22 +151,22 @@ public class KadListFragment extends BaseFragment {
         startTextView = layout.findViewById(R.id.start_date_edit_text);
 
         //開始日を設定するボタン
-        sBtn = layout.findViewById(R.id.textView3);
-        sBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("KadListFragment", "aaa");
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
-                datePickerDialog.show();
-                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
+//        sBtn = layout.findViewById(R.id.textView3);
+//        sBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d("KadListFragment", "aaa");
+//                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
+//                datePickerDialog.show();
+//                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
                         //year,month,dayの取得
-                        startTextView.setText("" + year);
-                    }
-                });
-            }
-        });
+//                        startTextView.setText("" + year);
+//                    }
+//                });
+//            }
+//        });
 
         endTextView = layout.findViewById(R.id.end_date_edit_text);
 
@@ -219,11 +219,12 @@ public class KadListFragment extends BaseFragment {
         Log.d("KadListFragment",start + " " + end);
 
         //pointの取得
-        String grantPoint = grantPointEditText.getText().toString();
+        int grantPoint = Integer.parseInt(grantPointEditText.getText().toString());
         Log.d("KadListFragment",grantPoint + "pt");
 
         Log.d("KadListFragment", String.valueOf(list.size()));
         list.add(new KadListItem("" + list.size()));
+
         adapter.notifyDataSetChanged();
     }
 
@@ -246,6 +247,9 @@ public class KadListFragment extends BaseFragment {
      * 各フラグメント毎に設定を行う。
      */
     public void setFunction() {
+        //スワイプ処理の設定
+        super.setOnFling(); //デフォルトの設定
+//        setOnFling(); //KadListFragment独自の処理を行う場合こっちを使う
         //KeyDownイベント処理を設定
         super.setOnKeyDown();
     }
