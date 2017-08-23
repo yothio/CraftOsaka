@@ -1712,4 +1712,5 @@ public class CalenderFragment extends BaseFragment {
         f6_2 = (TextView)v.findViewById(R.id.f6_2);
         f7_2 = (TextView)v.findViewById(R.id.f7_2);
     }
+
 }
