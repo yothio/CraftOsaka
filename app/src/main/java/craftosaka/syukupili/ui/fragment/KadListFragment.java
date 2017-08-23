@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import craftosaka.syukupili.R;
+import craftosaka.syukupili.model.KadListItem;
 import craftosaka.syukupili.ui.adapter.KadListRecyclerAdapter;
-import model.KadListItem;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -223,7 +223,7 @@ public class KadListFragment extends BaseFragment {
         Log.d("KadListFragment",grantPoint + "pt");
 
         Log.d("KadListFragment", String.valueOf(list.size()));
-        list.add(new KadListItem("" + list.size()));
+        list.add(new KadListItem());
 
         adapter.notifyDataSetChanged();
     }
@@ -238,7 +238,7 @@ public class KadListFragment extends BaseFragment {
 
     public void loadList() {
         list = new ArrayList<>();
-        KadListItem kad = new KadListItem("test");
+        KadListItem kad = new KadListItem();
         list.add(kad);
     }
 
