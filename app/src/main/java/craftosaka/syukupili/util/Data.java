@@ -21,7 +21,10 @@ public class Data {
     public static  Data date = new Data();
 
     private Data(){
-        list = new ArrayList<>();
+        list = PrefUtil.getUserList();
+        if (list == null){
+            list = new ArrayList<>();
+        }
     }
 
     public static Data getInstance(){

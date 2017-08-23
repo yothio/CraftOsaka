@@ -82,4 +82,19 @@ public class Util {
         return false;
 
     }
+
+    public static User searchUser(int id){
+        List<User> list = PrefUtil.getUserList();
+
+        if (list.size() == 0) {
+            return null;
+        }
+
+        for (User user : list) {
+            if(user.getId() == id){
+                return user;
+            }
+        }
+        return null;
+    }
 }

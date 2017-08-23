@@ -37,6 +37,17 @@ public class PrefUtil {
         saveUserList(list);
     }
 
+    public static void updateUserItem(User user){
+        List<User> list = getUserList();
+
+        for (User u:list){
+            if(user.getId() == u.getId()){
+                u.setPoint(user.getPoint());
+            }
+        }
+        saveUserList(list);
+    }
+
     public static void saveUserList(List<User> list){
         save(list,KEY_USER_LIST,PREF_FILE);
     }
