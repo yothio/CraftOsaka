@@ -29,7 +29,7 @@ public class CreateAccount extends BaseActivity {
         MaterialEditText passtext2 = (MaterialEditText) findViewById(R.id.passtext2);
 
         //パスワードが正しく入力されているか
-        if (passtext.getText().toString().equals(passtext2.getText().toString())) {
+        if (!passtext.getText().toString().equals(passtext2.getText().toString())) {
 
             new AlertDialog.Builder(this)
                     .setTitle("")

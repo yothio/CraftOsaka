@@ -3,6 +3,7 @@ package craftosaka.syukupili.util.account;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,8 @@ public class Account {
 
 //アカウント作成しtrueを返す
         SharedPreferences.Editor editor = preferences.edit().putString(name, pass);
+        Log.d("SyukuName&Pass", name + " | " + pass);
+
         editor.commit();
         result = true;
         return result;
@@ -83,6 +86,7 @@ public class Account {
 //アカウント作成しtrueを返す　名前がないのでparentとして登録
         SharedPreferences.Editor editor = preferences.edit().putString("parent", pass);
 
+        Log.i("SyukuPass", pass);
         editor.commit();
 
         result = true;
@@ -92,13 +96,14 @@ public class Account {
     }
 
     //子供がログインする　ログインできたらtrue 引数に名前、パスワードを
-    Boolean login(String name, String pass) {
+   public Boolean login(String name, String pass) {
 
         Boolean result = false;
 
         //preferencesにpassがあり、あっていればログイン成功
         String userpass = preferences.getString(name, "sippai");
-
+        Log.i("SyukuName&Pass", name + " | " + pass);
+        Log.i("SyukuPrePass", userpass);
         if (pass.equals(userpass)) {
 
             //ログイン情報を保持
@@ -123,7 +128,7 @@ public class Account {
 
         //名前をキーとするため、名前を設定しない保護者はparentをキーとする
         String userpass = preferences.getString("parent", "sippai");
-
+        Log.i("SyukuPrePass", userpass);
         if (pass.equals(userpass)) {
             //ログイン情報を保持
             SharedPreferences.Editor editor = preferences.edit().putString("loginuser", "parent");
@@ -162,9 +167,9 @@ public class Account {
     }
 
     //ログインユーザーの名前を返す 無かったら空文字列を返す
-    public String loginuser(){
+    public String loginuser() {
 
-        String name = preferences.getString("loginuser","");
+        String name = preferences.getString("loginuser", "");
 
         return name;
     }
