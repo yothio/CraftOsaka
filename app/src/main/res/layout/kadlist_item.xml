@@ -78,7 +78,7 @@
                     android:layout_weight="1"
                     android:background="#FFFFFF"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/mimasita"
+                    android:src="@drawable/mimasita2"
                     android:textSize="40dp"/>
             </LinearLayout>
 

@@ -1,5 +1,6 @@
 package craftosaka.syukupili.util;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
@@ -168,4 +169,16 @@ public class KadDataManager {
         return recodeCount;
     }
 
+    public void updateKadDateProgress(KadListItem kadListItem) {
+        //読み込みモードで開く
+        sqLiteDatabase = mySQLiteOpenHelper.getReadableDatabase();
+
+        Log.d("KadListRecycle",kadListItem.getProgressFrag() + "");
+
+        ContentValues cv = new ContentValues();
+        cv.put(PROGRESS_COLUMN_NAME,kadListItem.getProgressFrag());
+
+        sqLiteDatabase.update(TABLE_NAME,cv,KAD_ID_COLUMN_NAME + " = " + kadListItem.getKadId(),null);
+
+    }
 }

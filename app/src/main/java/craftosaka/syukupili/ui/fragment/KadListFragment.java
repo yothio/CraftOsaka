@@ -50,11 +50,11 @@ public class KadListFragment extends BaseFragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        loadList();
-    }
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        loadList();
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class KadListFragment extends BaseFragment {
         //fragmentでのsetContentview
         View v = inflater.inflate(R.layout.fragment_kadlist_fragment, container, false);
         //データをリストに入れる
-//        loadList();
+        loadList();
         //レイアウトと結びつけ
         recyclerView = v.findViewById(R.id.kadlist_recyclerview);
         fab = v.findViewById(R.id.floating_action_button);
