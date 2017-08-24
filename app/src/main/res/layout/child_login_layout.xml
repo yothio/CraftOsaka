@@ -44,7 +44,7 @@
             android:layout_gravity="center"
             android:ems="10"
             android:hint="なまえ"
-            android:inputType="text"
+            android:inputType="textNoSuggestions"
             android:textSize="20dp"
             app:counterEnabled="true"
             app:counterTextAppearance="@style/counterText"

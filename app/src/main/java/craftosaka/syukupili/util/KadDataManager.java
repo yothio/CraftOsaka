@@ -147,13 +147,12 @@ public class KadDataManager {
 //        "progress_frag text not null , " +
 //        "setting_frag text not null);";
 
-
     public void insertDataBase(KadListItem kadListItem){
 
         sqLiteDatabase = mySQLiteOpenHelper.getWritableDatabase();
 
         sqLiteDatabase.execSQL("insert into " + TABLE_NAME +
-                " Values(" + String.valueOf(getDatabaseCount() + 1) + ", " +
+                " Values(" + String.valueOf(getDatabaseCount()) + ", " +
                 "'"  + kadListItem.getKadName() + "', " +
                 "'"  + kadListItem.getKadContent()  + "', " +
                 "'" + kadListItem.getChildId() + "', " +
@@ -185,6 +184,7 @@ public class KadDataManager {
 
         sqLiteDatabase.update(TABLE_NAME,cv,KAD_ID_COLUMN_NAME + " = " + kadListItem.getKadId(),null);
 
+        sqLiteDatabase.close();
     }
 
 

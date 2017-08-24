@@ -58,8 +58,6 @@ public class ParentLoginActivity extends BaseActivity {
     }
 
     public void create_acount_Button_Click(View view) {
-//        Intent intent = new Intent(getApplicationContext(), CreateParentAccount.class);
-//        startActivity(intent);
 
         CreateParentAccountDialog dialog = new CreateParentAccountDialog();
         dialog.show(getSupportFragmentManager(), "");
@@ -71,14 +69,11 @@ public class ParentLoginActivity extends BaseActivity {
                     Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                     Data.getInstance().parentFrag = true;
                     intent.putExtra("fromLogin",true);
-
                     startActivity(intent);
                 }
             }
-
             @Override
             public void negative() {
-
             }
         });
     }

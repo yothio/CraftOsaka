@@ -10,6 +10,8 @@ import android.widget.Button;
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.model.User;
 import craftosaka.syukupili.util.Data;
+import craftosaka.syukupili.util.KadDataManager;
+import craftosaka.syukupili.util.PointDateManager;
 import craftosaka.syukupili.util.PrefUtil;
 
 public class StartActivity extends BaseActivity {
@@ -33,39 +35,12 @@ public class StartActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
 
-                for(User user: PrefUtil.getUserList()){
+                for (User user : PrefUtil.getUserList()) {
                     Log.d("User", "名前" + user.getName() + "パスワード" + user.getPassword() + "ポイント" + user.getPoint());
                 }
 
-//                CreateChildAccountDialog dialog = new CreateChildAccountDialog();
-//                dialog.setCallback(new CreateChildAccountDialog.MyCallback() {
-//                    @Override
-//                    public void positive(Boolean bool, String name, String pass) {
-//                        if (bool) {
-//                            Log.d("StartActivity", "アカウント作成成功");
-//                            User user = new User();
-//                            user.setId(PrefUtil.getUserList().size());
-//                            user.setName(name);
-//                            user.setPassword(pass);
-//                            user.setPoint(0);
-//                            PrefUtil.saveUserItem(user);
-//                        } else {
-//                            Log.d("StartActivity", "アカウント作成失敗");
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void negative() {
-//
-//                    }
-//                });
-//                dialog.show(getSupportFragmentManager(), "test");
-
-
                 Intent intent = new Intent(getApplicationContext(), ChildLoginActivity.class);
                 startActivity(intent);
-
-
 
             }
         });

@@ -264,7 +264,7 @@
                 android:layout_weight="1"
                 android:gravity="bottom|right"
                 android:maxLength="2"
-                android:text="21"
+                android:text="0"
                 android:textColor="@color/gray"/>
 
             <TextView

@@ -48,7 +48,7 @@ public class CreateChildAccountDialog extends BaseDialogFragment {
         } else if (!Util.checkEditTextLength(passEdit)) {
             bool = false;
         } else {
-            PrefUtil.setParent(passEdit.getText().toString());
+//            PrefUtil.setParent(passEdit.getText().toString());
             callback.positive(bool, nameEdit.getText().toString(), passEdit.getText().toString());
         }
         return bool;

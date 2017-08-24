@@ -35,10 +35,7 @@ public class ChildLoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.child_login_layout);
         frameLayout = (FrameLayout) findViewById(R.id.focus_view);
-
         loginBtn = (BootstrapButton) findViewById(R.id.login_button);
-
-
         nameText = (EditText) findViewById(R.id.name_text);
         passText = (EditText) findViewById(R.id.pass_text);
 
@@ -54,17 +51,13 @@ public class ChildLoginActivity extends BaseActivity {
                     Data.getInstance().setNowUser(user);
                     Data.getInstance().parentFrag = false;
                     intent.putExtra("fromLogin", true);
-
                     startActivity(intent);
                 } else {
                     passText.setError("パスワードが間違っています");
                 }
             }
         });
-
     }
-
-
     //view以外をタップした時
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -73,5 +66,4 @@ public class ChildLoginActivity extends BaseActivity {
         frameLayout.requestFocus();
         return super.onTouchEvent(event);
     }
-
 }
