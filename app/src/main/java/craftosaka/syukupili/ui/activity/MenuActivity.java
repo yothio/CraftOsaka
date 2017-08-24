@@ -80,7 +80,7 @@ public class MenuActivity extends AppCompatActivity {
                         pointExchangeFragment.setFunction();
                         break;
                     case 3:
-                        Toast.makeText(MenuActivity.this, "Data.getInstance().getNowUser().getPoint():" + Data.getInstance().getNowUser().getPoint(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MenuActivity.this, "Data.getIstance().getNowUser().getPoint():" + Data.getInstance().getNowUser().getPoint(), Toast.LENGTH_SHORT).show();
                         settingFragment.setFunction();
                         break;
                 }
