@@ -92,6 +92,9 @@ public class PrefUtil {
         String value = data.getString(KEY_USER_LIST, "");
 
         List<User> list =  new Gson().fromJson(value, new TypeToken<List<User>>(){}.getType());
+        if(list == null){
+            list = new ArrayList<>();
+        }
 
         return list;
     }

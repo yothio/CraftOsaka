@@ -13,11 +13,10 @@ import craftosaka.syukupili.model.User;
 
 public class Data {
 
-
     List<User> list;
+    User nowUser;
 
     public boolean parentFrag;
-
     public static  Data date = new Data();
 
     private Data(){
@@ -31,7 +30,11 @@ public class Data {
         return date;
     }
 
+    public void setNowUser(User user){
+        nowUser = user;
+    }
 
-
-
+    public User getNowUser() {
+        return nowUser;
+    }
 }

@@ -12,6 +12,8 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import craftosaka.syukupili.R;
+import craftosaka.syukupili.model.User;
+import craftosaka.syukupili.util.Data;
 import craftosaka.syukupili.util.Util;
 import craftosaka.syukupili.util.account.Account;
 
@@ -47,8 +49,10 @@ public class ChildLoginActivity extends BaseActivity {
                 name = nameText.getText().toString();
                 pass = passText.getText().toString();
                 //ログイン
-                if (Util.existAccount(name, pass)) {
+                User user = Util.existAccount(name, pass);
+                if (user != null) {
                     Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                    Data.getInstance().setNowUser(user);
                     startActivity(intent);
                 } else {
                     passText.setError("パスワードが間違っています");

@@ -10,6 +10,7 @@ import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,8 @@ import craftosaka.syukupili.ui.fragment.CalenderFragment;
 import craftosaka.syukupili.ui.fragment.KadListFragment;
 import craftosaka.syukupili.ui.fragment.PointExchangeFragment;
 import craftosaka.syukupili.ui.fragment.SettingFragment;
+import craftosaka.syukupili.util.Data;
+import craftosaka.syukupili.util.Util;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
 /**
@@ -77,6 +80,7 @@ public class MenuActivity extends AppCompatActivity {
                         pointExchangeFragment.setFunction();
                         break;
                     case 3:
+                        Toast.makeText(MenuActivity.this, "Data.getInstance().getNowUser().getPoint():" + Data.getInstance().getNowUser().getPoint(), Toast.LENGTH_SHORT).show();
                         settingFragment.setFunction();
                         break;
                 }

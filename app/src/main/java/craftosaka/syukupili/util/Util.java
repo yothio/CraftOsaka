@@ -66,30 +66,28 @@ public class Util {
     }
 
     //  存在するならtrue、存在しないならfalse
-    public static boolean existAccount(String name, String pass) {
-        List<User> list = PrefUtil.getUserList();
-
-        if (list.size() == 0) {
-            return false;
-        }
-
-        for (User user : list) {
-
-            if (user.getName().equals(name) && user.getPassword().equals(pass)) {
-                return true;
-            }
-        }
-        return false;
-
-    }
-
-    public static User searchUser(int id){
+    public static User existAccount(String name, String pass) {
         List<User> list = PrefUtil.getUserList();
 
         if (list.size() == 0) {
             return null;
         }
 
+        for (User user : list) {
+
+            if (user.getName().equals(name) && user.getPassword().equals(pass)) {
+                return user;
+            }
+        }
+        return null;
+
+    }
+
+    public static User searchUser(int id){
+        List<User> list = PrefUtil.getUserList();
+        if (list.size() == 0) {
+            return null;
+        }
         for (User user : list) {
             if(user.getId() == id){
                 return user;
