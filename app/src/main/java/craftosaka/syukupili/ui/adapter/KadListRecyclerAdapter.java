@@ -95,7 +95,8 @@ public class KadListRecyclerAdapter extends RecyclerView.Adapter<KadListRecycler
             imageButton = v.findViewById(R.id.kad_check_image_button);
             //ログインユーザが親でなければ非表示
             if(Data.getInstance().getNowUser() != null){
-                imageButton.setVisibility(v.INVISIBLE);
+                imageButton.setVisibility(v.GONE);
+                imageButton.setEnabled(false);
             }
         }
     }
