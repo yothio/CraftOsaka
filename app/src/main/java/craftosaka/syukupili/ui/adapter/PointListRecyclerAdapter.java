@@ -7,11 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.model.PointListItem;
+import craftosaka.syukupili.util.App;
 
 /**
  * Created by yocchi on 2017/08/16.
@@ -35,10 +37,16 @@ public class PointListRecyclerAdapter extends RecyclerView.Adapter<PointListRecy
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
         Log.d("PointListRecyclerAdapte", String.valueOf(position));
         holder.pointName.setText(list.get(position).getPointItemName());
         holder.consumePoint.setText(list.get(position).getPoint());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(App.getAppContext(), list.get(position).getPointItemName(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

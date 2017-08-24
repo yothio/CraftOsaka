@@ -59,12 +59,11 @@ public class PointExchangeFragment extends BaseFragment {
         View v = inflater.inflate(R.layout.fragment_point_layout, container, false);
 
 
-
         //レイアウトと結びつけ
         recyclerView = v.findViewById(R.id.point_list_recyclerview);
         fab = v.findViewById(R.id.floating_action_button_fab);
 //子供には景品追加のボタンは見せない
-        if (!Data.getInstance().childParentFrag) {
+        if (!Data.getInstance().parentFrag) {
             fab.setVisibility(View.INVISIBLE);
         }
         fab.setOnClickListener(new View.OnClickListener() {
@@ -72,11 +71,11 @@ public class PointExchangeFragment extends BaseFragment {
             public void onClick(View view) {
                 Log.d("KadListFragment", String.valueOf(list.size()));
                 PointItemCreateDialog dialog = new PointItemCreateDialog();
-                dialog.show(getFragmentManager(),"");
+                dialog.show(getFragmentManager(), "");
                 dialog.setCallback(new PointItemCreateDialog.MyCallback() {
                     @Override
-                    public void positive(String itemName, int point,Boolean bool) {
-                        if(bool) {
+                    public void positive(String itemName, int point, Boolean bool) {
+                        if (bool) {
                             PointListItem pointItem = new PointListItem();
                             pointItem.setPointItemName(itemName);
                             pointItem.setPoint(String.valueOf(point));
@@ -94,12 +93,6 @@ public class PointExchangeFragment extends BaseFragment {
                     }
                 });
 
-
-
-//                //データベースに課題を追加　テスト　引数int　本番 KadListItem
-//                KadDataManager.getInstance().insertDataBase(i);
-//                //テスト段階のみ使用　：　本番は上で記述しているKadListItemをlistにaddするだけ
-//                KadDataManager.getInstance().updateKadDate(list);
             }
         });
 
@@ -111,7 +104,6 @@ public class PointExchangeFragment extends BaseFragment {
         recyclerView.setAdapter(adapter);
 
 
-
         return v;
     }
 
@@ -119,8 +111,8 @@ public class PointExchangeFragment extends BaseFragment {
      * PointExchangeFragment専用のスワイプ処理を設定します。
      */
     @Override
-    public void setOnFling(){
-        ((MenuActivity)getActivity()).setMethod_onFling(new MenuActivity.OriginalSimpleOnGestureListener(){
+    public void setOnFling() {
+        ((MenuActivity) getActivity()).setMethod_onFling(new MenuActivity.OriginalSimpleOnGestureListener() {
             public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
                 try {
                     if (Math.abs(event1.getY() - event2.getY()) > SWIPE_MAX_OFF_PATH) {
@@ -128,13 +120,13 @@ public class PointExchangeFragment extends BaseFragment {
                     }
                     if (event1.getX() - event2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
                         //左スワイプ
-                        Toast.makeText(getContext(),"左スワイプ",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "左スワイプ", Toast.LENGTH_SHORT).show();
                     } else if (event2.getX() - event1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
                         //右スワイプ
-                        Toast.makeText(getContext(),"右スワイプ",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "右スワイプ", Toast.LENGTH_SHORT).show();
 
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
 //                    nothing
                 }
                 return false;

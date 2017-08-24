@@ -2,14 +2,15 @@ package craftosaka.syukupili.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.view.MotionEvent;
 import android.view.View;
-
-import com.rengwuxian.materialedittext.MaterialEditText;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 
 import craftosaka.syukupili.R;
+import craftosaka.syukupili.ui.fragment.CreateParentAccountDialog;
+import craftosaka.syukupili.util.PrefUtil;
 import craftosaka.syukupili.util.account.Account;
-import craftosaka.syukupili.util.account.CreateParentAccount;
 
 /**
  * Created by Fukkun on 2017/08/17.
@@ -19,40 +20,59 @@ import craftosaka.syukupili.util.account.CreateParentAccount;
 //親のログイン画面
 public class ParentLoginActivity extends BaseActivity {
 
-    Account account;
+    FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parent_login_layout);
-        account = new Account(this);
+        frameLayout = (FrameLayout) findViewById(R.id.focus_view);
     }
 
     //ログインボタンクリック
     public void loginButton_click(View view) {
         String pass = "";
-        MaterialEditText passtext = (MaterialEditText) findViewById(R.id.pass_text);
-        pass = passtext.getText().toString();
+        EditText passText = (EditText) findViewById(R.id.pass_text);
+
+        pass = passText.getText().toString();
         //ログイン
-        if (!account.login(pass)) {
-            //ログインに失敗
-            new AlertDialog.Builder(this)
-                    .setTitle("")
-                    .setMessage("ログインに失敗しました")
-                    .setPositiveButton("OK", null)
-                    .show();
-            return;
+        if (PrefUtil.getParentPass().equals(pass)) {
+            Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+            startActivity(intent);
+        } else {
+            passText.setError("パスワードが間違っています");
         }
-        new AlertDialog.Builder(this)
-                .setTitle("")
-                .setMessage("ログインに成功しました")
-                .setPositiveButton("OK", null)
-                .show();
     }
 
-    public void create_acount_Button_Click(View view){
-        Intent intent = new Intent(getApplicationContext(),CreateParentAccount.class);
-        startActivity(intent);
+    //view以外をタップした時
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        //キーボードを隠してフォーカスを移す
+        hideKeyboard();
+        frameLayout.requestFocus();
+        return super.onTouchEvent(event);
+    }
 
+    public void create_acount_Button_Click(View view) {
+//        Intent intent = new Intent(getApplicationContext(), CreateParentAccount.class);
+//        startActivity(intent);
+
+        CreateParentAccountDialog dialog = new CreateParentAccountDialog();
+        dialog.show(getSupportFragmentManager(), "");
+        dialog.setCallback(new CreateParentAccountDialog.MyCallback() {
+            @Override
+            public void positive(Boolean bool) {
+
+                if (bool) {
+                    Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void negative() {
+
+            }
+        });
     }
 }

@@ -31,6 +31,8 @@ public class KadListItem {
     //進捗フラグ　達成１　未達成０　失敗２
     int progressFrag;
     //詳細設定フラグ
+    @Setter
+    @Getter
     boolean settingFrag;
 
 }

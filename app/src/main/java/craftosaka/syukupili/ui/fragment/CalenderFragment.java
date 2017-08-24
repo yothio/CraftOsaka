@@ -23,6 +23,7 @@ import java.util.Map;
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.model.KadListItem;
 import craftosaka.syukupili.ui.activity.MenuActivity;
+import craftosaka.syukupili.util.KadDataManager;
 
 import static android.R.drawable.ic_media_ff;
 import static android.R.drawable.ic_media_rew;
@@ -78,7 +79,8 @@ public class CalenderFragment extends BaseFragment {
     //予定タイトル検索タイプ
     private final int GET_TITLE_TYPE_SUBJECT = 0;
     private final int GET_TITLE_TYPE_PERSONAL = 1;
-    private List<KadListItem> kadListItems;
+    List<KadListItem> kadListItemList = new ArrayList<>();
+    private String childId = null;
 
     public CalenderFragment(){
         calendar = Calendar.getInstance();
@@ -150,6 +152,8 @@ public class CalenderFragment extends BaseFragment {
         setOnFling();
         //KeyDownイベント処理を設定
         super.setOnKeyDown();
+        //今月のカレンダーを表示
+        createCalendar(nowYear,nowMonth);
     }
 
     /**
@@ -179,8 +183,8 @@ public class CalenderFragment extends BaseFragment {
     }
 
     /**
-     * 選択した日付の予定の詳細を表示します。
-     * DBの検索機能必要。
+     * 選択した日付の背景色、前回選択した日付の背景色を変更します。
+     * 選択した日の予定一覧を表示する準備をします。
      * @param view
      */
     public void selectedDay(View view) {
@@ -199,20 +203,70 @@ public class CalenderFragment extends BaseFragment {
         //今回選択した日付をtvに退避させとく
         tv = newtv;
 
-        String getDayCS;
-        int getDay;
+        String getMonth = tv.getTag().toString();
+        if(getMonth.length() == 1){
+            getMonth = "0" + getMonth;
+        }
+        String getDay = tv.getText().toString();
+        if(getDay.length() == 1){
+            getDay = "0" + getDay;
+        }
+        String getDayCS = year + getMonth + getDay;
+        int getDate;
         try {
-            getDayCS = tv.getText().toString();
-            getDay = Integer.parseInt(getDayCS);
+            getDate = Integer.parseInt(getDayCS);
         } catch (Exception e) {
             Log.d("CalenderException", "selectedDay　Error");
             return;
         }
 
         //year,month,getDayを引数にしてその日の予定を検索。
+        if(kadListItemList.size() > 0){
+            kadListItemList.clear();
+        }
+        KadDataManager.getInstance().getKadData(kadListItemList,childId);
 
         //選択した日付の予定詳細表示欄で予定を表示する。
-        createScheduleList();
+        createScheduleList(getDate);
+    }
+
+
+    /**
+     *
+     * 選択した日の予定一覧を作成する。
+     * @param getDate
+     */
+    private void createScheduleList(int getDate) {
+        Log.d("CalenderFragment","createScheduleList/予定詳細を表示する");
+        if(list.size() > 0) {
+            list.clear();
+        }
+
+        if(list.size() == 0){
+            int endDate;
+            //検索の結果の表示する件数分ループを繰り返す
+            for(int i = 0;i < kadListItemList.size();i++) {
+                endDate = kadListItemList.get(i).getEndDate();
+                Log.d("createScheduleList", endDate +  " : " + getDate);
+                if(getDate == endDate) {
+                    Map<String, Object> data = new HashMap();
+                    data.put("title", kadListItemList.get(i).getKadName());
+                    data.put("detail", kadListItemList.get(i).getKadContent());
+                    list.add(data);
+                }
+            }
+        }
+
+        kadListItemList.clear();
+        // リストビューにアイテム追加用のアダプターを設定
+        adapter = new SimpleAdapter(
+                getActivity(),
+                list,
+                R.layout.item_schedule_list,
+                new String[]{"title", "detail"},
+                new int[]{R.id.title,R.id.detail});
+        listView.setAdapter(adapter);
+        ViewCompat.setNestedScrollingEnabled(listView, true);
     }
 
     /**
@@ -225,49 +279,52 @@ public class CalenderFragment extends BaseFragment {
      */
     private String getScheduleTitle(int month, int day, int scheduleType) {
 
-        String titleText = (month+1) + "/" + day;
+        String titleText = "";
+        String date = String.valueOf(year) + formatDate(month) + formatDate(day);
+        try {
+            int getDate = Integer.parseInt(date);
 
-        switch(scheduleType){
-            case GET_TITLE_TYPE_SUBJECT:
-                titleText = "subject";
-                break;
-            case GET_TITLE_TYPE_PERSONAL:
-                titleText = "personal";
-                break;
+            switch (scheduleType) {
+                case GET_TITLE_TYPE_SUBJECT:
+                    Log.d("getScheduleTitle",getDate + "の予定タイトル");
+                    for (int i = 0; i < kadListItemList.size(); i++) {
+                        int endDate = kadListItemList.get(i).getEndDate();
+                        Log.d("createScheduleList", endDate + " : " + getDate);
+                        if (getDate == endDate) {
+                            titleText = kadListItemList.get(i).getKadName();
+                            break;
+                        }
+                    }
+//                    titleText = "subject";
+                    break;
+                case GET_TITLE_TYPE_PERSONAL:
+//                    titleText = "personal";
+                    break;
+            }
+
+        }catch (Exception e){
+            return "";
         }
-
         return titleText;
     }
 
     /**
-     * selectedDay(View view)から引数(DB検索結果)を渡してもらって、
-     * 検索した日の予定一覧を作成する。
+     * DBの検索結果との比較を行うために、引数(月or日)を2桁(1桁の数字の場合先頭0で埋める)にして返します。
+     * @param num　月or日
+     * @return 2桁(1桁の数の場合先頭を0で埋めた)の月or日
      */
-    private void createScheduleList() {
-        Log.d("CalenderFragment","createScheduleList/予定詳細を表示する");
-        if(list.size() > 0) {
-            list.clear();
-        }
+    private String formatDate(int num) {
+        String string = "";
+        try {
+            string = String.valueOf(num);
+            if (string.length() == 1) {
+                string = "0" + string;
 
-        if(list.size() == 0){
-            //検索の結果の表示する件数分ループを繰り返す
-            for(int i = 0;i < 5;i++) {
-                Map<String, Object> data = new HashMap();
-                data.put("title", "今日の予定　タイトル");
-                data.put("detail", "詳細");
-                list.add(data);
             }
-        }
+        }catch (Exception e){
 
-        // リストビューにアイテム追加用のアダプターを設定
-        adapter = new SimpleAdapter(
-                getActivity(),
-                list,
-                R.layout.item_schedule_list,
-                new String[]{"title", "detail"},
-                new int[]{R.id.title,R.id.detail});
-        listView.setAdapter(adapter);
-        ViewCompat.setNestedScrollingEnabled(listView, true);
+        }
+        return string;
     }
 
     /**
@@ -317,7 +374,7 @@ public class CalenderFragment extends BaseFragment {
 
         Log.d("dayMax,prevMax,dayWeek", String.valueOf(dayMax) + " "+ prevMax + " " + dayWeek);
 
-        calendarView(dayMax,dayWeek,prevMax);
+        calendarView(dayMax,dayWeek,prevMax,this.month);
     }
 
     /**
@@ -326,17 +383,33 @@ public class CalenderFragment extends BaseFragment {
      * @param dayWeek　1日の曜日
      * @param prevMax　先月の最大日数
      */
-    private void calendarView(int dayMax, int dayWeek, int prevMax) {
+    private void calendarView(int dayMax, int dayWeek, int prevMax, int month) {
+        //DBからカレンダーを作成する月の予定を検索する
+        if(kadListItemList.size() > 0) {
+            kadListItemList.clear();
+        }
+        List<KadListItem> getKadList = new ArrayList<>();
+        KadDataManager.getInstance().getKadData(getKadList,childId);
+        int searchMinDate = Integer.parseInt("" + year + formatDate(month + 1) + formatDate(01));
+        int searchMaxDate = Integer.parseInt("" + year + formatDate(month + 1) + formatDate(dayMax));
+        for(int i= 0;i < getKadList.size();i++){
+            int getDate = getKadList.get(i).getEndDate();
+            Log.d("calenderView",searchMinDate + " : " + searchMaxDate + " : " + getDate);
+            if(getDate >= searchMinDate && getDate <= searchMaxDate){
+                kadListItemList.add(getKadList.get(i));
+            }
+        }
+
         //第１週目の表示から！
 
         //月の始まりが日曜日じゃなかったら,先月分の表示
         if(dayWeek != Calendar.SUNDAY){
-            createPrevDays(dayWeek,prevMax);
+            createPrevDays(dayWeek,prevMax,month);
         }
 
         //今月の日付、今月の日付を入れ終わって空きがあれば来月の日付を入れていく
         int day = 1;
-        create1stWeek(dayWeek,day);
+        create1stWeek(dayWeek,day,month+1);
 
     }
 
@@ -345,7 +418,7 @@ public class CalenderFragment extends BaseFragment {
      * @param dayWeek　当月の開始曜日
      * @param prevMax　先月の最大日数
      */
-    private void createPrevDays(int dayWeek, int prevMax) {
+    private void createPrevDays(int dayWeek, int prevMax, int month) {
         int i = 1;
         String setText = "";
 
@@ -354,8 +427,9 @@ public class CalenderFragment extends BaseFragment {
                 setText = String.valueOf(prevMax);
                 a6.setText(setText);
                 a6.setTextColor(getResources().getColor(R.color.darkgray,activity.getTheme()));
-                a6_1.setText(getScheduleTitle(month - 1,prevMax,GET_TITLE_TYPE_SUBJECT));
-                a6_2.setText(getScheduleTitle(month - 1, prevMax, GET_TITLE_TYPE_PERSONAL));
+                a6.setTag(month);
+                a6_1.setText(getScheduleTitle(month,prevMax,GET_TITLE_TYPE_SUBJECT));
+                a6_2.setText(getScheduleTitle(month, prevMax, GET_TITLE_TYPE_PERSONAL));
                 if(a6_1.getText() != "") {
                     a6_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                 }else{
@@ -371,8 +445,9 @@ public class CalenderFragment extends BaseFragment {
                 setText = String.valueOf(prevMax);
                 a5.setText(setText);
                 a5.setTextColor(getResources().getColor(R.color.darkgray,activity.getTheme()));
-                a5_1.setText(getScheduleTitle(month - 1, prevMax, GET_TITLE_TYPE_SUBJECT));
-                a5_2.setText(getScheduleTitle(month - 1, prevMax, GET_TITLE_TYPE_PERSONAL));
+                a5.setTag(month);
+                a5_1.setText(getScheduleTitle(month, prevMax, GET_TITLE_TYPE_SUBJECT));
+                a5_2.setText(getScheduleTitle(month, prevMax, GET_TITLE_TYPE_PERSONAL));
                 if(a5_1.getText() != "") {
                     a5_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                 }else{
@@ -389,8 +464,9 @@ public class CalenderFragment extends BaseFragment {
                 setText = String.valueOf(prevMax);
                 a4.setText(setText);
                 a4.setTextColor(getResources().getColor(R.color.darkgray,activity.getTheme()));
-                a4_1.setText(getScheduleTitle(month - 1, prevMax, GET_TITLE_TYPE_SUBJECT));
-                a4_2.setText(getScheduleTitle(month - 1, prevMax, GET_TITLE_TYPE_PERSONAL));
+                a4.setTag(month);
+                a4_1.setText(getScheduleTitle(month, prevMax, GET_TITLE_TYPE_SUBJECT));
+                a4_2.setText(getScheduleTitle(month, prevMax, GET_TITLE_TYPE_PERSONAL));
                 if(a4_1.getText() != "") {
                     a4_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                 }else{
@@ -407,8 +483,9 @@ public class CalenderFragment extends BaseFragment {
                 setText = String.valueOf(prevMax);
                 a3.setText(setText);
                 a3.setTextColor(getResources().getColor(R.color.darkgray,activity.getTheme()));
-                a3_1.setText(getScheduleTitle(month - 1, prevMax, GET_TITLE_TYPE_SUBJECT));
-                a3_2.setText(getScheduleTitle(month - 1, prevMax, GET_TITLE_TYPE_PERSONAL));
+                a3.setTag(month);
+                a3_1.setText(getScheduleTitle(month, prevMax, GET_TITLE_TYPE_SUBJECT));
+                a3_2.setText(getScheduleTitle(month, prevMax, GET_TITLE_TYPE_PERSONAL));
                 if(a3_1.getText() != "") {
                     a3_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                 }else{
@@ -425,8 +502,9 @@ public class CalenderFragment extends BaseFragment {
                 setText = String.valueOf(prevMax);
                 a2.setText(setText);
                 a2.setTextColor(getResources().getColor(R.color.darkgray,activity.getTheme()));
-                a2_1.setText(getScheduleTitle(month - 1, prevMax, GET_TITLE_TYPE_SUBJECT));
-                a2_2.setText(getScheduleTitle(month - 1, prevMax, GET_TITLE_TYPE_PERSONAL));
+                a2.setTag(month);
+                a2_1.setText(getScheduleTitle(month, prevMax, GET_TITLE_TYPE_SUBJECT));
+                a2_2.setText(getScheduleTitle(month, prevMax, GET_TITLE_TYPE_PERSONAL));
                 if(a2_1.getText() != "") {
                     a2_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                 }else{
@@ -443,8 +521,9 @@ public class CalenderFragment extends BaseFragment {
                 setText = String.valueOf(prevMax);
                 a1.setText(setText);
                 a1.setTextColor(getResources().getColor(R.color.lightpink,activity.getTheme()));
-                a1_1.setText(getScheduleTitle(month - 1, prevMax, GET_TITLE_TYPE_SUBJECT));
-                a1_2.setText(getScheduleTitle(month - 1, prevMax, GET_TITLE_TYPE_PERSONAL));
+                a1.setTag(month);
+                a1_1.setText(getScheduleTitle(month, prevMax, GET_TITLE_TYPE_SUBJECT));
+                a1_2.setText(getScheduleTitle(month, prevMax, GET_TITLE_TYPE_PERSONAL));
                 if(a1_1.getText() != "") {
                     a1_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                 }else{
@@ -463,13 +542,14 @@ public class CalenderFragment extends BaseFragment {
      * @param dayWeek　当月の開始曜日
      * @param day　日付。１週目なので貰うときは必ず１
      */
-    private void create1stWeek(int dayWeek, int day) {
+    private void create1stWeek(int dayWeek, int day, int month) {
         String setText = "";
 
         switch (dayWeek) {
             case Calendar.SUNDAY:
                 setText = String.valueOf(day);
                 a1.setText(setText);
+                a1.setTag(month);
                 a1.setTextColor(getResources().getColor(R.color.red, activity.getTheme()));
                 a1_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
                 a1_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -487,6 +567,7 @@ public class CalenderFragment extends BaseFragment {
             case Calendar.MONDAY:
                 setText = String.valueOf(day);
                 a2.setText(setText);
+                a2.setTag(month);
                 a2.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
                 a2_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
                 a2_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -504,6 +585,7 @@ public class CalenderFragment extends BaseFragment {
             case Calendar.TUESDAY:
                 setText = String.valueOf(day);
                 a3.setText(setText);
+                a3.setTag(month);
                 a3.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
                 a3_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
                 a3_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -521,6 +603,7 @@ public class CalenderFragment extends BaseFragment {
             case Calendar.WEDNESDAY:
                 setText = String.valueOf(day);
                 a4.setText(setText);
+                a4.setTag(month);
                 a4.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
                 a4_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
                 a4_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -538,6 +621,7 @@ public class CalenderFragment extends BaseFragment {
             case Calendar.THURSDAY:
                 setText = String.valueOf(day);
                 a5.setText(setText);
+                a5.setTag(month);
                 a5.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
                 a5_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
                 a5_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -555,6 +639,7 @@ public class CalenderFragment extends BaseFragment {
             case Calendar.FRIDAY:
                 setText = String.valueOf(day);
                 a6.setText(setText);
+                a6.setTag(month);
                 a6.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
                 a6_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
                 a6_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -572,6 +657,7 @@ public class CalenderFragment extends BaseFragment {
             case Calendar.SATURDAY:
                 setText = String.valueOf(day);
                 a7.setText(setText);
+                a7.setTag(month);
                 a7.setTextColor(getResources().getColor(R.color.blue, activity.getTheme()));
                 a7_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
                 a7_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -587,7 +673,7 @@ public class CalenderFragment extends BaseFragment {
                 }
                 day++;
         }
-        create2ndWeek(day);
+        create2ndWeek(day,month);
     }
 
 
@@ -596,12 +682,13 @@ public class CalenderFragment extends BaseFragment {
      * 第２週目を作成するー
      * @param day　１週目から引き継いだ日付
      */
-    private void create2ndWeek(int day) {
+    private void create2ndWeek(int day, int month) {
 
         String setText = "";
 
         setText = String.valueOf(day);
         b1.setText(setText);
+        b1.setTag(month);
         b1.setTextColor(getResources().getColor(R.color.red, activity.getTheme()));
         b1_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         b1_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -619,6 +706,7 @@ public class CalenderFragment extends BaseFragment {
 
         setText = String.valueOf(day);
         b2.setText(setText);
+        b2.setTag(month);
         b2_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         b2_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
         if(b2_1.getText() != "") {
@@ -635,6 +723,7 @@ public class CalenderFragment extends BaseFragment {
 
         setText = String.valueOf(day);
         b3.setText(setText);
+        b3.setTag(month);
         b3_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         b3_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
         if(b3_1.getText() != "") {
@@ -651,6 +740,7 @@ public class CalenderFragment extends BaseFragment {
 
         setText = String.valueOf(day);
         b4.setText(setText);
+        b4.setTag(month);
         b4_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         b4_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
         if(b4_1.getText() != "") {
@@ -667,6 +757,7 @@ public class CalenderFragment extends BaseFragment {
 
         setText = String.valueOf(day);
         b5.setText(setText);
+        b5.setTag(month);
         b5_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         b5_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
         if(b5_1.getText() != "") {
@@ -683,6 +774,7 @@ public class CalenderFragment extends BaseFragment {
 
         setText = String.valueOf(day);
         b6.setText(setText);
+        b6.setTag(month);
         b6_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         b6_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
         if(b6_1.getText() != "") {
@@ -699,6 +791,7 @@ public class CalenderFragment extends BaseFragment {
 
         setText = String.valueOf(day);
         b7.setText(setText);
+        b7.setTag(month);
         b7.setTextColor(getResources().getColor(R.color.blue, activity.getTheme()));
         b7_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         b7_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -714,18 +807,19 @@ public class CalenderFragment extends BaseFragment {
         }
         day++;
 
-        create3rdWeek(day);
+        create3rdWeek(day,month);
     }
 
     /**
      * 3週目
      * @param day　日付
      */
-    private void create3rdWeek(int day) {
+    private void create3rdWeek(int day,int month) {
         String setText = "";
 
         setText = String.valueOf(day);
         c1.setText(setText);
+        c1.setTag(month);
         c1.setTextColor(getResources().getColor(R.color.red, activity.getTheme()));
         c1_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         c1_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -743,6 +837,7 @@ public class CalenderFragment extends BaseFragment {
 
         setText = String.valueOf(day);
         c2.setText(setText);
+        c2.setTag(month);
         c2_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         c2_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
         if(c2_1.getText() != "") {
@@ -759,6 +854,7 @@ public class CalenderFragment extends BaseFragment {
 
         setText = String.valueOf(day);
         c3.setText(setText);
+        c3.setTag(month);
         c3_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         c3_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
         if(c3_1.getText() != "") {
@@ -775,6 +871,7 @@ public class CalenderFragment extends BaseFragment {
 
         setText = String.valueOf(day);
         c4.setText(setText);
+        c4.setTag(month);
         c4_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         c4_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
         if(c4_1.getText() != "") {
@@ -791,6 +888,7 @@ public class CalenderFragment extends BaseFragment {
 
         setText = String.valueOf(day);
         c5.setText(setText);
+        c5.setTag(month);
         c5_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         c5_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
         if(c5_1.getText() != "") {
@@ -807,6 +905,7 @@ public class CalenderFragment extends BaseFragment {
 
         setText = String.valueOf(day);
         c6.setText(setText);
+        c6.setTag(month);
         c6_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         c6_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
         if(c6_1.getText() != "") {
@@ -823,6 +922,7 @@ public class CalenderFragment extends BaseFragment {
 
         setText = String.valueOf(day);
         c7.setText(setText);
+        c7.setTag(month);
         c7.setTextColor(getResources().getColor(R.color.blue, activity.getTheme()));
         c7_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         c7_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -838,18 +938,19 @@ public class CalenderFragment extends BaseFragment {
         }
         day++;
 
-        create4thWeek(day);
+        create4thWeek(day,month);
     }
 
     /**
      * ４回目です
      * @param day
      */
-    private void create4thWeek(int day) {
+    private void create4thWeek(int day,int month) {
         String setText = "";
 
         setText = String.valueOf(day);
         d1.setText(setText);
+        d1.setTag(month);
         d1.setTextColor(getResources().getColor(R.color.red, activity.getTheme()));
         d1_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         d1_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -867,6 +968,7 @@ public class CalenderFragment extends BaseFragment {
 
         setText = String.valueOf(day);
         d2.setText(setText);
+        d2.setTag(month);
         d2_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         d2_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
         if(d2_1.getText() != "") {
@@ -883,6 +985,7 @@ public class CalenderFragment extends BaseFragment {
 
         setText = String.valueOf(day);
         d3.setText(setText);
+        d3.setTag(month);
         d3_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         d3_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
         if(d3_1.getText() != "") {
@@ -899,6 +1002,7 @@ public class CalenderFragment extends BaseFragment {
 
         setText = String.valueOf(day);
         d4.setText(setText);
+        d4.setTag(month);
         d4_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         d4_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
         if(d4_1.getText() != "") {
@@ -915,6 +1019,7 @@ public class CalenderFragment extends BaseFragment {
 
         setText = String.valueOf(day);
         d5.setText(setText);
+        d5.setTag(month);
         d5_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         d5_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
         if(d5_1.getText() != "") {
@@ -931,6 +1036,7 @@ public class CalenderFragment extends BaseFragment {
 
         setText = String.valueOf(day);
         d6.setText(setText);
+        d6.setTag(month);
         d6_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         d6_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
         if(d6_1.getText() != "") {
@@ -947,6 +1053,7 @@ public class CalenderFragment extends BaseFragment {
 
         setText = String.valueOf(day);
         d7.setText(setText);
+        d7.setTag(month);
         d7.setTextColor(getResources().getColor(R.color.blue, activity.getTheme()));
         d7_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         d7_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -962,22 +1069,23 @@ public class CalenderFragment extends BaseFragment {
         }
         day++;
 
-        create5thWeek(day);
+        create5thWeek(day,month);
     }
 
     /**
      * 5(以下略)
      * @param day
      */
-    private void create5thWeek(int day) {
+    private void create5thWeek(int day,int month) {
         String setText = "";
 
         if(day > dayMax){
-            createNextDays(Calendar.SUNDAY,5);
+            createNextDays(Calendar.SUNDAY,5,month + 1);
             return;
         }
         setText = String.valueOf(day);
         e1.setText(setText);
+        e1.setTag(month);
         e1.setTextColor(getResources().getColor(R.color.red, activity.getTheme()));
         e1_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         e1_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -994,11 +1102,12 @@ public class CalenderFragment extends BaseFragment {
         day++;
 
         if(day > dayMax){
-            createNextDays(Calendar.MONDAY,5);
+            createNextDays(Calendar.MONDAY,5,month + 1);
             return;
         }
         setText = String.valueOf(day);
         e2.setText(setText);
+        e2.setTag(month);
         e2.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
         e2_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         e2_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -1015,11 +1124,12 @@ public class CalenderFragment extends BaseFragment {
         day++;
 
         if(day > dayMax){
-            createNextDays(Calendar.TUESDAY,5);
+            createNextDays(Calendar.TUESDAY,5,month +1);
             return;
         }
         setText = String.valueOf(day);
         e3.setText(setText);
+        e3.setTag(month);
         e3.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
         e3_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         e3_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -1036,11 +1146,12 @@ public class CalenderFragment extends BaseFragment {
         day++;
 
         if(day > dayMax){
-            createNextDays(Calendar.WEDNESDAY,5);
+            createNextDays(Calendar.WEDNESDAY,5,month+1);
             return;
         }
         setText = String.valueOf(day);
         e4.setText(setText);
+        e4.setTag(month);
         e4.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
         e4_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         e4_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -1057,11 +1168,12 @@ public class CalenderFragment extends BaseFragment {
         day++;
 
         if(day > dayMax){
-            createNextDays(Calendar.THURSDAY,5);
+            createNextDays(Calendar.THURSDAY,5,month+1);
             return;
         }
         setText = String.valueOf(day);
         e5.setText(setText);
+        e5.setTag(month);
         e5.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
         e5_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         e5_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -1078,11 +1190,12 @@ public class CalenderFragment extends BaseFragment {
         day++;
 
         if(day > dayMax){
-            createNextDays(Calendar.FRIDAY,5);
+            createNextDays(Calendar.FRIDAY,5,month+1);
             return;
         }
         setText = String.valueOf(day);
         e6.setText(setText);
+        e6.setTag(month);
         e6.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
         e6_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         e6_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -1099,11 +1212,12 @@ public class CalenderFragment extends BaseFragment {
         day++;
 
         if(day > dayMax){
-            createNextDays(Calendar.SATURDAY,5);
+            createNextDays(Calendar.SATURDAY,5,month+1);
             return;
         }
         setText = String.valueOf(day);
         e7.setText(setText);
+        e7.setTag(month);
         e7.setTextColor(getResources().getColor(R.color.blue, activity.getTheme()));
         e7_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         e7_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -1119,22 +1233,23 @@ public class CalenderFragment extends BaseFragment {
         }
         day++;
 
-        create6thWeek(day);
+        create6thWeek(day,month);
     }
 
     /**
      * 6(ry
      * @param day
      */
-    private void create6thWeek(int day) {
+    private void create6thWeek(int day,int month) {
         String setText = "";
 
         if(day > dayMax){
-            createNextDays(Calendar.SUNDAY,6);
+            createNextDays(Calendar.SUNDAY,6,month+1);
             return;
         }
         setText = String.valueOf(day);
         f1.setText(setText);
+        f1.setTag(month);
         f1.setTextColor(getResources().getColor(R.color.red, activity.getTheme()));
         f1_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         f1_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -1151,11 +1266,12 @@ public class CalenderFragment extends BaseFragment {
         day++;
 
         if(day > dayMax){
-            createNextDays(Calendar.MONDAY,6);
+            createNextDays(Calendar.MONDAY,6,month+1);
             return;
         }
         setText = String.valueOf(day);
         f2.setText(setText);
+        f2.setTag(month);
         f2.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
         f2_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
         f2_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
@@ -1172,109 +1288,113 @@ public class CalenderFragment extends BaseFragment {
         day++;
 
         if(day > dayMax){
-            createNextDays(Calendar.TUESDAY,6);
-            return;
+            createNextDays(Calendar.TUESDAY,6,month+1);
         }
-        setText = String.valueOf(day);
-        f3.setText(setText);
-        f3.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
-        f3_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
-        f3_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
-        if(f3_1.getText() != "") {
-            f3_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
-        }else{
-            f3_1.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
-        }
-        if(f3_2.getText() != "") {
-            f3_2.setBackgroundColor(getResources().getColor(R.color.eventcolor, activity.getTheme()));
-        }else{
-            f3_2.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
-        }
-        day++;
-
-        if(day > dayMax){
-            createNextDays(Calendar.WEDNESDAY,6);
-            return;
-        }
-        setText = String.valueOf(day);
-        f4.setText(setText);
-        f4.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
-        f4_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
-        f4_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
-        if(f4_1.getText() != "") {
-            f4_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
-        }else{
-            f4_1.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
-        }
-        if(f4_2.getText() != "") {
-            f4_2.setBackgroundColor(getResources().getColor(R.color.eventcolor, activity.getTheme()));
-        }else{
-            f4_2.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
-        }
-        day++;
-
-        if(day > dayMax){
-            createNextDays(Calendar.THURSDAY,6);
-            return;
-        }
-        setText = String.valueOf(day);
-        f5.setText(setText);
-        f5.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
-        f5_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
-        f5_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
-        if(f5_1.getText() != "") {
-            f5_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
-        }else{
-            f5_1.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
-        }
-        if(f5_2.getText() != "") {
-            f5_2.setBackgroundColor(getResources().getColor(R.color.eventcolor, activity.getTheme()));
-        }else{
-            f5_2.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
-        }
-        day++;
-
-        if(day > dayMax){
-            createNextDays(Calendar.FRIDAY,6);
-            return;
-        }
-        setText = String.valueOf(day);
-        f6.setText(setText);
-        f6.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
-        f6_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
-        f6_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
-        if(f6_1.getText() != "") {
-            f6_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
-        }else{
-            f6_1.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
-        }
-        if(f6_2.getText() != "") {
-            f6_2.setBackgroundColor(getResources().getColor(R.color.eventcolor, activity.getTheme()));
-        }else{
-            f6_2.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
-        }
-        day++;
-
-        if(day > dayMax){
-            createNextDays(Calendar.SATURDAY,6);
-            return;
-        }
-        setText = String.valueOf(day);
-        f7.setText(setText);
-        f7.setTextColor(getResources().getColor(R.color.blue, activity.getTheme()));
-        f7_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
-        f7_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
-        if(f7_1.getText() != "") {
-            f7_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
-        }else{
-            f7_1.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
-        }
-        if(f7_2.getText() != "") {
-            f7_2.setBackgroundColor(getResources().getColor(R.color.eventcolor, activity.getTheme()));
-        }else{
-            f7_2.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
-        }
-        day++;
+//        setText = String.valueOf(day);
+//        f3.setText(setText);
+//        f3.setTag(month);
+//        f3.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
+//        f3_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+//        f3_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
+//        if(f3_1.getText() != "") {
+//            f3_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
+//        }else{
+//            f3_1.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
+//        }
+//        if(f3_2.getText() != "") {
+//            f3_2.setBackgroundColor(getResources().getColor(R.color.eventcolor, activity.getTheme()));
+//        }else{
+//            f3_2.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
+//        }
+//        day++;
+//
+//        if(day > dayMax){
+//            createNextDays(Calendar.WEDNESDAY,6,month+1);
+//            return;
+//        }
+//        setText = String.valueOf(day);
+//        f4.setText(setText);
+//        f4.setTag(month);
+//        f4.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
+//        f4_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+//        f4_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
+//        if(f4_1.getText() != "") {
+//            f4_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
+//        }else{
+//            f4_1.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
+//        }
+//        if(f4_2.getText() != "") {
+//            f4_2.setBackgroundColor(getResources().getColor(R.color.eventcolor, activity.getTheme()));
+//        }else{
+//            f4_2.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
+//        }
+//        day++;
+//
+//        if(day > dayMax){
+//            createNextDays(Calendar.THURSDAY,6,month+1);
+//            return;
+//        }
+//        setText = String.valueOf(day);
+//        f5.setText(setText);
+//        f5.setTag(month);
+//        f5.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
+//        f5_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+//        f5_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
+//        if(f5_1.getText() != "") {
+//            f5_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
+//        }else{
+//            f5_1.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
+//        }
+//        if(f5_2.getText() != "") {
+//            f5_2.setBackgroundColor(getResources().getColor(R.color.eventcolor, activity.getTheme()));
+//        }else{
+//            f5_2.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
+//        }
+//        day++;
+//
+//        if(day > dayMax){
+//            createNextDays(Calendar.FRIDAY,6,month+1);
+//            return;
+//        }
+//        setText = String.valueOf(day);
+//        f6.setText(setText);
+//        f6.setTag(month);
+//        f6.setTextColor(getResources().getColor(R.color.black,activity.getTheme()));
+//        f6_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+//        f6_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
+//        if(f6_1.getText() != "") {
+//            f6_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
+//        }else{
+//            f6_1.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
+//        }
+//        if(f6_2.getText() != "") {
+//            f6_2.setBackgroundColor(getResources().getColor(R.color.eventcolor, activity.getTheme()));
+//        }else{
+//            f6_2.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
+//        }
+//        day++;
+//
+//        if(day > dayMax){
+//            createNextDays(Calendar.SATURDAY,6,month+1);
+//            return;
+//        }
+//        setText = String.valueOf(day);
+//        f7.setText(setText);
+//        f7.setTag(month);
+//        f7.setTextColor(getResources().getColor(R.color.blue, activity.getTheme()));
+//        f7_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+//        f7_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
+//        if(f7_1.getText() != "") {
+//            f7_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
+//        }else{
+//            f7_1.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
+//        }
+//        if(f7_2.getText() != "") {
+//            f7_2.setBackgroundColor(getResources().getColor(R.color.eventcolor, activity.getTheme()));
+//        }else{
+//            f7_2.setBackgroundColor(getResources().getColor(R.color.white,activity.getTheme()));
+//        }
+//        day++;
     }
 
     /**
@@ -1282,7 +1402,7 @@ public class CalenderFragment extends BaseFragment {
      * @param dayOfTheWeek　来月の日付の開始曜日
      * @param i　スタートが５週目からか６週目からか
      */
-    private void createNextDays(int dayOfTheWeek, int i) {
+    private void createNextDays(int dayOfTheWeek, int i,int month) {
         String setText = "";
         int day = 1;
         switch (i){
@@ -1291,9 +1411,10 @@ public class CalenderFragment extends BaseFragment {
                     case Calendar.SUNDAY:
                         setText = String.valueOf(day);
                         e1.setText(setText);
+                        e1.setTag(month);
                         e1.setTextColor(getResources().getColor(R.color.lightpink,activity.getTheme()));
-                        e1_1.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_SUBJECT));
-                        e1_2.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_PERSONAL));
+                        e1_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+                        e1_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
                         if(e1_1.getText() != "") {
                             e1_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                         }else{
@@ -1309,9 +1430,10 @@ public class CalenderFragment extends BaseFragment {
                     case Calendar.MONDAY:
                         setText = String.valueOf(day);
                         e2.setText(setText);
+                        e2.setTag(month);
                         e2.setTextColor(getResources().getColor(R.color.darkgray,activity.getTheme()));
-                        e2_1.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_SUBJECT));
-                        e2_2.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_PERSONAL));
+                        e2_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+                        e2_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
                         if(e2_1.getText() != "") {
                             e2_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                         }else{
@@ -1327,9 +1449,10 @@ public class CalenderFragment extends BaseFragment {
                     case Calendar.TUESDAY:
                         setText = String.valueOf(day);
                         e3.setText(setText);
+                        e3.setTag(month);
                         e3.setTextColor(getResources().getColor(R.color.darkgray,activity.getTheme()));
-                        e3_1.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_SUBJECT));
-                        e3_2.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_PERSONAL));
+                        e3_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+                        e3_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
                         if(e3_1.getText() != "") {
                             e3_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                         }else{
@@ -1344,9 +1467,10 @@ public class CalenderFragment extends BaseFragment {
                     case Calendar.WEDNESDAY:
                         setText = String.valueOf(day);
                         e4.setText(setText);
+                        e4.setTag(month);
                         e4.setTextColor(getResources().getColor(R.color.darkgray,activity.getTheme()));
-                        e4_1.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_SUBJECT));
-                        e4_2.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_PERSONAL));
+                        e4_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+                        e4_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
                         if(e4_1.getText() != "") {
                             e4_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                         }else{
@@ -1361,9 +1485,10 @@ public class CalenderFragment extends BaseFragment {
                     case Calendar.THURSDAY:
                         setText = String.valueOf(day);
                         e5.setText(setText);
+                        e5.setTag(month);
                         e5.setTextColor(getResources().getColor(R.color.darkgray,activity.getTheme()));
-                        e5_1.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_SUBJECT));
-                        e5_2.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_PERSONAL));
+                        e5_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+                        e5_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
                         if(e5_1.getText() != "") {
                             e5_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                         }else{
@@ -1378,9 +1503,10 @@ public class CalenderFragment extends BaseFragment {
                     case Calendar.FRIDAY:
                         setText = String.valueOf(day);
                         e6.setText(setText);
+                        e6.setTag(month);
                         e6.setTextColor(getResources().getColor(R.color.darkgray,activity.getTheme()));
-                        e6_1.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_SUBJECT));
-                        e6_2.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_PERSONAL));
+                        e6_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+                        e6_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
                         if(e6_1.getText() != "") {
                             e6_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                         }else{
@@ -1396,9 +1522,10 @@ public class CalenderFragment extends BaseFragment {
                     case Calendar.SATURDAY:
                         setText = String.valueOf(day);
                         e7.setText(setText);
+                        e7.setTag(month);
                         e7.setTextColor(getResources().getColor(R.color.lightbluesky,activity.getTheme()));
-                        e7_1.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_SUBJECT));
-                        e7_2.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_PERSONAL));
+                        e7_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+                        e7_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
                         if(e7_1.getText() != "") {
                             e7_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                         }else{
@@ -1417,9 +1544,10 @@ public class CalenderFragment extends BaseFragment {
                     case Calendar.SUNDAY:
                         setText = String.valueOf(day);
                         f1.setText(setText);
+                        f1.setTag(month);
                         f1.setTextColor(getResources().getColor(R.color.lightpink,activity.getTheme()));
-                        f1_1.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_SUBJECT));
-                        f1_2.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_PERSONAL));
+                        f1_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+                        f1_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
                         if(f1_1.getText() != "") {
                             f1_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                         }else{
@@ -1435,9 +1563,10 @@ public class CalenderFragment extends BaseFragment {
                     case Calendar.MONDAY:
                         setText = String.valueOf(day);
                         f2.setText(setText);
+                        f2.setTag(month);
                         f2.setTextColor(getResources().getColor(R.color.darkgray,activity.getTheme()));
-                        f2_1.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_SUBJECT));
-                        f2_2.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_PERSONAL));
+                        f2_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+                        f2_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
                         if(f2_1.getText() != "") {
                             f2_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                         }else{
@@ -1453,9 +1582,10 @@ public class CalenderFragment extends BaseFragment {
                     case Calendar.TUESDAY:
                         setText = String.valueOf(day);
                         f3.setText(setText);
+                        f3.setTag(month);
                         f3.setTextColor(getResources().getColor(R.color.darkgray,activity.getTheme()));
-                        f3_1.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_SUBJECT));
-                        f3_2.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_PERSONAL));
+                        f3_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+                        f3_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
                         if(f3_1.getText() != "") {
                             f3_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                         }else{
@@ -1470,9 +1600,10 @@ public class CalenderFragment extends BaseFragment {
                     case Calendar.WEDNESDAY:
                         setText = String.valueOf(day);
                         f4.setText(setText);
+                        f4.setTag(month);
                         f4.setTextColor(getResources().getColor(R.color.darkgray,activity.getTheme()));
-                        f4_1.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_SUBJECT));
-                        f4_2.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_PERSONAL));
+                        f4_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+                        f4_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
                         if(f4_1.getText() != "") {
                             f4_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                         }else{
@@ -1487,9 +1618,10 @@ public class CalenderFragment extends BaseFragment {
                     case Calendar.THURSDAY:
                         setText = String.valueOf(day);
                         f5.setText(setText);
+                        f5.setTag(month);
                         f5.setTextColor(getResources().getColor(R.color.darkgray,activity.getTheme()));
-                        f5_1.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_SUBJECT));
-                        f5_2.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_PERSONAL));
+                        f5_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+                        f5_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
                         if(f5_1.getText() != "") {
                             f5_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                         }else{
@@ -1504,9 +1636,10 @@ public class CalenderFragment extends BaseFragment {
                     case Calendar.FRIDAY:
                         setText = String.valueOf(day);
                         f6.setText(setText);
+                        f6.setTag(month);
                         f6.setTextColor(getResources().getColor(R.color.darkgray,activity.getTheme()));
-                        f6_1.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_SUBJECT));
-                        f6_2.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_PERSONAL));
+                        f6_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+                        f6_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
                         if(f6_1.getText() != "") {
                             f6_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                         }else{
@@ -1522,9 +1655,10 @@ public class CalenderFragment extends BaseFragment {
                     case Calendar.SATURDAY:
                         setText = String.valueOf(day);
                         f7.setText(setText);
+                        f7.setTag(month);
                         f7.setTextColor(getResources().getColor(R.color.lightbluesky,activity.getTheme()));
-                        f7_1.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_SUBJECT));
-                        f7_2.setText(getScheduleTitle(month + 1, day, GET_TITLE_TYPE_PERSONAL));
+                        f7_1.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_SUBJECT));
+                        f7_2.setText(getScheduleTitle(month, day, GET_TITLE_TYPE_PERSONAL));
                         if(f7_1.getText() != "") {
                             f7_1.setBackgroundColor(getResources().getColor(R.color.studycolor, activity.getTheme()));
                         }else{

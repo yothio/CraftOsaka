@@ -1,6 +1,8 @@
 package craftosaka.syukupili.util;
 
+import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -94,12 +96,17 @@ public class KadDataManager {
     }
 
     //    データベースにアクセスして課題を取得
-    public List<KadListItem> getKadData(List<KadListItem> kadListItems) {
+    public List<KadListItem> getKadData(List<KadListItem> kadListItems,String childId) {
 
         //読み込みモードで開く
         sqLiteDatabase = mySQLiteOpenHelper.getReadableDatabase();
 
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        Cursor cursor;
+        if(childId == null || childId.equals("")) {
+            cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        }else{
+            cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + CHILD_ID_COLUMN_NAME + " = " + childId, null);
+        }
 
         //返す用の値を作成
 
@@ -141,23 +148,44 @@ public class KadDataManager {
 //        "setting_frag text not null);";
 
 
-    public void insertDataBase(int number){
+    public void insertDataBase(KadListItem kadListItem){
 
         sqLiteDatabase = mySQLiteOpenHelper.getWritableDatabase();
 
         sqLiteDatabase.execSQL("insert into " + TABLE_NAME +
-                " Values(" + String.valueOf(number) + ", " +
-                "'" + "test" + String.valueOf(number) + "Kname" + "', " +
-                "'" + "test" + String.valueOf(number) + "Kcontent" + "', " +
-                "'" + "1" + "', " +
-                "'" + "test" + String.valueOf(number) + "Cname" + "', " +
-                "'" + "20" + "', " +
-                "'" + "" + String.valueOf(19960202 + number) + "', " +
-                "'" + "" + String.valueOf(11111111 + number) + "" + "', " +
-                "'" + "" + String.valueOf(number) + "" + "', " +
-                "'" +  "" + String.valueOf(number) + ""+ "')");
+                " Values(" + String.valueOf(getDatabaseCount() + 1) + ", " +
+                "'"  + kadListItem.getKadName() + "', " +
+                "'"  + kadListItem.getKadContent()  + "', " +
+                "'" + kadListItem.getChildId() + "', " +
+                "'" + kadListItem.getChildName() + "', " +
+                "'" + kadListItem.getPoint() + "', " +
+                "'" + kadListItem.getStartDate() + "', " +
+                "'" + kadListItem.getEndDate() + "" + "', " +
+                "'" + kadListItem.getProgressFrag() + "', " +
+                "'" + kadListItem.isSettingFrag() + "')");
 
         sqLiteDatabase.close();
     }
+
+    private int getDatabaseCount(){
+        sqLiteDatabase = mySQLiteOpenHelper.getReadableDatabase();
+        int recodeCount = (int) DatabaseUtils.queryNumEntries(sqLiteDatabase,TABLE_NAME);
+        Log.d("tesutesu","recodeCount:"+recodeCount);
+        return recodeCount;
+    }
+
+    public void updateKadDateProgress(KadListItem kadListItem) {
+        //読み込みモードで開く
+        sqLiteDatabase = mySQLiteOpenHelper.getReadableDatabase();
+
+        Log.d("KadListRecycle",kadListItem.getProgressFrag() + "");
+
+        ContentValues cv = new ContentValues();
+        cv.put(PROGRESS_COLUMN_NAME,kadListItem.getProgressFrag());
+
+        sqLiteDatabase.update(TABLE_NAME,cv,KAD_ID_COLUMN_NAME + " = " + kadListItem.getKadId(),null);
+
+    }
+
 
 }

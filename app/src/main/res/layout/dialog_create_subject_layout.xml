@@ -8,7 +8,7 @@
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:orientation="vertical"
-    android:weightSum="5">
+    android:weightSum="4">
     <!--キーボード非表示？(フォーカスはずす)-->
     <FrameLayout
         android:id="@+id/focus_view"
@@ -30,19 +30,19 @@
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_weight="1"
             app:errorTextAppearance="@style/AppTheme.Design.TextAppearance.Design.Error"
             app:hintTextAppearance="@style/AppTheme.Design.TextAppearance.Design.Hint"
             app:theme="@style/AppTheme.Design.TextInputLayout">
 
             <EditText
+                android:gravity="bottom"
                 android:id="@+id/new_kad_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="10"
                 android:ems="10"
                 android:hint="課題名"
@@ -55,16 +55,16 @@
 
             android:id="@+id/input_layout_id"
             android:layout_width="match_parent"
-            android:layout_height="0dip"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_weight="1"
             app:errorTextAppearance="@style/AppTheme.Design.TextAppearance.Design.Error"
             app:hintTextAppearance="@style/AppTheme.Design.TextAppearance.Design.Hint"
             app:theme="@style/AppTheme.Design.TextInputLayout">
 
             <EditText
+                android:gravity="bottom"
                 android:id="@+id/new_kad_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -179,7 +179,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1.5"
-                android:text="開始日"/>
+                android:text="終了日"/>
 
             <EditText
                 android:id="@+id/end_date_edit_text"
