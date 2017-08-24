@@ -1,5 +1,6 @@
 package craftosaka.syukupili.util;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
@@ -95,12 +96,17 @@ public class KadDataManager {
     }
 
     //    データベースにアクセスして課題を取得
-    public List<KadListItem> getKadData(List<KadListItem> kadListItems) {
+    public List<KadListItem> getKadData(List<KadListItem> kadListItems,String childId) {
 
         //読み込みモードで開く
         sqLiteDatabase = mySQLiteOpenHelper.getReadableDatabase();
 
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        Cursor cursor;
+        if(childId == null || childId.equals("")) {
+            cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        }else{
+            cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + CHILD_ID_COLUMN_NAME + " = " + childId, null);
+        }
 
         //返す用の値を作成
 
@@ -167,5 +173,19 @@ public class KadDataManager {
         Log.d("tesutesu","recodeCount:"+recodeCount);
         return recodeCount;
     }
+
+    public void updateKadDateProgress(KadListItem kadListItem) {
+        //読み込みモードで開く
+        sqLiteDatabase = mySQLiteOpenHelper.getReadableDatabase();
+
+        Log.d("KadListRecycle",kadListItem.getProgressFrag() + "");
+
+        ContentValues cv = new ContentValues();
+        cv.put(PROGRESS_COLUMN_NAME,kadListItem.getProgressFrag());
+
+        sqLiteDatabase.update(TABLE_NAME,cv,KAD_ID_COLUMN_NAME + " = " + kadListItem.getKadId(),null);
+
+    }
+
 
 }

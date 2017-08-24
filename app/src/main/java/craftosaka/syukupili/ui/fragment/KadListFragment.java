@@ -1,7 +1,6 @@
 package craftosaka.syukupili.ui.fragment;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,18 +12,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.model.KadListItem;
+import craftosaka.syukupili.model.User;
 import craftosaka.syukupili.ui.adapter.KadListRecyclerAdapter;
-import craftosaka.syukupili.util.Data;
+import craftosaka.syukupili.util.KadDataManager;
+import craftosaka.syukupili.util.PrefUtil;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -45,26 +46,33 @@ public class KadListFragment extends BaseFragment {
     Spinner childrenSpinner;
     EditText grantPointEditText;
     Button sBtn, eBtn;
+    private String childId = null;
+    private List<User> childList = new ArrayList<>();
 
     public static KadListFragment newInstance() {
         KadListFragment fragment = new KadListFragment();
         return fragment;
     }
 
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        loadList();
+//    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         //fragmentでのsetContentview
         View v = inflater.inflate(R.layout.fragment_kadlist_fragment, container, false);
+        //ログインユーザを調べる
+
+
         //データをリストに入れる
         loadList();
         //レイアウトと結びつけ
         recyclerView = v.findViewById(R.id.kadlist_recyclerview);
         fab = v.findViewById(R.id.floating_action_button);
-//子供には課題追加のボタンは見せない
-        if (!Data.getInstance().parentFrag) {
-            fab.setVisibility(View.INVISIBLE);
-        }
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,22 +112,22 @@ public class KadListFragment extends BaseFragment {
                 (ViewGroup) getActivity().findViewById(R.id.dialog_layout));
 
         //開始日を設定するボタン
-        sBtn = layout.findViewById(R.id.textView3);
-        sBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("KadListFragment", "aaa");
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
-                datePickerDialog.show();
-                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
+//        sBtn = layout.findViewById(R.id.textView3);
+//        sBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d("KadListFragment", "aaa");
+//                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
+//                datePickerDialog.show();
+//                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
                         //year,month,dayの取得
-                        startTextView.setText("" + year);
-                    }
-                });
-            }
-        });
+//                        startTextView.setText("" + year);
+//                    }
+//                });
+//            }
+//        });
 
 
         preparationCreateKadDialogBox(layout);
@@ -157,22 +165,26 @@ public class KadListFragment extends BaseFragment {
         startTextView = layout.findViewById(R.id.start_date_edit_text);
 
         //開始日を設定するボタン
-//        sBtn = layout.findViewById(R.id.textView3);
-//        sBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d("KadListFragment", "aaa");
-//                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
-//                datePickerDialog.show();
-//                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-//                    @Override
-//                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
-        //year,month,dayの取得
-//                        startTextView.setText("" + year);
-//                    }
-//                });
-//            }
-//        });
+
+        sBtn = layout.findViewById(R.id.textView3);
+        sBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("KadListFragment", "aaa");
+                //現在日付を取得表示する
+                Calendar calender = Calendar.getInstance();
+                String year = String.valueOf(calender.get(Calendar.YEAR));
+                String month = String.valueOf(calender.get(Calendar.MONTH) + 1);
+                if(month.length() == 1){
+                    month = "0"+month;
+                }
+                String date = String.valueOf(calender.get(Calendar.DATE));
+                if(date.length() == 1){
+                    date = "0"+date;
+                }
+                startTextView.setText(year + "/" + month + "/" + date);
+            }
+        });
 
         endTextView = layout.findViewById(R.id.end_date_edit_text);
 
@@ -182,26 +194,44 @@ public class KadListFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Log.d("KadListFragment", "aaa");
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext());
-                datePickerDialog.show();
-                datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
-                        //year,month,dayの取得
-                        endTextView.setText("" + year);
-                    }
-                });
+                //現在日付を取得表示する
+                Calendar calender = Calendar.getInstance();
+                String year = String.valueOf(calender.get(Calendar.YEAR));
+                String month = String.valueOf(calender.get(Calendar.MONTH) + 1);
+                if(month.length() == 1){
+                    month = "0"+month;
+                }
+                String date = String.valueOf(calender.get(Calendar.DATE));
+                if(date.length() == 1){
+                    date = "0"+date;
+                }
+                endTextView.setText(year + "/" + month + "/" + date);
             }
         });
 
         //子リストのアイテムを選択するSpinner
         childrenSpinner = layout.findViewById(R.id.children_spinner);
         //spinnerに表示する子供のリストを作成する
+        childList = PrefUtil.getUserList();
+        String[] arr = {};
+        if(childList.size() != 0){
+            for(int i = 0;i < childList.size();i++){
+                arr[i] = childList.get(i).getName();
+                Log.d("childList",arr[i]);
+            }
+        }
+//        setSpinner(childrenSpinner,arr);
 
 
         //付与ポイント
         grantPointEditText = layout.findViewById(R.id.grant_point);
     }
+
+//    private void setSpinner(Spinner childrenSpinner,String arr[]) {
+//        ArrayAdapter adapter = new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,arr);
+//　　    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//　　    childrenSpinner.setAdapter(adapter);
+//    }
 
     /**
      * ダイアログボックスのOKボタンを押した時の処理
@@ -211,24 +241,49 @@ public class KadListFragment extends BaseFragment {
     public void onDialogPositiveClick(DialogInterface dialog) {
         //タイトルと内容のテキスト取得
         String title = titleEditText.getText().toString();
-        String detail = detailEditText.getText().toString().toString();
+
+        KadListItem item = new KadListItem();
+        item.setKadId(list.size());
+        item.setKadName(title);
+
+        String detail = detailEditText.getText().toString();
+
+        item.setKadContent(detail);
+
         //選択されているアイテムを取得
         String child = childrenSpinner.getSelectedItem().toString();
+        item.setChildId(childrenSpinner.getSelectedItemPosition());
+        item.setChildName(child);
 
-        Log.d("KadListFragment", title + " : " + detail + " : " + child);
+        Log.d("KadListFragment",item.getKadName() + " : " + item.getKadContent() + " : " + item.getChildName());
 
+        //pointの取得
+        int grantPoint = Integer.parseInt(grantPointEditText.getText().toString());
+        item.setPoint(grantPoint);
+        Log.d("KadListFragment",item.getPoint() + "pt");
 
         //開始日と終了日取得
         String start = startTextView.getText().toString();
         String end = endTextView.getText().toString();
-        Log.d("KadListFragment", start + " " + end);
 
-        //pointの取得
-        int grantPoint = Integer.parseInt(grantPointEditText.getText().toString());
-        Log.d("KadListFragment", grantPoint + "pt");
+        int startDate = Integer.parseInt(start.substring(0,4) + start.substring(5,7) + start.substring(8));
+        int endDate = Integer.parseInt(end.substring(0,4) + end.substring(5,7) + end.substring(8));
+
+        item.setStartDate(startDate);
+        item.setEndDate(endDate);
+        Log.d("KadListFragment",item.getStartDate() + " " + item.getEndDate());
+
+        item.setProgressFrag(0);
+        boolean b = false;
+        item.setSettingFrag(b);
+
+        Log.d("KadListFragment",item.getProgressFrag() + " " + item.isSettingFrag());
+
+        //DB Insert
+        KadDataManager.getInstance().insertDataBase(item);
 
         Log.d("KadListFragment", String.valueOf(list.size()));
-        list.add(new KadListItem());
+        list.add(list.size(),item);
 
         adapter.notifyDataSetChanged();
     }
@@ -244,8 +299,9 @@ public class KadListFragment extends BaseFragment {
 
     public void loadList() {
         list = new ArrayList<>();
-        KadListItem kad = new KadListItem();
-        list.add(kad);
+//        KadListItem kad = new KadListItem();
+        KadDataManager.getInstance().getKadData(list,childId);
+//        list.add(kad);
     }
 
     /**
