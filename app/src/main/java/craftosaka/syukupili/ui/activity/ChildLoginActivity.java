@@ -45,7 +45,6 @@ public class ChildLoginActivity extends BaseActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 name = nameText.getText().toString();
                 pass = passText.getText().toString();
                 //ログイン
@@ -53,6 +52,9 @@ public class ChildLoginActivity extends BaseActivity {
                 if (user != null) {
                     Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                     Data.getInstance().setNowUser(user);
+                    Data.getInstance().parentFrag = false;
+                    intent.putExtra("fromLogin", true);
+
                     startActivity(intent);
                 } else {
                     passText.setError("パスワードが間違っています");

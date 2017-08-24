@@ -56,7 +56,6 @@ public class PrefUtil {
         save(pass,PARENT_PASS,FILE_NAME);
     }
 
-
     public static String getParentPass(){
         return load(PARENT_PASS, FILE_NAME);
     }

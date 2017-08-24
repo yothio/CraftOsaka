@@ -3,6 +3,7 @@ package craftosaka.syukupili.ui.activity;
 import android.content.ClipData;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import craftosaka.syukupili.ui.fragment.KadListFragment;
 import craftosaka.syukupili.ui.fragment.PointExchangeFragment;
 import craftosaka.syukupili.ui.fragment.SettingFragment;
 import craftosaka.syukupili.util.Data;
+import craftosaka.syukupili.util.NotifyUtil;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
 /**
@@ -44,12 +46,12 @@ public class MenuActivity extends AppCompatActivity {
 
 //
 //        //ログインしてこのActivityに来たときに通知を出す処理
-//        CoordinatorLayout root = (CoordinatorLayout)findViewById(R.id.menu_activity_root);
-////        LinearLayout root = (LinearLayout)findViewById(R.id.menu_activity_root);
-//        if(getIntent().getBooleanExtra("fromLogin",false)){
-//            NotifyUtil.loginSuccess(root);
-//            getIntent().removeExtra("fromLogin");
-//        }
+        CoordinatorLayout root = (CoordinatorLayout)findViewById(R.id.menu_activity_root);
+//        LinearLayout root = (LinearLayout)findViewById(R.id.menu_activity_root);
+        if(getIntent().getBooleanExtra("fromLogin",false)){
+            NotifyUtil.loginSuccess(root);
+            getIntent().removeExtra("fromLogin");
+        }
 
 
 

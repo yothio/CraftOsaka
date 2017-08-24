@@ -14,11 +14,13 @@
         <item>子３</item>
     </string-array>
 
-    <string-array name="settinglist">
+    <string-array name="account_list_item">
         <item>アカウント作成</item>
         <item>アカウントの削除</item>
         <item>ポイント交換レート設定</item>
         <item>難易度設定</item>
 
     </string-array>
+
+
 </resources>

@@ -73,5 +73,4 @@ android:src="@drawable/syukupii"
 
         app:bootstrapBrand="success"
         app:bootstrapSize="xl"/>
-
 </android.support.constraint.ConstraintLayout>
