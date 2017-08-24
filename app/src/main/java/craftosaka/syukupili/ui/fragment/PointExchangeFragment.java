@@ -2,6 +2,7 @@ package craftosaka.syukupili.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import craftosaka.syukupili.model.PointListItem;
 import craftosaka.syukupili.ui.activity.MenuActivity;
 import craftosaka.syukupili.ui.adapter.PointListRecyclerAdapter;
 import craftosaka.syukupili.util.Data;
+import craftosaka.syukupili.util.NotifyUtil;
 import craftosaka.syukupili.util.PointDateManager;
 
 /**
@@ -32,7 +34,7 @@ public class PointExchangeFragment extends BaseFragment {
     RecyclerView.Adapter adapter;
     List<PointListItem> list = new ArrayList<>();
     FloatingActionButton fab;
-
+    CoordinatorLayout root;
 
     private static final int SWIPE_MAX_OFF_PATH = 250;
     private static final int SWIPE_MIN_DISTANCE = 120;
@@ -58,10 +60,13 @@ public class PointExchangeFragment extends BaseFragment {
 
         View v = inflater.inflate(R.layout.fragment_point_layout, container, false);
 
+        root = (CoordinatorLayout) v.findViewById(R.id.point_fragment_root);
 
         //レイアウトと結びつけ
         recyclerView = v.findViewById(R.id.point_list_recyclerview);
         fab = v.findViewById(R.id.floating_action_button_fab);
+
+        Log.d("test", "" + Data.getInstance().parentFrag);
 //子供には景品追加のボタンは見せない
         if (!Data.getInstance().parentFrag) {
             fab.setVisibility(View.INVISIBLE);
@@ -80,9 +85,9 @@ public class PointExchangeFragment extends BaseFragment {
                             pointItem.setPointItemName(itemName);
                             pointItem.setPoint(String.valueOf(point));
                             list.add(list.size(), pointItem);
-
+                            //データベースにポイントの交換レートの追加
                             PointDateManager.getInstance().insertDataBase(pointItem);
-
+                            NotifyUtil.updateSuccessNotify(root);
                             adapter.notifyItemInserted(list.size());
                         }
                     }

@@ -38,6 +38,7 @@ public class ParentLoginActivity extends BaseActivity {
         //ログイン
         if (PrefUtil.getParentPass().equals(pass)) {
             Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+            Data.getInstance().parentFrag = true;
             //親と子の認識をしないといけないので親がログインしたときはnowUserをnullにします
             Data.getInstance().setNowUser(null);
             startActivity(intent);
