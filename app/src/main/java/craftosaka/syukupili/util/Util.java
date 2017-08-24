@@ -1,7 +1,6 @@
 package craftosaka.syukupili.util;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.EditText;
 
 import java.util.List;
@@ -94,5 +93,44 @@ public class Util {
             }
         }
         return null;
+    }
+
+    /**
+     * 文字列が空またはnullでないか
+     * @param text
+     * @return
+     */
+    public static boolean checkNullChar(String text){
+        if(text != null) {
+            if (!text.equals("")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * String をintに変換可能か
+     * @param text
+     * @return
+     */
+    public static boolean stringToInteger(String text){
+        try{
+            Integer.parseInt(text);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    /**
+     * 0000/00/00形式のテキストから"/"をなくす
+     */
+    public static String convertDate(String text){
+        String txtDate = "";
+        if(text.length() == 10) {
+            txtDate = text.substring(0, 4) + text.substring(5, 7) + text.substring(8);
+        }
+        return txtDate;
     }
 }

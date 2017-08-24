@@ -29,6 +29,7 @@ import craftosaka.syukupili.ui.adapter.KadListRecyclerAdapter;
 import craftosaka.syukupili.util.Data;
 import craftosaka.syukupili.util.KadDataManager;
 import craftosaka.syukupili.util.PrefUtil;
+import craftosaka.syukupili.util.Util;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -54,6 +55,14 @@ public class KadListFragment extends BaseFragment {
     Button sBtn, eBtn;
     private String childId;
     private List<User> childList = new ArrayList<>();
+
+    //
+    private String dialogTitle="";
+    private String dialogDetail="";
+    private String dialogChild="";
+    private String dialogPoint="0";
+    private String dialogStart="";
+    private String dialogEnd="";
 
     public static KadListFragment newInstance() {
         KadListFragment fragment = new KadListFragment();
@@ -163,11 +172,13 @@ public class KadListFragment extends BaseFragment {
     private void preparationCreateKadDialogBox(View layout) {
         //タイトル
         titleEditText = layout.findViewById(R.id.new_kad_name);
+        titleEditText.setText(dialogTitle);
         //内容
         detailEditText = layout.findViewById(R.id.new_kad_content);
+        detailEditText.setText(dialogDetail);
 
         startTextView = layout.findViewById(R.id.start_date_edit_text);
-
+        startTextView.setText(dialogStart);
         //開始日を設定するボタン
 
         sBtn = layout.findViewById(R.id.textView3);
@@ -191,6 +202,7 @@ public class KadListFragment extends BaseFragment {
         });
 
         endTextView = layout.findViewById(R.id.end_date_edit_text);
+        endTextView.setText(dialogEnd);
 
         //終了日を設定するボタン
         eBtn = layout.findViewById(R.id.textView4);
@@ -237,6 +249,7 @@ public class KadListFragment extends BaseFragment {
 
         //付与ポイント
         grantPointEditText = layout.findViewById(R.id.grant_point);
+        grantPointEditText.setText(dialogPoint);
     }
 
     private void setSpinner(Spinner childrenSpinner,String arr[]) {
@@ -251,62 +264,88 @@ public class KadListFragment extends BaseFragment {
      * @param dialog
      */
     public void onDialogPositiveClick(DialogInterface dialog) {
-        //タイトルと内容のテキスト取得
-        String title = titleEditText.getText().toString();
+        boolean check = true;
 
+        //ダイアログボックスの入力値取得
+        dialogTitle = titleEditText.getText().toString();
+        dialogDetail = detailEditText.getText().toString();
+        dialogChild = childrenSpinner.getSelectedItem().toString();
+        dialogPoint = grantPointEditText.getText().toString();
+        dialogStart = startTextView.getText().toString();
+        dialogEnd = endTextView.getText().toString();
+
+        //入力内容のチェック
         KadListItem item = new KadListItem();
-        item.setKadId(list.size());
-        item.setKadName(title);
+        if(Util.checkNullChar(dialogTitle)) {
+            item.setKadName(dialogTitle);
+        }else{ check = false;}
+        if(Util.checkNullChar(dialogDetail)) {
+            item.setKadContent(dialogDetail);
+        }else{ check = false;}
 
-        String detail = detailEditText.getText().toString();
+        if(!dialogChild.equals(ALERTE_SLECT) && !dialogChild.equals(ALERTE_CREATE)){
+            int subStringIndex = dialogChild.indexOf(":");
+            item.setChildName(dialogChild.substring(0,subStringIndex));
 
-        item.setKadContent(detail);
+            if(Util.stringToInteger(dialogChild.substring(subStringIndex+1))) {
+                item.setChildId(Integer.parseInt(dialogChild.substring(subStringIndex + 1)));
+            }else{ check = false;}
 
-        //選択されているアイテムを取得
-        String child = childrenSpinner.getSelectedItem().toString();
-        if(child.equals(ALERTE_SLECT) || child.equals(ALERTE_CREATE)){
-            Toast.makeText(getContext(),"子の名前IDを選択してください",Toast.LENGTH_SHORT).show();
-            createKadDialogBox();
-            return;
-        }
-
-        int subStringIndex = child.indexOf(":");
-        item.setChildName(child.substring(0,subStringIndex));
-        item.setChildId(Integer.parseInt(child.substring(subStringIndex + 1)));
-
+        }else{ check = false;}
 
         Log.d("KadListFragment",item.getKadName() + " : " + item.getKadContent() + " : " + item.getChildName());
 
         //pointの取得
-        int grantPoint = Integer.parseInt(grantPointEditText.getText().toString());
-        item.setPoint(grantPoint);
+        if(Util.stringToInteger(dialogPoint)) {
+            item.setPoint(Integer.parseInt(dialogPoint));
+        }else{ check = false;}
         Log.d("KadListFragment",item.getPoint() + "pt");
 
         //開始日と終了日取得
-        String start = startTextView.getText().toString();
-        String end = endTextView.getText().toString();
+        String date = Util.convertDate(dialogStart);
+        if(Util.stringToInteger(date)) {
+            int startDate = Integer.parseInt(date);
+            item.setStartDate(startDate);
+        }else{ check = false;}
 
-        int startDate = Integer.parseInt(start.substring(0,4) + start.substring(5,7) + start.substring(8));
-        int endDate = Integer.parseInt(end.substring(0,4) + end.substring(5,7) + end.substring(8));
 
-        item.setStartDate(startDate);
-        item.setEndDate(endDate);
+        date = Util.convertDate(dialogEnd);
+        if(Util.stringToInteger(date)){
+            int endDate = Integer.parseInt(date);
+            item.setEndDate(endDate);
+        }else{ check = false;}
         Log.d("KadListFragment",item.getStartDate() + " " + item.getEndDate());
 
         item.setProgressFrag(0);
-        boolean b = false;
-        item.setSettingFrag(b);
-
+        item.setSettingFrag(false);
         Log.d("KadListFragment",item.getProgressFrag() + " " + item.isSettingFrag());
 
-        //DB Insert
-        KadDataManager.getInstance().insertDataBase(item);
+        if(check) {
+            //DB Insert
+            KadDataManager.getInstance().insertDataBase(item);
+            Log.d("KadListFragment", String.valueOf(list.size()));
+            list.add(list.size(), item);
+            adapter.notifyDataSetChanged();
 
-        Log.d("KadListFragment", String.valueOf(list.size()));
-        list.add(list.size(),item);
-
-        adapter.notifyDataSetChanged();
+            clearDialogData();
+        }else{
+            Toast.makeText(getContext(),"入力内容が不正です",Toast.LENGTH_SHORT).show();
+            createKadDialogBox();
+        }
     }
+
+    /**
+     * 格納したダイアログボックスの入力内容を初期の状態に戻す
+     */
+    private void clearDialogData() {
+        dialogTitle = "";
+        dialogDetail = "";
+        dialogChild = "";
+        dialogPoint = "0";
+        dialogStart = "";
+        dialogEnd = "";
+    }
+
 
     /**
      * ダイアログボックスのCANCELボタンを押した時の処理
@@ -314,7 +353,7 @@ public class KadListFragment extends BaseFragment {
      * @param dialogInterface
      */
     public void onDialogNegativeClick(DialogInterface dialogInterface) {
-
+        clearDialogData();
     }
 
     public void loadList() {
