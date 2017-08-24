@@ -30,7 +30,8 @@ public class StartActivity extends BaseActivity {
         childBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            //    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
                 startActivity(intent);
                 KadDataManager.getInstance().deleteDataBase();
                 Log.d("StartActivity", "ok");

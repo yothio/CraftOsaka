@@ -1,5 +1,6 @@
 package craftosaka.syukupili.ui.activity;
 
+import android.content.ClipData;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import craftosaka.syukupili.ui.fragment.CalenderFragment;
 import craftosaka.syukupili.ui.fragment.KadListFragment;
 import craftosaka.syukupili.ui.fragment.PointExchangeFragment;
 import craftosaka.syukupili.ui.fragment.SettingFragment;
+import craftosaka.syukupili.util.Data;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
 /**
@@ -40,7 +42,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        gestureDetector = new GestureDetector(this,onGestureListener);
+        gestureDetector = new GestureDetector(this, onGestureListener);
 
         //Fragmentを簡易に切り替えるためのViewPagerとそのadapter
         viewPager = (ViewPager) findViewById(R.id.fragment_viewpager);
@@ -53,6 +55,8 @@ public class MenuActivity extends AppCompatActivity {
         list.add(calenderFragment = new CalenderFragment().newInstance());
         list.add(pointExchangeFragment = new PointExchangeFragment().newInstance());
         list.add(settingFragment = new SettingFragment().newInstance());
+
+
         //adapterにfragmentのリストを渡す
         pagerAdapter.setFragmentList(list);
 
@@ -66,7 +70,7 @@ public class MenuActivity extends AppCompatActivity {
                 Log.d("MenuActivity", "Select i : " + i + " i1 : " + i1);
                 // あらかじめadapterで設定したfragmentに切り替える
                 viewPager.setCurrentItem(i1);
-                switch (i1){
+                switch (i1) {
                     case 0:
                         kadListFragment.setFunction();
                         break;
@@ -81,6 +85,7 @@ public class MenuActivity extends AppCompatActivity {
                         break;
                 }
             }
+
             //今と同じitemを選択した時          Ex)fromカレンダー toカレンダー
             @Override
             public void onMenuItemReselect(@IdRes int i, int i1, boolean b) {
@@ -140,21 +145,22 @@ public class MenuActivity extends AppCompatActivity {
     private OriginalSimpleOnGestureListener originalListener;
 
     @Override
-    public boolean onTouchEvent(MotionEvent event){
+    public boolean onTouchEvent(MotionEvent event) {
         return gestureDetector.onTouchEvent(event);
     }
 
-    private GestureDetector.SimpleOnGestureListener onGestureListener = new GestureDetector.SimpleOnGestureListener(){
+    private GestureDetector.SimpleOnGestureListener onGestureListener = new GestureDetector.SimpleOnGestureListener() {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            if( !originalListener.onFling(e1,e2,velocityX,velocityY)) return false;
-            return super.onFling(e1,e2,velocityX,velocityY);
+            if (!originalListener.onFling(e1, e2, velocityX, velocityY)) return false;
+            return super.onFling(e1, e2, velocityX, velocityY);
         }
     };
 
     public void setMethod_onFling(OriginalSimpleOnGestureListener onGestureListener) {
         this.originalListener = onGestureListener;
     }
+
     public interface OriginalSimpleOnGestureListener {
         boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY);
     }
@@ -164,9 +170,10 @@ public class MenuActivity extends AppCompatActivity {
 
     /**
      * カレンダーの日付が選択された時の処理
-     * @param v　
+     *
+     * @param v
      */
-    public void dayTextClick(View v){
+    public void dayTextClick(View v) {
         //CalendarFragmentに処理を投げる
         calenderFragment.selectedDay(v);
     }

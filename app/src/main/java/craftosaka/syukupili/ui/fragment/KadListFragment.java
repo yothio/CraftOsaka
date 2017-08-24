@@ -24,6 +24,7 @@ import java.util.List;
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.model.KadListItem;
 import craftosaka.syukupili.ui.adapter.KadListRecyclerAdapter;
+import craftosaka.syukupili.util.Data;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -60,6 +61,10 @@ public class KadListFragment extends BaseFragment {
         //レイアウトと結びつけ
         recyclerView = v.findViewById(R.id.kadlist_recyclerview);
         fab = v.findViewById(R.id.floating_action_button);
+//子供には課題追加のボタンは見せない
+        if (!Data.getInstance().childParentFrag) {
+            fab.setVisibility(View.INVISIBLE);
+        }
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -19,6 +19,7 @@ import craftosaka.syukupili.R;
 import craftosaka.syukupili.model.PointListItem;
 import craftosaka.syukupili.ui.activity.MenuActivity;
 import craftosaka.syukupili.ui.adapter.PointListRecyclerAdapter;
+import craftosaka.syukupili.util.Data;
 import craftosaka.syukupili.util.PointDateManager;
 
 /**
@@ -62,7 +63,10 @@ public class PointExchangeFragment extends BaseFragment {
         //レイアウトと結びつけ
         recyclerView = v.findViewById(R.id.point_list_recyclerview);
         fab = v.findViewById(R.id.floating_action_button_fab);
-
+//子供には景品追加のボタンは見せない
+        if (!Data.getInstance().childParentFrag) {
+            fab.setVisibility(View.INVISIBLE);
+        }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
