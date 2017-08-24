@@ -41,7 +41,10 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
+        //下タブのオブジェクトとitemを選択した時の動作
+        tabNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+        tabNavigation.removeView(findViewById(R.id.setting_menu_item));
+        //setContentView(R.layout.activity_menu);
         gestureDetector = new GestureDetector(this, onGestureListener);
 
         //Fragmentを簡易に切り替えるためのViewPagerとそのadapter
@@ -62,6 +65,8 @@ public class MenuActivity extends AppCompatActivity {
 
         //下タブのオブジェクトとitemを選択した時の動作
         tabNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+        tabNavigation.getBadgeProvider().remove(R.id.setting_menu_item);
+
         tabNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
 
             //今のitemから別のitemを選択した時  Ex)fromカレンダー toポイント
@@ -95,6 +100,7 @@ public class MenuActivity extends AppCompatActivity {
         });
         //adapterを設定
         viewPager.setAdapter(pagerAdapter);
+
 
     }
 
