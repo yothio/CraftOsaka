@@ -63,7 +63,7 @@ public class PointExchangeFragment extends BaseFragment {
         recyclerView = v.findViewById(R.id.point_list_recyclerview);
         fab = v.findViewById(R.id.floating_action_button_fab);
 //子供には景品追加のボタンは見せない
-        if (!Data.getInstance().childParentFrag) {
+        if (!Data.getInstance().parentFrag) {
             fab.setVisibility(View.INVISIBLE);
         }
         fab.setOnClickListener(new View.OnClickListener() {

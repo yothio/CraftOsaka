@@ -62,7 +62,7 @@ public class KadListFragment extends BaseFragment {
         recyclerView = v.findViewById(R.id.kadlist_recyclerview);
         fab = v.findViewById(R.id.floating_action_button);
 //子供には課題追加のボタンは見せない
-        if (!Data.getInstance().childParentFrag) {
+        if (!Data.getInstance().parentFrag) {
             fab.setVisibility(View.INVISIBLE);
         }
 
