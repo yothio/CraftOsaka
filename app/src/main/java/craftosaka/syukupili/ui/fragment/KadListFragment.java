@@ -22,8 +22,10 @@ import java.util.List;
 
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.model.KadListItem;
+import craftosaka.syukupili.model.User;
 import craftosaka.syukupili.ui.adapter.KadListRecyclerAdapter;
 import craftosaka.syukupili.util.KadDataManager;
+import craftosaka.syukupili.util.PrefUtil;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -44,6 +46,8 @@ public class KadListFragment extends BaseFragment {
     Spinner childrenSpinner;
     EditText grantPointEditText;
     Button sBtn, eBtn;
+    private String childId = null;
+    private List<User> childList = new ArrayList<>();
 
     public static KadListFragment newInstance() {
         KadListFragment fragment = new KadListFragment();
@@ -61,6 +65,9 @@ public class KadListFragment extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         //fragmentでのsetContentview
         View v = inflater.inflate(R.layout.fragment_kadlist_fragment, container, false);
+        //ログインユーザを調べる
+
+
         //データをリストに入れる
         loadList();
         //レイアウトと結びつけ
@@ -205,11 +212,26 @@ public class KadListFragment extends BaseFragment {
         //子リストのアイテムを選択するSpinner
         childrenSpinner = layout.findViewById(R.id.children_spinner);
         //spinnerに表示する子供のリストを作成する
+        childList = PrefUtil.getUserList();
+        String[] arr = {};
+        if(childList.size() != 0){
+            for(int i = 0;i < childList.size();i++){
+                arr[i] = childList.get(i).getName();
+                Log.d("childList",arr[i]);
+            }
+        }
+//        setSpinner(childrenSpinner,arr);
 
 
         //付与ポイント
         grantPointEditText = layout.findViewById(R.id.grant_point);
     }
+
+//    private void setSpinner(Spinner childrenSpinner,String arr[]) {
+//        ArrayAdapter adapter = new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,arr);
+//　　    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//　　    childrenSpinner.setAdapter(adapter);
+//    }
 
     /**
      * ダイアログボックスのOKボタンを押した時の処理
@@ -234,8 +256,6 @@ public class KadListFragment extends BaseFragment {
         item.setChildName(child);
 
         Log.d("KadListFragment",item.getKadName() + " : " + item.getKadContent() + " : " + item.getChildName());
-
-
 
         //pointの取得
         int grantPoint = Integer.parseInt(grantPointEditText.getText().toString());
@@ -280,7 +300,7 @@ public class KadListFragment extends BaseFragment {
     public void loadList() {
         list = new ArrayList<>();
 //        KadListItem kad = new KadListItem();
-        KadDataManager.getInstance().getKadData(list);
+        KadDataManager.getInstance().getKadData(list,childId);
 //        list.add(kad);
     }
 

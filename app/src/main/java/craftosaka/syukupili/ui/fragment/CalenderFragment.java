@@ -80,6 +80,7 @@ public class CalenderFragment extends BaseFragment {
     private final int GET_TITLE_TYPE_SUBJECT = 0;
     private final int GET_TITLE_TYPE_PERSONAL = 1;
     List<KadListItem> kadListItemList = new ArrayList<>();
+    private String childId = null;
 
     public CalenderFragment(){
         calendar = Calendar.getInstance();
@@ -151,6 +152,8 @@ public class CalenderFragment extends BaseFragment {
         setOnFling();
         //KeyDownイベント処理を設定
         super.setOnKeyDown();
+        //今月のカレンダーを表示
+        createCalendar(nowYear,nowMonth);
     }
 
     /**
@@ -221,7 +224,7 @@ public class CalenderFragment extends BaseFragment {
         if(kadListItemList.size() > 0){
             kadListItemList.clear();
         }
-        KadDataManager.getInstance().getKadData(kadListItemList);
+        KadDataManager.getInstance().getKadData(kadListItemList,childId);
 
         //選択した日付の予定詳細表示欄で予定を表示する。
         createScheduleList(getDate);
@@ -305,6 +308,11 @@ public class CalenderFragment extends BaseFragment {
         return titleText;
     }
 
+    /**
+     * DBの検索結果との比較を行うために、引数(月or日)を2桁(1桁の数字の場合先頭0で埋める)にして返します。
+     * @param num　月or日
+     * @return 2桁(1桁の数の場合先頭を0で埋めた)の月or日
+     */
     private String formatDate(int num) {
         String string = "";
         try {
@@ -376,12 +384,12 @@ public class CalenderFragment extends BaseFragment {
      * @param prevMax　先月の最大日数
      */
     private void calendarView(int dayMax, int dayWeek, int prevMax, int month) {
-        //DB get
+        //DBからカレンダーを作成する月の予定を検索する
         if(kadListItemList.size() > 0) {
             kadListItemList.clear();
         }
         List<KadListItem> getKadList = new ArrayList<>();
-        KadDataManager.getInstance().getKadData(getKadList);
+        KadDataManager.getInstance().getKadData(getKadList,childId);
         int searchMinDate = Integer.parseInt("" + year + formatDate(month + 1) + formatDate(01));
         int searchMaxDate = Integer.parseInt("" + year + formatDate(month + 1) + formatDate(dayMax));
         for(int i= 0;i < getKadList.size();i++){

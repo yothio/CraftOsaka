@@ -179,7 +179,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1.5"
-                android:text="開始日"/>
+                android:text="終了日"/>
 
             <EditText
                 android:id="@+id/end_date_edit_text"

@@ -96,12 +96,17 @@ public class KadDataManager {
     }
 
     //    データベースにアクセスして課題を取得
-    public List<KadListItem> getKadData(List<KadListItem> kadListItems) {
+    public List<KadListItem> getKadData(List<KadListItem> kadListItems,String childId) {
 
         //読み込みモードで開く
         sqLiteDatabase = mySQLiteOpenHelper.getReadableDatabase();
 
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        Cursor cursor;
+        if(childId == null || childId.equals("")) {
+            cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        }else{
+            cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + CHILD_ID_COLUMN_NAME + " = " + childId, null);
+        }
 
         //返す用の値を作成
 
@@ -181,4 +186,6 @@ public class KadDataManager {
         sqLiteDatabase.update(TABLE_NAME,cv,KAD_ID_COLUMN_NAME + " = " + kadListItem.getKadId(),null);
 
     }
+
+
 }
