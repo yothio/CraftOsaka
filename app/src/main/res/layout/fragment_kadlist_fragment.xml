@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:design="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="#EFF5FB"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/kdalist_fragment_root">
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
@@ -14,7 +15,8 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="15dp"
         android:src="@drawable/ic_add_black_24dp"
-        app:layout_anchorGravity="bottom|right|end"/>
+        design:layout_anchor="@id/kdalist_fragment_root"
+        design:layout_anchorGravity="bottom"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/kadlist_recyclerview"

@@ -1,6 +1,7 @@
 package craftosaka.syukupili.ui.fragment;
 
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.EventListener;
 
@@ -13,6 +14,8 @@ import craftosaka.syukupili.util.Util;
 
 public class PointItemCreateDialog extends BaseDialogFragment {
 
+    String okButtonText = "作成";
+    String cancelButtonText = "キャンセル";
     private MyCallback callback = null;
     String str = "title";
     Integer point = 0;
@@ -22,6 +25,8 @@ public class PointItemCreateDialog extends BaseDialogFragment {
     protected void initView() {
         super.initView();
 
+        ((TextView) mDialog.findViewById(R.id.ok_button)).setText(okButtonText);
+        ((TextView) mDialog.findViewById(R.id.cancel_button)).setText(cancelButtonText);
         itemNameEditText = mDialog.findViewById(R.id.body_edit_text);
         itemPointEditText = mDialog.findViewById(R.id.point_edit_text);
     }

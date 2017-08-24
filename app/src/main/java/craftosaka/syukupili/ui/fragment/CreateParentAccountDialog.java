@@ -1,6 +1,7 @@
 package craftosaka.syukupili.ui.fragment;
 
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.EventListener;
 
@@ -15,6 +16,8 @@ import craftosaka.syukupili.util.Util;
 public class CreateParentAccountDialog extends BaseDialogFragment {
     EditText passEdit, againPassEdit;
     MyCallback callback;
+    String okButtonText = "作成";
+    String cancelButtonText = "キャンセル";
 
     public void setCallback(MyCallback callback) {
         this.callback = callback;
@@ -28,7 +31,8 @@ public class CreateParentAccountDialog extends BaseDialogFragment {
     @Override
     protected void initView() {
         super.initView();
-
+        ((TextView)mDialog.findViewById(R.id.ok_button)).setText(okButtonText);
+        ((TextView)mDialog.findViewById(R.id.cancel_button)).setText(cancelButtonText);
         passEdit = mDialog.findViewById(R.id.pass_text);
         againPassEdit = mDialog.findViewById(R.id.again_pass_text);
     }

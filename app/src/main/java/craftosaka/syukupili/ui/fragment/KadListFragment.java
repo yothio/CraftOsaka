@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +26,7 @@ import craftosaka.syukupili.model.KadListItem;
 import craftosaka.syukupili.model.User;
 import craftosaka.syukupili.ui.adapter.KadListRecyclerAdapter;
 import craftosaka.syukupili.util.KadDataManager;
+import craftosaka.syukupili.util.NotifyUtil;
 import craftosaka.syukupili.util.PrefUtil;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
@@ -65,6 +67,9 @@ public class KadListFragment extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         //fragmentでのsetContentview
         View v = inflater.inflate(R.layout.fragment_kadlist_fragment, container, false);
+
+
+
         //ログインユーザを調べる
 
 
@@ -315,5 +320,9 @@ public class KadListFragment extends BaseFragment {
         //KeyDownイベント処理を設定
         super.setOnKeyDown();
     }
+
+
+
+
 
 }

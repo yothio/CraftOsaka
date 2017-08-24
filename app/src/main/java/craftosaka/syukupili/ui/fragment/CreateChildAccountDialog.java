@@ -1,6 +1,7 @@
 package craftosaka.syukupili.ui.fragment;
 
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.EventListener;
 
@@ -16,6 +17,9 @@ public class CreateChildAccountDialog extends BaseDialogFragment {
     EditText passEdit, nameEdit;
     CreateChildAccountDialog.MyCallback callback;
 
+    String okButtonText = "作成";
+    String cancelButtonText = "キャンセル";
+
     public void setCallback(CreateChildAccountDialog.MyCallback callback) {
         this.callback = callback;
     }
@@ -29,6 +33,8 @@ public class CreateChildAccountDialog extends BaseDialogFragment {
     protected void initView() {
         super.initView();
 
+        ((TextView) mDialog.findViewById(R.id.ok_button)).setText(okButtonText);
+        ((TextView) mDialog.findViewById(R.id.cancel_button)).setText(cancelButtonText);
         passEdit = mDialog.findViewById(R.id.child_pass_text);
         nameEdit = mDialog.findViewById(R.id.child_name_text);
     }
@@ -39,11 +45,11 @@ public class CreateChildAccountDialog extends BaseDialogFragment {
 
         if (Util.isEmptyEditText(passEdit) & Util.isEmptyEditText(nameEdit)) {
             bool = false;
-        }else if(!Util.checkEditTextLength(passEdit)){
+        } else if (!Util.checkEditTextLength(passEdit)) {
             bool = false;
         } else {
             PrefUtil.setParent(passEdit.getText().toString());
-            callback.positive(bool, nameEdit.getText().toString(),passEdit.getText().toString());
+            callback.positive(bool, nameEdit.getText().toString(), passEdit.getText().toString());
         }
         return bool;
     }
@@ -55,7 +61,7 @@ public class CreateChildAccountDialog extends BaseDialogFragment {
 
 
     public interface MyCallback extends EventListener {
-        void positive(Boolean bool,String name,String pass);
+        void positive(Boolean bool, String name, String pass);
 
         void negative();
     }

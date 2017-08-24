@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:design="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:id="@+id/menu_activity_root"
     android:weightSum="10">
 
     <android.support.design.widget.CoordinatorLayout
+        design:layout_anchor="@id/BottomNavigation"
+        design:layout_anchorGravity="bottom"
+        android:fitsSystemWindows="true"
         android:id="@+id/container_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="10">
 
         <craftosaka.syukupili.ui.view.NoSwipeViewPager
             android:id="@+id/fragment_viewpager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_marginBottom="64dp"/>
 
     </android.support.design.widget.CoordinatorLayout>
 
     <it.sephiroth.android.library.bottomnavigation.BottomNavigation
+        design:layout_anchor="@id/menu_activity_root"
+        design:layout_anchorGravity="bottom"
         android:id="@+id/BottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="64dp"
@@ -33,4 +40,5 @@
         app:layout_behavior="@string/bbn_phone_view_behavior"/>
 
 
-</LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
