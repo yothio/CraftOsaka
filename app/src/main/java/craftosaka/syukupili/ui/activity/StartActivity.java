@@ -1,15 +1,20 @@
 package craftosaka.syukupili.ui.activity;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.model.User;
 import craftosaka.syukupili.util.Data;
+import craftosaka.syukupili.util.ImageResizer;
 import craftosaka.syukupili.util.KadDataManager;
 import craftosaka.syukupili.util.PointDateManager;
 import craftosaka.syukupili.util.PrefUtil;
@@ -20,7 +25,11 @@ public class StartActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.parent);
+//        ImageButton parentBtn = (ImageButton) findViewById(R.id.parent_button);
+//        parentBtn.setImageBitmap(ImageResizer.resizeTooBigBitmap(bitmap));
         Button parentBtn = (Button) findViewById(R.id.parent_button);
+
         Button childBtn = (Button) findViewById(R.id.child_button);
 
         parentBtn.setOnClickListener(new View.OnClickListener() {
