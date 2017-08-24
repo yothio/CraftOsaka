@@ -94,7 +94,6 @@ public class PrefUtil {
         if(list == null){
             list = new ArrayList<>();
         }
-
         return list;
     }
 
@@ -121,5 +120,7 @@ public class PrefUtil {
         SharedPreferences sharedPreferences = App.getAppContext().getSharedPreferences(fileName, Context.MODE_PRIVATE);
         sharedPreferences.edit().putString(key, new Gson().toJson(obj)).commit();
     }
+
+
 
 }

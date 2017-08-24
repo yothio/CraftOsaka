@@ -70,7 +70,7 @@ public class KadListRecyclerAdapter extends RecyclerView.Adapter<KadListRecycler
                     user.pointAdd(list.get(position).getPoint());
                     PrefUtil.updateUserItem(user);
                     list.remove(position);
-                    notifyItemChanged(0);
+                    notifyDataSetChanged();
                 }
             }
         });

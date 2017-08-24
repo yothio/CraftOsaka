@@ -24,6 +24,7 @@ import craftosaka.syukupili.ui.fragment.PointExchangeFragment;
 import craftosaka.syukupili.ui.fragment.SettingFragment;
 import craftosaka.syukupili.util.Data;
 import craftosaka.syukupili.util.NotifyUtil;
+import craftosaka.syukupili.util.PrefUtil;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
 /**
@@ -40,9 +41,23 @@ public class MenuActivity extends AppCompatActivity {
     SettingFragment settingFragment;
 
     @Override
+    protected void onPause() {
+        super.onPause();
+
+        Log.d("MenuActivity","onPause");
+
+        if(!Data.getInstance().parentFrag) {
+
+            PrefUtil.updateUserItem(Data.getInstance().getNowUser());
+
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        Log.d("MenuActivity","onCreate");
 
 //
 //        //ログインしてこのActivityに来たときに通知を出す処理

@@ -102,7 +102,7 @@ public class PointExchangeFragment extends BaseFragment {
         });
 
         //アダプターに配列を渡す
-        adapter = new PointListRecyclerAdapter(getContext(), list);
+        adapter = new PointListRecyclerAdapter(getContext(), list,getFragmentManager(),root);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);

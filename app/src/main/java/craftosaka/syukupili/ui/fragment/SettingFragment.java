@@ -66,7 +66,6 @@ public class SettingFragment extends BaseFragment {
 
         glist.add(gdata);
 
-
         List<Map<String, String>> childList = new ArrayList<>();
 
         String[] list = {"アカウント作成", "アカウント削除", "ポイント交換レート", "難易度設定"};
@@ -101,8 +100,6 @@ public class SettingFragment extends BaseFragment {
         accountList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-
-
                 switch (i1) {
                     case 0:
                         CreateChildAccountDialog childAccountDialog = new CreateChildAccountDialog();
@@ -121,10 +118,8 @@ public class SettingFragment extends BaseFragment {
                                     Log.d("StartActivity", "アカウント作成失敗");
                                 }
                             }
-
                             @Override
                             public void negative() {
-
                             }
                         });
                         childAccountDialog.show(getFragmentManager(), "");

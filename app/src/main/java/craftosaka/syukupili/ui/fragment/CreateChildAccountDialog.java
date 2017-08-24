@@ -20,7 +20,7 @@ public class CreateChildAccountDialog extends BaseDialogFragment {
     String okButtonText = "作成";
     String cancelButtonText = "キャンセル";
 
-    public void setCallback(CreateChildAccountDialog.MyCallback callback) {
+    public void setCallback(MyCallback callback) {
         this.callback = callback;
     }
 

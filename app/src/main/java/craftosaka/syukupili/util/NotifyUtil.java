@@ -42,6 +42,10 @@ public class NotifyUtil {
     public static void Notify(View v) {
         Snackbar.make(v, "アイテムを交換しました", Snackbar.LENGTH_SHORT).show();
 
+    }   //アイテムを交換したとき
+    public static void notifyFailed(View v) {
+        Snackbar.make(v, "ポイントが足りません", Snackbar.LENGTH_SHORT).show();
+
     }
     //
 

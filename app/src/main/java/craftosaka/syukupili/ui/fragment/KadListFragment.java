@@ -43,7 +43,7 @@ public class KadListFragment extends BaseFragment {
     private final String ALERTE_CREATE = "子のアカウントを作成してください";
 
     RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
+    KadListRecyclerAdapter adapter;
     List<KadListItem> list;
     FloatingActionButton fab;
 

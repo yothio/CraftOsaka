@@ -1,6 +1,9 @@
 package craftosaka.syukupili.ui.adapter;
 
 import android.content.Context;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +16,12 @@ import java.util.List;
 
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.model.PointListItem;
+import craftosaka.syukupili.ui.fragment.PointExchangeConfirmDialog;
 import craftosaka.syukupili.util.App;
+import craftosaka.syukupili.util.Data;
+import craftosaka.syukupili.util.NotifyUtil;
+import craftosaka.syukupili.util.PrefUtil;
+import craftosaka.syukupili.util.Util;
 
 /**
  * Created by yocchi on 2017/08/16.
@@ -23,10 +31,15 @@ public class PointListRecyclerAdapter extends RecyclerView.Adapter<PointListRecy
 
     List<PointListItem> list;
     LayoutInflater layoutInflater;
-
-    public PointListRecyclerAdapter(Context c, List<PointListItem> list) {
+    Context context;
+    FragmentManager fm;
+    CoordinatorLayout root;
+    public PointListRecyclerAdapter(Context c, List<PointListItem> list, FragmentManager fm, CoordinatorLayout root) {
         layoutInflater = LayoutInflater.from(c);
         this.list = list;
+        context = c;
+        this.fm = fm;
+        this.root = root;
     }
 
     @Override
@@ -44,7 +57,27 @@ public class PointListRecyclerAdapter extends RecyclerView.Adapter<PointListRecy
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(App.getAppContext(), list.get(position).getPointItemName(), Toast.LENGTH_SHORT).show();
+                if(!Data.getInstance().parentFrag){
+                    PointExchangeConfirmDialog dialog = new PointExchangeConfirmDialog();
+                    dialog.setNeedInfo(list.get(position).getPointItemName(),Integer.parseInt(list.get(position).getPoint()),Data.getInstance().getNowUser().getPoint());
+                    dialog.setCallback(new PointExchangeConfirmDialog.MyCallback() {
+                        @Override
+                        public void positive(Boolean bool) {
+                            if(bool){
+                                Data.getInstance().getNowUser().pointMinus(Integer.parseInt(list.get(position).getPoint()));
+                                NotifyUtil.Notify(root);
+                            }else{
+                                NotifyUtil.notifyFailed(root);
+                            }
+                        }
+
+                        @Override
+                        public void negative() {
+
+                        }
+                    });
+                    dialog.show(fm,"");
+                }
             }
         });
 
