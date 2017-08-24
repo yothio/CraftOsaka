@@ -9,8 +9,8 @@ import android.widget.FrameLayout;
 
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.ui.fragment.CreateParentAccountDialog;
+import craftosaka.syukupili.util.Data;
 import craftosaka.syukupili.util.PrefUtil;
-import craftosaka.syukupili.util.account.Account;
 
 /**
  * Created by Fukkun on 2017/08/17.
@@ -38,6 +38,8 @@ public class ParentLoginActivity extends BaseActivity {
         //ログイン
         if (PrefUtil.getParentPass().equals(pass)) {
             Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+            //親と子の認識をしないといけないので親がログインしたときはnowUserをnullにします
+            Data.getInstance().setNowUser(null);
             startActivity(intent);
         } else {
             passText.setError("パスワードが間違っています");

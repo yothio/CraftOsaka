@@ -23,6 +23,7 @@ import java.util.Map;
 import craftosaka.syukupili.R;
 import craftosaka.syukupili.model.KadListItem;
 import craftosaka.syukupili.ui.activity.MenuActivity;
+import craftosaka.syukupili.util.Data;
 import craftosaka.syukupili.util.KadDataManager;
 
 import static android.R.drawable.ic_media_ff;
@@ -80,7 +81,7 @@ public class CalenderFragment extends BaseFragment {
     private final int GET_TITLE_TYPE_SUBJECT = 0;
     private final int GET_TITLE_TYPE_PERSONAL = 1;
     List<KadListItem> kadListItemList = new ArrayList<>();
-    private String childId = null;
+    private String childId;
 
     public CalenderFragment(){
         calendar = Calendar.getInstance();
@@ -94,6 +95,17 @@ public class CalenderFragment extends BaseFragment {
         CalenderFragment fragment = new CalenderFragment();
         return fragment;
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(Data.getInstance().getNowUser() == null){
+            childId = null;
+        }else {
+            childId = String.valueOf(Data.getInstance().getNowUser().getId());
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
