@@ -1,8 +1,8 @@
 package craftosaka.syukupili.ui.activity;
 
+import android.content.ClipData;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +11,6 @@ import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +22,6 @@ import craftosaka.syukupili.ui.fragment.KadListFragment;
 import craftosaka.syukupili.ui.fragment.PointExchangeFragment;
 import craftosaka.syukupili.ui.fragment.SettingFragment;
 import craftosaka.syukupili.util.Data;
-import craftosaka.syukupili.util.NotifyUtil;
-import craftosaka.syukupili.util.Util;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 
 /**
@@ -46,15 +42,23 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        //ログインしてこのActivityに来たときに通知を出す処理
-        CoordinatorLayout root = (CoordinatorLayout)findViewById(R.id.menu_activity_root);
-//        LinearLayout root = (LinearLayout)findViewById(R.id.menu_activity_root);
-        if(getIntent().getBooleanExtra("fromLogin",false)){
-            NotifyUtil.loginSuccess(root);
-            getIntent().removeExtra("fromLogin");
-        }
+//
+//        //ログインしてこのActivityに来たときに通知を出す処理
+//        CoordinatorLayout root = (CoordinatorLayout)findViewById(R.id.menu_activity_root);
+////        LinearLayout root = (LinearLayout)findViewById(R.id.menu_activity_root);
+//        if(getIntent().getBooleanExtra("fromLogin",false)){
+//            NotifyUtil.loginSuccess(root);
+//            getIntent().removeExtra("fromLogin");
+//        }
 
-        gestureDetector = new GestureDetector(this,onGestureListener);
+
+
+
+        //下タブのオブジェクトとitemを選択した時の動作
+        tabNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+        tabNavigation.removeView(findViewById(R.id.setting_menu_item));
+        //setContentView(R.layout.activity_menu);
+        gestureDetector = new GestureDetector(this, onGestureListener);
 
         //Fragmentを簡易に切り替えるためのViewPagerとそのadapter
         viewPager = (ViewPager) findViewById(R.id.fragment_viewpager);
@@ -67,11 +71,15 @@ public class MenuActivity extends AppCompatActivity {
         list.add(calenderFragment = new CalenderFragment().newInstance());
         list.add(pointExchangeFragment = new PointExchangeFragment().newInstance());
         list.add(settingFragment = new SettingFragment().newInstance());
+
+
         //adapterにfragmentのリストを渡す
         pagerAdapter.setFragmentList(list);
 
         //下タブのオブジェクトとitemを選択した時の動作
         tabNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+        tabNavigation.getBadgeProvider().remove(R.id.setting_menu_item);
+
         tabNavigation.setOnMenuItemClickListener(new BottomNavigation.OnMenuItemSelectionListener() {
 
             //今のitemから別のitemを選択した時  Ex)fromカレンダー toポイント
@@ -80,7 +88,7 @@ public class MenuActivity extends AppCompatActivity {
                 Log.d("MenuActivity", "Select i : " + i + " i1 : " + i1);
                 // あらかじめadapterで設定したfragmentに切り替える
                 viewPager.setCurrentItem(i1);
-                switch (i1){
+                switch (i1) {
                     case 0:
                         kadListFragment.setFunction();
                         break;
@@ -91,11 +99,11 @@ public class MenuActivity extends AppCompatActivity {
                         pointExchangeFragment.setFunction();
                         break;
                     case 3:
-                        Toast.makeText(MenuActivity.this, "Data.getIstance().getNowUser().getPoint():" + Data.getInstance().getNowUser().getPoint(), Toast.LENGTH_SHORT).show();
                         settingFragment.setFunction();
                         break;
                 }
             }
+
             //今と同じitemを選択した時          Ex)fromカレンダー toカレンダー
             @Override
             public void onMenuItemReselect(@IdRes int i, int i1, boolean b) {
@@ -105,6 +113,7 @@ public class MenuActivity extends AppCompatActivity {
         });
         //adapterを設定
         viewPager.setAdapter(pagerAdapter);
+
 
     }
 
@@ -155,21 +164,22 @@ public class MenuActivity extends AppCompatActivity {
     private OriginalSimpleOnGestureListener originalListener;
 
     @Override
-    public boolean onTouchEvent(MotionEvent event){
+    public boolean onTouchEvent(MotionEvent event) {
         return gestureDetector.onTouchEvent(event);
     }
 
-    private GestureDetector.SimpleOnGestureListener onGestureListener = new GestureDetector.SimpleOnGestureListener(){
+    private GestureDetector.SimpleOnGestureListener onGestureListener = new GestureDetector.SimpleOnGestureListener() {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            if( !originalListener.onFling(e1,e2,velocityX,velocityY)) return false;
-            return super.onFling(e1,e2,velocityX,velocityY);
+            if (!originalListener.onFling(e1, e2, velocityX, velocityY)) return false;
+            return super.onFling(e1, e2, velocityX, velocityY);
         }
     };
 
     public void setMethod_onFling(OriginalSimpleOnGestureListener onGestureListener) {
         this.originalListener = onGestureListener;
     }
+
     public interface OriginalSimpleOnGestureListener {
         boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY);
     }
@@ -179,9 +189,10 @@ public class MenuActivity extends AppCompatActivity {
 
     /**
      * カレンダーの日付が選択された時の処理
-     * @param v　
+     *
+     * @param v
      */
-    public void dayTextClick(View v){
+    public void dayTextClick(View v) {
         //CalendarFragmentに処理を投げる
         calenderFragment.selectedDay(v);
     }
