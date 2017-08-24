@@ -103,9 +103,11 @@ public class KadDataManager {
 
         Cursor cursor;
         if(childId == null || childId.equals("")) {
-            cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+            cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PROGRESS_COLUMN_NAME + " = 0", null);
         }else{
-            cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + CHILD_ID_COLUMN_NAME + " = " + childId, null);
+            cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME +
+                                            " WHERE " + CHILD_ID_COLUMN_NAME + " = " + childId +
+                                            " AND " + PROGRESS_COLUMN_NAME + " = 0", null);
         }
 
         //返す用の値を作成
