@@ -16,6 +16,7 @@ import craftosaka.syukupili.R;
 import craftosaka.syukupili.model.KadListItem;
 import craftosaka.syukupili.model.User;
 import craftosaka.syukupili.util.App;
+import craftosaka.syukupili.util.Data;
 import craftosaka.syukupili.util.KadDataManager;
 import craftosaka.syukupili.util.PrefUtil;
 import craftosaka.syukupili.util.Util;
@@ -49,15 +50,15 @@ public class KadListRecyclerAdapter extends RecyclerView.Adapter<KadListRecycler
         holder.pointText.setText(String.valueOf(list.get(position).getPoint()));
         holder.endDateText.setText(Util.getInstance().correctDate(String.valueOf(list.get(position).getEndDate())));
         holder.kadName.setText(list.get(position).getKadName());
-        if (list.get(position).getProgressFrag() != 0){
-            holder.imageButton.setImageDrawable(v.getResources().getDrawable(R.drawable.mimasita,null));
-        }
+//        if (list.get(position).getProgressFrag() != 0){
+//            holder.imageButton.setImageDrawable(v.getResources().getDrawable(R.drawable.mimasita,null));
+//        }
         holder.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("KadListRecycle",list.get(position).getProgressFrag() + "");
                 if(list.get(position).getProgressFrag() == 0) {
-                    holder.imageButton.setImageDrawable(view.getResources().getDrawable(R.drawable.mimasita, null));
+//                    holder.imageButton.setImageDrawable(view.getResources().getDrawable(R.drawable.mimasita, null));
                     list.get(position).setProgressFrag(1);
                     Log.d("KadListRecycle",list.get(position).getProgressFrag() + "");
                     KadDataManager.getInstance().updateKadDateProgress(list.get(position));
@@ -70,7 +71,7 @@ public class KadListRecyclerAdapter extends RecyclerView.Adapter<KadListRecycler
                     user.pointAdd(list.get(position).getPoint());
                     PrefUtil.updateUserItem(user);
                     list.remove(position);
-                    notifyItemChanged(0);
+                    notifyDataSetChanged();
                 }
             }
         });
@@ -92,6 +93,10 @@ public class KadListRecyclerAdapter extends RecyclerView.Adapter<KadListRecycler
             endDateText = v.findViewById(R.id.end_date_text);
             kadName = v.findViewById(R.id.kad_name_text);
             imageButton = v.findViewById(R.id.kad_check_image_button);
+            //ログインユーザが親でなければ非表示
+            if(Data.getInstance().getNowUser() != null){
+                imageButton.setVisibility(v.INVISIBLE);
+            }
         }
     }
 }
