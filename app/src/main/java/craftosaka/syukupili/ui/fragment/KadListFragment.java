@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,10 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,8 +26,8 @@ import craftosaka.syukupili.R;
 import craftosaka.syukupili.model.KadListItem;
 import craftosaka.syukupili.model.User;
 import craftosaka.syukupili.ui.adapter.KadListRecyclerAdapter;
+import craftosaka.syukupili.util.Data;
 import craftosaka.syukupili.util.KadDataManager;
-import craftosaka.syukupili.util.NotifyUtil;
 import craftosaka.syukupili.util.PrefUtil;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
@@ -36,6 +37,9 @@ import static android.content.Context.LAYOUT_INFLATER_SERVICE;
  */
 
 public class KadListFragment extends BaseFragment {
+
+    private final String ALERTE_SLECT = "※登録する子の名前IDを選択してください";
+    private final String ALERTE_CREATE = "子のアカウントを作成してください";
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
@@ -48,7 +52,7 @@ public class KadListFragment extends BaseFragment {
     Spinner childrenSpinner;
     EditText grantPointEditText;
     Button sBtn, eBtn;
-    private String childId = null;
+    private String childId;
     private List<User> childList = new ArrayList<>();
 
     public static KadListFragment newInstance() {
@@ -56,22 +60,21 @@ public class KadListFragment extends BaseFragment {
         return fragment;
     }
 
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        loadList();
-//    }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(Data.getInstance().getNowUser() == null){
+            childId = null;
+        }else {
+            childId = String.valueOf(Data.getInstance().getNowUser().getId());
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         //fragmentでのsetContentview
         View v = inflater.inflate(R.layout.fragment_kadlist_fragment, container, false);
-
-
-
-        //ログインユーザを調べる
-
 
         //データをリストに入れる
         loadList();
@@ -84,10 +87,6 @@ public class KadListFragment extends BaseFragment {
             public void onClick(View view) {
                 //ダイアログボックス表示
                 createKadDialogBox();
-
-//                Log.d("KadListFragment", String.valueOf(list.size()));
-//                list.add(new KadListItem("" + list.size()));
-//                adapter.notifyDataSetChanged();
             }
         });
 
@@ -218,25 +217,33 @@ public class KadListFragment extends BaseFragment {
         childrenSpinner = layout.findViewById(R.id.children_spinner);
         //spinnerに表示する子供のリストを作成する
         childList = PrefUtil.getUserList();
-        String[] arr = {};
-        if(childList.size() != 0){
-            for(int i = 0;i < childList.size();i++){
-                arr[i] = childList.get(i).getName();
-                Log.d("childList",arr[i]);
-            }
-        }
-//        setSpinner(childrenSpinner,arr);
+        //子のアカウント登録が出来たらこっちを使う
+//        String[] arr = new String[childList.size()+1];
+//        if(childList.size() != 0){
+//            arr[0] = ALERTE_SLECT;
+//            for(int i = 0;i < childList.size();i++){
+//                arr[i+1] = childList.get(i).getName()+":"+childList.get(i).getId();
+//                Log.d("childList",arr[i]);
+//            }
+//        }else{
+//            arr[0] = ALERTE_CREATE;
+//        }
+
+        //子のアカウントできるまでのテスト用
+//        String[] arr = new String[]{"子1:1"};
+        String[] arr = new String[]{ALERTE_SLECT};
+        setSpinner(childrenSpinner,arr);
 
 
         //付与ポイント
         grantPointEditText = layout.findViewById(R.id.grant_point);
     }
 
-//    private void setSpinner(Spinner childrenSpinner,String arr[]) {
-//        ArrayAdapter adapter = new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,arr);
-//　　    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//　　    childrenSpinner.setAdapter(adapter);
-//    }
+    private void setSpinner(Spinner childrenSpinner,String arr[]) {
+        ArrayAdapter adapter = new ArrayAdapter(getContext(),android.R.layout.simple_spinner_item,arr);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        childrenSpinner.setAdapter(adapter);
+    }
 
     /**
      * ダイアログボックスのOKボタンを押した時の処理
@@ -257,8 +264,16 @@ public class KadListFragment extends BaseFragment {
 
         //選択されているアイテムを取得
         String child = childrenSpinner.getSelectedItem().toString();
-        item.setChildId(childrenSpinner.getSelectedItemPosition());
-        item.setChildName(child);
+        if(child.equals(ALERTE_SLECT) || child.equals(ALERTE_CREATE)){
+            Toast.makeText(getContext(),"子の名前IDを選択してください",Toast.LENGTH_SHORT).show();
+            createKadDialogBox();
+            return;
+        }
+
+        int subStringIndex = child.indexOf(":");
+        item.setChildName(child.substring(0,subStringIndex));
+        item.setChildId(Integer.parseInt(child.substring(subStringIndex + 1)));
+
 
         Log.d("KadListFragment",item.getKadName() + " : " + item.getKadContent() + " : " + item.getChildName());
 
@@ -303,10 +318,9 @@ public class KadListFragment extends BaseFragment {
     }
 
     public void loadList() {
+
         list = new ArrayList<>();
-//        KadListItem kad = new KadListItem();
         KadDataManager.getInstance().getKadData(list,childId);
-//        list.add(kad);
     }
 
     /**
@@ -320,9 +334,5 @@ public class KadListFragment extends BaseFragment {
         //KeyDownイベント処理を設定
         super.setOnKeyDown();
     }
-
-
-
-
 
 }

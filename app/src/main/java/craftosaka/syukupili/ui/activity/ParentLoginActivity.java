@@ -6,15 +6,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import craftosaka.syukupili.R;
-import craftosaka.syukupili.model.User;
 import craftosaka.syukupili.ui.fragment.CreateParentAccountDialog;
 import craftosaka.syukupili.util.Data;
-import craftosaka.syukupili.util.NotifyUtil;
 import craftosaka.syukupili.util.PrefUtil;
-import craftosaka.syukupili.util.account.Account;
 
 /**
  * Created by Fukkun on 2017/08/17.
@@ -25,13 +21,11 @@ import craftosaka.syukupili.util.account.Account;
 public class ParentLoginActivity extends BaseActivity {
 
     FrameLayout frameLayout;
-    LinearLayout root;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parent_login_layout);
-        root = (LinearLayout)findViewById(R.id.parent_login_root);
         frameLayout = (FrameLayout) findViewById(R.id.focus_view);
     }
 
@@ -44,14 +38,8 @@ public class ParentLoginActivity extends BaseActivity {
         //ログイン
         if (PrefUtil.getParentPass().equals(pass)) {
             Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-            intent.putExtra("fromLogin",true);
-            User user = new User();
-            user.setId(-1);
-            user.setName("master");
-            user.setPassword(pass);
-            user.setPoint(999);
-            Data.getInstance().setNowUser(user);
-            Data.getInstance().parentFrag = true;
+            //親と子の認識をしないといけないので親がログインしたときはnowUserをnullにします
+            Data.getInstance().setNowUser(null);
             startActivity(intent);
         } else {
             passText.setError("パスワードが間違っています");
