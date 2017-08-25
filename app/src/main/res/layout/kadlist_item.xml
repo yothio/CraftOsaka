@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="140dp"
-    android:layout_marginTop="3dp"
     android:layout_marginBottom="3dp"
+    android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
-    android:layout_marginLeft="5dp">
+    android:layout_marginTop="3dp"
+    android:orientation="vertical">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -16,6 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/burlywood"
             android:orientation="vertical"
             android:weightSum="5">
 
@@ -24,6 +24,9 @@
                 android:layout_height="0dp"
                 android:layout_weight="2"
                 android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
                 android:weightSum="3">
 
                 <TextView
@@ -31,17 +34,19 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:text="タイトル未設定"
+                    android:background="#ffffff"
                     android:ellipsize="end"
                     android:lines="2"
                     android:scrollHorizontally="true"
-                    android:textSize="24dp"/>
+                    android:text="タイトル未設定"
+                    android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/end_date_text"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="#ffffff"
                     android:gravity="top|right"
                     android:text="2017/08/16"
                     android:textSize="20dp"
@@ -49,11 +54,14 @@
                     />
             </LinearLayout>
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3"
-                android:padding="10dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:weightSum="5">
 
                 <TextView
@@ -61,17 +69,22 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
+                    android:background="#ffffff"
+                    android:ellipsize="end"
                     android:gravity="bottom"
-                    android:text="shiota yoshiki"/>
+                    android:lines="1"
+                    android:scrollHorizontally="true"
+                    android:text="shiota yoshiki" />
 
                 <TextView
                     android:id="@+id/point_text"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
+                    android:background="#ffffff"
                     android:gravity="bottom"
                     android:text="300p"
-                    android:textSize="40dp"/>
+                    android:textSize="40dp" />
 
                 <ImageButton
                     android:id="@+id/kad_check_image_button"
@@ -82,7 +95,7 @@
                     android:background="#FFFFFF"
                     android:scaleType="fitCenter"
                     android:src="@drawable/mimasita"
-                    android:textSize="40dp"/>
+                    android:textSize="40dp" />
             </LinearLayout>
 
         </LinearLayout>
