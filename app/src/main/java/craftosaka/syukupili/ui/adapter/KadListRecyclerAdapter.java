@@ -46,10 +46,10 @@ public class KadListRecyclerAdapter extends RecyclerView.Adapter<KadListRecycler
 
     @Override
     public void onBindViewHolder(final RecyclerViewHolder holder, final int position) {
-        holder.childName.setText(list.get(position).getChildName());
-        holder.pointText.setText(String.valueOf(list.get(position).getPoint()));
-        holder.endDateText.setText(Util.getInstance().correctDate(String.valueOf(list.get(position).getEndDate())));
-        holder.kadName.setText(list.get(position).getKadName());
+        holder.childName.setText("なまえ："+list.get(position).getChildName());
+        holder.pointText.setText(String.valueOf(list.get(position).getPoint())+"pt");
+        holder.endDateText.setText(Util.getInstance().correctDate(String.valueOf(list.get(position).getEndDate()))+"まで");
+        holder.kadName.setText("たいとる：" +list.get(position).getKadName());
 //        if (list.get(position).getProgressFrag() != 0){
 //            holder.imageButton.setImageDrawable(v.getResources().getDrawable(R.drawable.mimasita,null));
 //        }

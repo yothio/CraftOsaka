@@ -25,6 +25,7 @@ import craftosaka.syukupili.model.KadListItem;
 import craftosaka.syukupili.ui.activity.MenuActivity;
 import craftosaka.syukupili.util.Data;
 import craftosaka.syukupili.util.KadDataManager;
+import craftosaka.syukupili.util.Util;
 
 import static android.R.drawable.ic_media_ff;
 import static android.R.drawable.ic_media_rew;
@@ -262,8 +263,9 @@ public class CalenderFragment extends BaseFragment {
                 Log.d("createScheduleList", endDate +  " : " + getDate);
                 if(getDate == endDate) {
                     Map<String, Object> data = new HashMap();
-                    data.put("title", kadListItemList.get(i).getKadName());
-                    data.put("detail", kadListItemList.get(i).getKadContent());
+                    data.put("title","課題名："+ kadListItemList.get(i).getKadName());
+                    data.put("detail","課題内容：" + kadListItemList.get(i).getKadContent());
+                    data.put("date", "期限日：" + Util.correctDate(String.valueOf(kadListItemList.get(i).getEndDate())));
                     list.add(data);
                 }
             }
@@ -275,8 +277,8 @@ public class CalenderFragment extends BaseFragment {
                 getActivity(),
                 list,
                 R.layout.item_schedule_list,
-                new String[]{"title", "detail"},
-                new int[]{R.id.title,R.id.detail});
+                new String[]{"title", "detail","date"},
+                new int[]{R.id.title,R.id.detail,R.id.date});
         listView.setAdapter(adapter);
         ViewCompat.setNestedScrollingEnabled(listView, true);
     }
