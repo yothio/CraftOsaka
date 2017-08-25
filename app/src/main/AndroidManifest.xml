@@ -3,6 +3,7 @@
           package="craftosaka.syukupili">
 
     <application
+        android:largeHeap="true"
         android:name=".util.App"
 
         android:allowBackup="true"

@@ -25,12 +25,17 @@ public class StartActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.parent);
-//        ImageButton parentBtn = (ImageButton) findViewById(R.id.parent_button);
-//        parentBtn.setImageBitmap(ImageResizer.resizeTooBigBitmap(bitmap));
-        Button parentBtn = (Button) findViewById(R.id.parent_button);
 
-        Button childBtn = (Button) findViewById(R.id.child_button);
+
+        Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(),R.drawable.parent);
+        Bitmap bitmap2 = BitmapFactory.decodeResource(getResources(),R.drawable.child);
+        ImageButton parentBtn = (ImageButton) findViewById(R.id.parent_button);
+        ImageButton childBtn = (ImageButton) findViewById(R.id.child_button);
+        childBtn.setImageBitmap(ImageResizer.resizeTooBigBitmap(bitmap2));
+        parentBtn.setImageBitmap(ImageResizer.resizeTooBigBitmap(bitmap1));
+//        Button parentBtn = (Button) findViewById(R.id.parent_button);
+
+//        Button childBtn = (Button) findViewById(R.id.child_button);
 
         parentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +48,9 @@ public class StartActivity extends BaseActivity {
         childBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//
+//                KadDataManager.getInstance().deleteDataBase();
+//                PointDateManager.getInstance().deleteDataBase();
 
                 for (User user : PrefUtil.getUserList()) {
                     Log.d("User", "名前" + user.getName() + "パスワード" + user.getPassword() + "ポイント" + user.getPoint());
@@ -53,5 +61,8 @@ public class StartActivity extends BaseActivity {
 
             }
         });
+
+
+
     }
 }
